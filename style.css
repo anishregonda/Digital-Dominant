@@ -1000,3 +1000,193 @@ h1, h2, h3, h4 {
     grid-template-columns: 1fr;
   }
 }
+
+/* Strategy Call Section */
+.strategy-call-section {
+  padding: 6rem 0;
+  background-color: #ffffff;
+}
+
+.strategy-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.strategy-benefits {
+  list-style: none;
+  padding: 0;
+  margin-top: 2rem;
+}
+
+.strategy-benefits li {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: flex-start;
+}
+
+.strategy-benefits li::before {
+  content: '✓';
+  color: #3b82f6;
+  margin-right: 12px;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.strategy-card-wrapper {
+  perspective: 1000px;
+}
+
+.strategy-card {
+  background-color: #ffffff;
+  padding: 3rem;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  border: 1px solid var(--border-color);
+  text-align: center;
+}
+
+.strategy-icon {
+  font-size: 3rem;
+  color: #3b82f6;
+  margin-bottom: 1rem;
+}
+
+.strategy-card h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.strategy-card p {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-size: 1.05rem;
+}
+
+.strategy-subtext {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* Testimonials Marquee Section */
+.testimonials-marquee-section {
+  padding: 6rem 0;
+  background-color: #0f172a; /* Dark theme */
+  overflow: hidden;
+}
+
+.marquee-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 2rem 0;
+}
+
+.marquee-track {
+  display: flex;
+  width: calc(400px * 14);
+  animation: scroll 40s linear infinite;
+  gap: 2rem;
+}
+
+.marquee-container:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-400px * 7 - 14rem)); }
+}
+
+.marquee-card {
+  width: 400px;
+  background-color: #1e293b;
+  border-radius: 12px;
+  padding: 2rem;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.marquee-card .stars {
+  color: #f59e0b;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+}
+
+.marquee-card .quote-icon {
+  font-size: 3rem;
+  color: #3b82f6;
+  opacity: 0.5;
+  line-height: 0.5;
+  margin-bottom: 1rem;
+  font-family: serif;
+}
+
+.marquee-card p {
+  color: #e2e8f0;
+  font-size: 1rem;
+  line-height: 1.6;
+  flex-grow: 1;
+  margin-bottom: 2rem;
+}
+
+.marquee-card .author h4 {
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+  font-size: 1.1rem;
+}
+
+.marquee-card .author span {
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+/* Trades Grid Section */
+.trades-grid-section {
+  padding: 6rem 0;
+  background-color: var(--bg-secondary);
+}
+
+.service-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 4rem;
+}
+
+.service-card {
+  background-color: #ffffff;
+  padding: 2rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+  border: 1px solid var(--border-color);
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+.service-card h4 {
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+
+@media (max-width: 900px) {
+  .strategy-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
