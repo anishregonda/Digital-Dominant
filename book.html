@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book a Call | Digital Dominant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar" data-aos="fade-down" data-aos-duration="800">
+      <div class="nav-container container">
+        <div class="logo">
+          <!-- Insert Logo Here -->
+        </div>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="portfolio.html">Portfolio</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="testimonials.html">Testimonials</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <a href="book.html" class="btn btn-primary nav-btn">Book a call</a>
+      </div>
+    </nav>
+
+    <!-- Book Call Section -->
+    <section class="book-call-section">
+      <div class="container text-center">
+        <h2 class="section-title" data-aos="fade-up">Book A Discovery Call</h2>
+        <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">A 30-minute deep dive into your business and how we can scale it to the next level.</p>
+        
+        <div class="booking-container" data-aos="zoom-in" data-aos-delay="200">
+          <div class="booking-info">
+            <div class="info-header">
+              <h3>Client Launch Call</h3>
+              <p class="time">⏱ 45 min</p>
+            </div>
+            <p class="info-desc">Hey Business Owner! In this call, we will understand a deep dive on your business and help you and your business to elevate to the next level. Book a call to get started.</p>
+            <div class="contact-card">
+              <h4>Or Contact Us directly...</h4>
+              <p class="tagline">WE BUILD MARKETING SYSTEMS FOR CONTRACTORS</p>
+              <div class="method" style="margin-top: 1rem;"><span class="icon">📞</span> (888) 555-1234</div>
+              <div class="method"><span class="icon">🕒</span> Mon-Fri: 8AM - 8PM</div>
+            </div>
+          </div>
+          <div class="booking-form">
+            <h3 style="margin-bottom: 1.5rem; color: var(--accent-primary);">Enter Details</h3>
+            <form id="contact-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="fname">First Name *</label>
+                  <input type="text" id="fname" required>
+                </div>
+                <div class="form-group">
+                  <label for="lname">Last Name *</label>
+                  <input type="text" id="lname" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="phone">Phone *</label>
+                  <input type="tel" id="phone" required>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email *</label>
+                  <input type="email" id="email" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="info">Additional Information</label>
+                <textarea id="info" rows="3" placeholder="Is there anything you would like us to know before your appointment?"></textarea>
+              </div>
+              <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+                <input type="checkbox" id="consent" required style="width: auto; margin-top: 0.2rem;">
+                <label for="consent" style="margin-bottom: 0;">I confirm that I want to receive content from this company using any contact information I provide.</label>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width: 100%;" id="submit-btn">Continue</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+      <div class="container footer-grid">
+        <div class="footer-col">
+          <div class="logo">
+            <!-- Insert Logo Here -->
+          </div>
+          <p style="margin-top: 1rem;">(888) 555-1234</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <a href="index.html">Home</a>
+          <a href="testimonials.html">Testimonials</a>
+          <a href="portfolio.html">Portfolio</a>
+          <a href="pricing.html">Pricing</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="about.html">What We Do</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact US</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms & Conditions</a>
+        </div>
+        <div class="footer-col">
+          <h4>Action</h4>
+          <a href="book.html">Schedule a call</a>
+          <a href="#">Instagram</a>
+        </div>
+      </div>
+      <div class="footer-bottom container">
+        <p>&copy; Copyright 2026 | All rights reserved | Digital Dominant</p>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        once: true,
+        offset: 100
+      });
+      
+      // Form submission handler
+      const contactForm = document.getElementById('contact-form');
+      if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const btn = document.getElementById('submit-btn');
+          const originalText = btn.textContent;
+          
+          btn.textContent = 'Sending...';
+          btn.disabled = true;
+          
+          setTimeout(() => {
+            btn.textContent = 'Message Sent!';
+            btn.style.backgroundColor = '#10b981'; // Success green
+            btn.style.color = 'white';
+            contactForm.reset();
+            
+            setTimeout(() => {
+              btn.textContent = originalText;
+              btn.style.backgroundColor = '';
+              btn.style.color = '';
+              btn.disabled = false;
+            }, 3000);
+          }, 1500);
+        });
+      }
+    </script>
+  </body>
+</html>
