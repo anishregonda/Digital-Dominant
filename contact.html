@@ -59,6 +59,12 @@
           .custom-booking-card input::placeholder, .custom-booking-card textarea::placeholder {
             color: #666;
           }
+          .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+          }
           @media (max-width: 900px) {
             .custom-booking-card {
               grid-template-columns: 1fr;
@@ -66,6 +72,11 @@
             .custom-booking-card > div:first-child {
               border-right: none !important;
               border-bottom: 1px solid #333;
+            }
+          }
+          @media (max-width: 600px) {
+            .form-row {
+              grid-template-columns: 1fr;
             }
           }
         </style>
@@ -86,7 +97,7 @@
           <div style="padding: 3rem;">
             <h3 style="color: white; font-size: 1.3rem; margin-bottom: 2rem; font-weight: 600;">Enter Details</h3>
             <form id="calendly-form" onsubmit="event.preventDefault(); window.open('https://calendly.com/digitaldominant/30min?month=2026-06', '_blank');">
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+              <div class="form-row">
                 <div>
                   <label style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">First Name *</label>
                   <input type="text" required style="width: 100%; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; padding: 0.75rem; color: white; font-family: inherit;">
@@ -97,7 +108,7 @@
                 </div>
               </div>
               
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+              <div class="form-row">
                 <div>
                   <label style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Phone *</label>
                   <div style="display: flex; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; overflow: hidden;">
