@@ -17,6 +17,12 @@
         <div class="logo">
           <a href="index.html"><img src="logo.png" alt="Digital Dominant Logo" class="logo-img" /></a>
         </div>
+        
+        <div class="menu-toggle" id="mobile-menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
         <div class="nav-links">
           <a href="index.html">Home</a>
           <a href="about.html">About</a>
@@ -149,6 +155,17 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
       AOS.init({ once: true, offset: 50 });
+    </script>
+  
+    <script>
+      const mobileMenu = document.getElementById('mobile-menu');
+      const navLinks = document.querySelector('.nav-links');
+      if (mobileMenu) {
+        mobileMenu.addEventListener('click', () => {
+          mobileMenu.classList.toggle('active');
+          navLinks.classList.toggle('active');
+        });
+      }
     </script>
   </body>
 </html>
