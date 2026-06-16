@@ -1,24 +1,26 @@
-<!DOCTYPE html>
+import re
+
+def create_html(title, content):
+    html = f"""<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Privacy Policy - Digital Dominant</title>
-    <link rel="icon" type="image/png" href="logo.png">
+    <title>{title} - Digital Dominant</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
     <style>
-      .policy-container {
+      .policy-container {{
         max-width: 800px;
         margin: 150px auto 100px;
         padding: 0 2rem;
-      }
-      .policy-container h1 { margin-bottom: 1rem; color: var(--accent-primary); }
-      .policy-container h2 { margin-top: 2.5rem; margin-bottom: 1rem; color: var(--text-primary); font-size: 1.5rem; }
-      .policy-container h3 { margin-top: 1.5rem; margin-bottom: 0.5rem; color: var(--text-primary); font-size: 1.25rem; }
-      .policy-container h4 { margin-top: 1.2rem; margin-bottom: 0.5rem; color: var(--text-primary); font-size: 1.1rem; }
-      .policy-container p, .policy-container li { margin-bottom: 1rem; line-height: 1.6; color: var(--text-secondary); }
-      .policy-container ul { margin-left: 2rem; margin-bottom: 1rem; }
+      }}
+      .policy-container h1 {{ margin-bottom: 1rem; color: var(--accent-primary); }}
+      .policy-container h2 {{ margin-top: 2.5rem; margin-bottom: 1rem; color: var(--text-primary); font-size: 1.5rem; }}
+      .policy-container h3 {{ margin-top: 1.5rem; margin-bottom: 0.5rem; color: var(--text-primary); font-size: 1.25rem; }}
+      .policy-container h4 {{ margin-top: 1.2rem; margin-bottom: 0.5rem; color: var(--text-primary); font-size: 1.1rem; }}
+      .policy-container p, .policy-container li {{ margin-bottom: 1rem; line-height: 1.6; color: var(--text-secondary); }}
+      .policy-container ul {{ margin-left: 2rem; margin-bottom: 1rem; }}
     </style>
   </head>
   <body>
@@ -45,7 +47,140 @@
     </nav>
 
     <div class="policy-container">
+{content}
+    </div>
 
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div class="footer-col">
+          <div class="logo">
+            <a href="index.html"><img src="logo.png" alt="Digital Dominant Logo" class="logo-img" /></a>
+          </div>
+          <p style="margin-top: 1rem;">(888) 555-1234</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <a href="index.html">Home</a>
+          <a href="testimonials.html">Testimonials</a>
+          <a href="portfolio.html">Portfolio</a>
+          <a href="pricing.html">Pricing</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="about.html">What We Do</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact US</a>
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="terms-conditions.html">Terms & Conditions</a>
+        </div>
+        <div class="footer-col">
+          <h4>Action</h4>
+          <a href="https://calendly.com/digitaldominant/30min?month=2026-06" target="_blank">Schedule a call</a>
+          <a href="https://www.instagram.com/digitaldominant.co.uk/?hl=en" target="_blank">Instagram</a>
+        </div>
+      </div>
+      <div class="footer-bottom container">
+        <p>&copy; Copyright 2026 | All rights reserved | Digital Dominant</p>
+      </div>
+    </footer>
+
+    <script>
+      const mobileMenu = document.getElementById('mobile-menu');
+      const navLinks = document.querySelector('.nav-links');
+      
+      if (mobileMenu && navLinks) {{
+        mobileMenu.addEventListener('click', () => {{
+          mobileMenu.classList.toggle('active');
+          navLinks.classList.toggle('active');
+        }});
+        const links = navLinks.querySelectorAll('a');
+        links.forEach(link => {{
+          link.addEventListener('click', () => {{
+            mobileMenu.classList.remove('active');
+            navLinks.classList.remove('active');
+          }});
+        }});
+      }}
+    </script>
+  </body>
+</html>"""
+    return html
+
+terms_md = """
+# Terms and Conditions
+<p>Last updated: March 21, 2026</p>
+<p>Please read these Terms and Conditions carefully before using Our Service.</p>
+
+## Interpretation and Definitions
+### Interpretation
+<p>The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.</p>
+
+### Definitions
+<p>For the purposes of these Terms and Conditions:</p>
+<ul>
+<li><strong>Affiliate</strong> means an entity that controls, is controlled by or is under common control with a party, where "control" means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.</li>
+<li><strong>Country</strong> refers to: Telangana, India</li>
+<li><strong>Company</strong> (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to Digital Dominant, a reputation management agency, providing services such as online review monitoring, reputation repair, social media profile management, and improving clients' online presence. Operated by Chiranjivi Patel, 1st Floor, 12-13-1164 Gokhale Nagar Street 11 Near Kalakruti, 500017 Secunderabad, Rangareddy, Telangana, India.</li>
+<li><strong>Device</strong> means any device that can access the Service such as a computer, a cellphone or a digital tablet.</li>
+<li><strong>Service</strong> refers to the Website.</li>
+<li><strong>Terms and Conditions</strong> (also referred as "Terms") mean these Terms and Conditions that form the entire agreement between You and the Company regarding the use of the Service.</li>
+<li><strong>Third-party Social Media Service</strong> means any services or content (including data, information, products or services) provided by a third-party that may be displayed, included or made available by the Service.</li>
+<li><strong>Website</strong> refers to digitaldominant, accessible from https://www.digitaldominant.co.uk</li>
+<li><strong>You</strong> means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</li>
+</ul>
+
+## Acknowledgment
+<p>These are the Terms and Conditions governing the use of this Service and the agreement that operates between You and the Company. These Terms and Conditions set out the rights and obligations of all users regarding the use of the Service.</p>
+<p>Your access to and use of the Service is conditioned on Your acceptance of and compliance with these Terms and Conditions. These Terms and Conditions apply to all visitors, users and others who access or use the Service.</p>
+<p>By accessing or using the Service You agree to be bound by these Terms and Conditions. If You disagree with any part of these Terms and Conditions then You may not access the Service.</p>
+<p>You represent that you are over the age of 18. The Company does not permit those under 18 to use the Service.</p>
+<p>Your access to and use of the Service is also conditioned on Your acceptance of and compliance with the Privacy Policy of the Company. Our Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your personal information when You use the Application or the Website and tells You about Your privacy rights and how the law protects You. Please read Our Privacy Policy carefully before using Our Service.</p>
+
+## Reputation Management Services
+<p>Digital Dominant provides online reputation management services, including review monitoring, reputation repair strategies, social media profile management, and related consulting.</p>
+<p><strong>Important Disclaimer:</strong> Reputation management outcomes depend on many external factors including client actions, platform policies, and third-party behavior. We do not guarantee specific results, such as removal of all negative reviews, improvement in ratings, or any particular business outcome. All services are provided on a best-effort basis.</p>
+
+## Links to Other Websites
+<p>Our Service may contain links to third-party web sites or services that are not owned or controlled by the Company.</p>
+<p>The Company has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services. You further acknowledge and agree that the Company shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with the use of or reliance on any such content, goods or services available on or through any such web sites or services.</p>
+<p>We strongly advise You to read the terms and conditions and privacy policies of any third-party web sites or services that You visit.</p>
+
+## Termination
+<p>We may terminate or suspend Your access immediately, without prior notice or liability, for any reason whatsoever, including without limitation if You breach these Terms and Conditions.</p>
+<p>Upon termination, Your right to use the Service will cease immediately.</p>
+
+## Limitation of Liability
+<p>To the maximum extent permitted by applicable law, in no event shall the Company, its owners, or suppliers be liable for any indirect, incidental, special, consequential or punitive damages, or any loss of profits or data, arising out of or in connection with these Terms or the use of the Service, even if advised of the possibility of such damages.</p>
+<p>Our total liability to You for any claim arising from these Terms or the Service shall not exceed the amount actually paid by You to the Company in the twelve (12) months preceding the claim, or 100 USD if no payment was made.</p>
+
+## "AS IS" and "AS AVAILABLE" Disclaimer
+<p>The Service and all reputation management services are provided to You "AS IS" and "AS AVAILABLE" without any warranties of any kind. We make no representations or warranties regarding the accuracy, completeness, or effectiveness of any reputation management strategies or outcomes.</p>
+
+## Governing Law
+<p>The laws of the Country, excluding its conflicts of law rules, shall govern this Terms and Your use of the Service. Your use of the Application may also be subject to other local, state, national, or international laws.</p>
+
+## Disputes Resolution
+<p>If You have any concern or dispute about the Service, You agree to first try to resolve the dispute informally by contacting the Company at info@digitaldominant.co.uk.</p>
+
+## Severability and Waiver
+### Severability
+<p>If any provision of these Terms is held to be unenforceable or invalid, such provision will be changed and interpreted to accomplish the objectives of such provision to the greatest extent possible under applicable law and the remaining provisions will continue in full force and effect.</p>
+
+### Waiver
+<p>Except as provided herein, the failure to exercise a right or to require performance of an obligation under these Terms shall not effect a party's ability to exercise such right or require such performance at any time thereafter nor shall the waiver of a breach constitute a waiver of any subsequent breach.</p>
+
+## Changes to These Terms and Conditions
+<p>We reserve the right, at Our sole discretion, to modify or replace these Terms at any time. If a revision is material We will make reasonable efforts to provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at Our sole discretion.</p>
+<p>By continuing to access or use Our Service after those revisions become effective, You agree to be bound by the revised terms. If You do not agree to the new terms, in whole or in part, please stop using the website and the Service.</p>
+
+## Contact Us
+<p>If you have any questions about these Terms and Conditions, You can contact us:</p>
+<ul>
+<li>By email: info@digitaldominant.co.uk</li>
+</ul>
+"""
+
+privacy_md = """
 # Privacy Policy
 <p>Last updated: May 12, 2026</p>
 <p>This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.</p>
@@ -180,60 +315,27 @@
 <ul>
 <li>By email: info@digitaldominant.co.uk</li>
 </ul>
+"""
 
-    </div>
+def md_to_html(md):
+    lines = md.split('\\n')
+    html = []
+    for line in lines:
+        if line.startswith('# '):
+            html.append(f"<h1>{line[2:]}</h1>")
+        elif line.startswith('## '):
+            html.append(f"<h2>{line[3:]}</h2>")
+        elif line.startswith('### '):
+            html.append(f"<h3>{line[4:]}</h3>")
+        else:
+            html.append(line)
+    return '\\n'.join(html)
 
-    <footer class="footer">
-      <div class="container footer-grid">
-        <div class="footer-col">
-          <div class="logo">
-            <a href="index.html"><img src="logo.png" alt="Digital Dominant Logo" class="logo-img" /></a>
-          </div>
-          <p style="margin-top: 1rem;">(888) 555-1234</p>
-        </div>
-        <div class="footer-col">
-          <h4>Navigation</h4>
-          <a href="index.html">Home</a>
-          <a href="testimonials.html">Testimonials</a>
-          <a href="portfolio.html">Portfolio</a>
-          <a href="pricing.html">Pricing</a>
-        </div>
-        <div class="footer-col">
-          <h4>Company</h4>
-          <a href="about.html">What We Do</a>
-          <a href="about.html">About</a>
-          <a href="contact.html">Contact US</a>
-          <a href="privacy-policy.html">Privacy Policy</a>
-          <a href="terms-conditions.html">Terms & Conditions</a>
-        </div>
-        <div class="footer-col">
-          <h4>Action</h4>
-          <a href="https://calendly.com/digitaldominant/30min?month=2026-06" target="_blank">Schedule a call</a>
-          <a href="https://www.instagram.com/digitaldominant.co.uk/?hl=en" target="_blank">Instagram</a>
-        </div>
-      </div>
-      <div class="footer-bottom container">
-        <p>&copy; Copyright 2026 | All rights reserved | Digital Dominant</p>
-      </div>
-    </footer>
+terms_html = create_html("Terms and Conditions", md_to_html(terms_md))
+privacy_html = create_html("Privacy Policy", md_to_html(privacy_md))
 
-    <script>
-      const mobileMenu = document.getElementById('mobile-menu');
-      const navLinks = document.querySelector('.nav-links');
-      
-      if (mobileMenu && navLinks) {
-        mobileMenu.addEventListener('click', () => {
-          mobileMenu.classList.toggle('active');
-          navLinks.classList.toggle('active');
-        });
-        const links = navLinks.querySelectorAll('a');
-        links.forEach(link => {
-          link.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-            navLinks.classList.remove('active');
-          });
-        });
-      }
-    </script>
-  </body>
-</html>
+with open("d:/Digital dominant/terms-conditions.html", "w", encoding="utf-8") as f:
+    f.write(terms_html)
+
+with open("d:/Digital dominant/privacy-policy.html", "w", encoding="utf-8") as f:
+    f.write(privacy_html)
