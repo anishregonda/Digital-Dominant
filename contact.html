@@ -43,51 +43,96 @@
         <h2 class="section-title" data-aos="fade-up">Get In Touch</h2>
         <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Reach out to us directly or book a discovery call.</p>
         
-        <div class="booking-container" data-aos="zoom-in" data-aos-delay="200" style="margin-top: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; background-color: #ffffff; border-radius: 16px; padding: 3rem; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: left;">
+        <style>
+          .custom-booking-card {
+            background-color: #111111;
+            border-radius: 8px;
+            display: grid;
+            grid-template-columns: 35% 65%;
+            max-width: 1000px;
+            margin: 2rem auto;
+            text-align: left;
+            color: white;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            font-family: var(--font-body);
+          }
+          .custom-booking-card input::placeholder, .custom-booking-card textarea::placeholder {
+            color: #666;
+          }
+          @media (max-width: 900px) {
+            .custom-booking-card {
+              grid-template-columns: 1fr;
+            }
+            .custom-booking-card > div:first-child {
+              border-right: none !important;
+              border-bottom: 1px solid #333;
+            }
+          }
+        </style>
+        <div class="custom-booking-card" data-aos="zoom-in" data-aos-delay="200">
           
-          <!-- Booking Info Side -->
-          <div class="booking-info" style="background-color: var(--accent-primary); color: white; padding: 2.5rem; border-radius: 12px; display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-              <div class="info-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                <h3 style="color: white; margin: 0; font-size: 1.5rem;">CLIENT LAUNCH CALL</h3>
-                <p class="time" style="color: white; margin: 0; font-weight: 600;">⏱ 45 min</p>
-              </div>
-              <p class="info-desc" style="color: rgba(255,255,255,0.9); line-height: 1.6; margin-bottom: 2rem;">Hey Business Owner, In this call i will Understand deep dive on your business and help you and your business to elevate to the next level. Book a call</p>
+          <!-- Left Side -->
+          <div style="padding: 3rem; border-right: 1px solid #333; display: flex; flex-direction: column;">
+            <img src="logo.png" alt="Digital Dominant Logo" style="height: 60px; margin-bottom: 2rem; object-fit: contain; align-self: flex-start;">
+            <h3 style="color: white; font-size: 1.4rem; margin-bottom: 1rem; text-transform: uppercase;">CLIENT LAUNCH CALL</h3>
+            <div style="display: flex; align-items: center; gap: 0.5rem; color: #aaa; margin-bottom: 2rem; font-weight: 500;">
+              <span style="font-size: 1.2rem;">⏱</span> 45 min
             </div>
-            <div>
-              <a href="https://calendly.com/digitaldominant/30min?month=2026-06" target="_blank" class="btn btn-secondary" style="background: white; color: var(--accent-primary); border: none; padding: 1rem 2rem; font-weight: bold; border-radius: 8px; width: 100%; text-align: center; font-size: 1.1rem; display: block;">Book via Calendly</a>
-            </div>
+            <p style="color: #ddd; line-height: 1.6; font-size: 0.95rem; margin-bottom: 2rem;">Hey Business Owner, In this call i will Understand deep dive on your business and help you and your business to elevate to the next level. Book a call</p>
+            <div style="background-color: white; height: 40px; width: 100%; border-radius: 4px; margin-top: auto;"></div>
           </div>
 
-          <!-- Direct Contact Side -->
-          <div class="contact-methods" style="padding: 2rem; display: flex; flex-direction: column; justify-content: center; gap: 2rem;">
-            <h3 style="color: var(--accent-primary); font-size: 1.4rem; margin-bottom: 1rem;">Or Contact Us Directly</h3>
-            
-            <!-- Phone Card -->
-            <div class="contact-detail-card" style="display: flex; align-items: center; gap: 1.5rem;">
-              <div class="icon-circle" style="width: 50px; height: 50px; min-width: 50px; background-color: rgba(46, 16, 101, 0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
-                📞
+          <!-- Right Side -->
+          <div style="padding: 3rem;">
+            <h3 style="color: white; font-size: 1.3rem; margin-bottom: 2rem; font-weight: 600;">Enter Details</h3>
+            <form id="calendly-form" onsubmit="event.preventDefault(); window.open('https://calendly.com/digitaldominant/30min?month=2026-06', '_blank');">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                <div>
+                  <label style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">First Name *</label>
+                  <input type="text" required style="width: 100%; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; padding: 0.75rem; color: white; font-family: inherit;">
+                </div>
+                <div>
+                  <label style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Last Name *</label>
+                  <input type="text" required style="width: 100%; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; padding: 0.75rem; color: white; font-family: inherit;">
+                </div>
               </div>
-              <div>
-                <p style="color: var(--text-secondary); margin-bottom: 0.2rem; font-size: 0.95rem; font-weight: 600;">Call Us</p>
-                <a href="tel:8885551234" style="color: var(--accent-primary); font-weight: 700; font-size: 1.2rem; text-decoration: none;">(888) 555-1234</a>
-                <p style="color: var(--text-secondary); margin-top: 0.2rem; font-size: 0.85rem;">Mon-Fri: 8AM - 8PM</p>
+              
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                <div>
+                  <label style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Phone *</label>
+                  <div style="display: flex; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; overflow: hidden;">
+                    <div style="padding: 0.75rem; border-right: 1px solid #333; color: #aaa; display: flex; align-items: center; gap: 5px; font-size: 0.9rem;">
+                      🇮🇳 <span style="font-size: 0.6rem;">▼</span>
+                    </div>
+                    <input type="tel" required style="width: 100%; background-color: transparent; border: none; padding: 0.75rem; color: white; font-family: inherit; outline: none;" placeholder="081234 56789">
+                  </div>
+                </div>
+                <div>
+                  <label style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Email *</label>
+                  <div style="display: flex; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; overflow: hidden;">
+                    <div style="padding: 0.75rem 1rem; color: #666; display: flex; align-items: center;">
+                      ✉
+                    </div>
+                    <input type="email" required style="width: 100%; background-color: transparent; border: none; padding: 0.75rem; color: white; font-family: inherit; outline: none;">
+                  </div>
+                </div>
               </div>
-            </div>
 
-            <!-- Email Card -->
-            <div class="contact-detail-card" style="display: flex; align-items: center; gap: 1.5rem;">
-              <div class="icon-circle" style="width: 50px; height: 50px; min-width: 50px; background-color: rgba(245, 158, 11, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
-                ✉️
+              <div style="margin-bottom: 2rem;">
+                <label style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Additional Information</label>
+                <textarea style="width: 100%; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; padding: 1rem; color: white; font-family: inherit; resize: vertical; min-height: 100px;" placeholder="Is there anything you would like us to know before your appointment?"></textarea>
               </div>
-              <div>
-                <p style="color: var(--text-secondary); margin-bottom: 0.2rem; font-size: 0.95rem; font-weight: 600;">Email Us</p>
-                <a href="mailto:support@digitaldominant.co.uk" style="color: var(--accent-gold); font-weight: 700; font-size: 1.1rem; text-decoration: none;">support@digitaldominant.co.uk</a>
-                <p style="color: var(--text-secondary); margin-top: 0.2rem; font-size: 0.85rem;">We'll respond within 24 hours.</p>
+
+              <div style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 3rem;">
+                <input type="checkbox" required style="margin-top: 0.2rem; cursor: pointer; accent-color: #dc2626;">
+                <label style="color: white; font-size: 0.85rem; line-height: 1.4; font-weight: 500;">I confirm that I want to receive content from this company using any contact information I provide.</label>
               </div>
-            </div>
+
+              <div style="text-align: right;">
+                <button type="submit" style="background-color: #c92a2a; color: white; border: none; padding: 0.75rem 2rem; border-radius: 6px; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: background-color 0.3s ease;">Continue</button>
+              </div>
+            </form>
           </div>
-
         </div>
       </div>
     </section>
