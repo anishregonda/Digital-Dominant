@@ -119,15 +119,16 @@ h1, h2, h3, h4 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 140px;
+  height: 110px;
 }
 
 .logo-img {
-  height: 120px;
+  height: 100px;
   width: auto;
   object-fit: contain;
   image-rendering: high-quality;
   image-rendering: -webkit-optimize-contrast;
+  mix-blend-mode: multiply;
 }
 
 .nav-links a {
@@ -145,7 +146,7 @@ h1, h2, h3, h4 {
 
 /* Hero Section */
 .hero {
-  padding: 180px 0 100px;
+  padding: 150px 0 100px;
   position: relative;
   overflow: hidden;
   background: linear-gradient(135deg, #372a6b 0%, #685ba4 100%);
