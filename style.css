@@ -119,13 +119,15 @@ h1, h2, h3, h4 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 80px;
+  height: 100px;
 }
 
 .logo-img {
-  height: 50px;
+  height: 80px;
   width: auto;
   object-fit: contain;
+  image-rendering: high-quality;
+  image-rendering: -webkit-optimize-contrast;
 }
 
 .nav-links a {
