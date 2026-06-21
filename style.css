@@ -76,7 +76,7 @@ h1, h2, h3, h4 {
 .btn {
   display: inline-block;
   padding: 0.75rem 1.5rem;
-  border-radius: 0.375rem;
+  border-radius: 0;
   font-weight: 600;
   text-decoration: none;
   transition: all 0.3s ease;
@@ -187,7 +187,7 @@ h1, h2, h3, h4 {
 
 .hero-img {
   width: 100%;
-  border-radius: 12px;
+  border-radius: 0;
   box-shadow: 0 20px 40px rgba(46, 16, 101, 0.1);
 }
 
@@ -223,7 +223,7 @@ h1, h2, h3, h4 {
   background: var(--accent-primary);
   color: #ffffff;
   padding: 2rem;
-  border-radius: 8px;
+  border-radius: 0;
   text-align: center;
   font-weight: 500;
 }
@@ -244,7 +244,7 @@ h1, h2, h3, h4 {
 .value-card {
   background-color: var(--bg-card);
   padding: 2.5rem;
-  border-radius: 12px;
+  border-radius: 0;
   box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 
@@ -290,7 +290,7 @@ h1, h2, h3, h4 {
 .badge {
   background-color: var(--bg-secondary);
   padding: 0.5rem 1.5rem;
-  border-radius: 30px;
+  border-radius: 0;
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--text-secondary);
@@ -305,7 +305,7 @@ h1, h2, h3, h4 {
 .review-card {
   background-color: var(--bg-card);
   padding: 2rem;
-  border-radius: 12px;
+  border-radius: 0;
   box-shadow: 0 4px 15px rgba(0,0,0,0.05);
   border: 1px solid var(--border-color);
 }
@@ -373,7 +373,7 @@ h1, h2, h3, h4 {
 
 .portfolio-item {
   background-color: #f1f5f9; /* bg-slate-100 */
-  border-radius: 1rem; /* rounded-2xl */
+  border-radius: 0; /* rounded-2xl */
   overflow: hidden;
   box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); /* shadow-sm */
   transition: all 0.3s ease; /* transition-all duration-300 */
@@ -429,7 +429,7 @@ h1, h2, h3, h4 {
 .pricing-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
+  border-radius: 0;
   padding: 2.5rem;
   text-align: center;
   transition: transform 0.3s;
@@ -511,7 +511,7 @@ h1, h2, h3, h4 {
 .faq-item {
   margin-bottom: 1rem;
   background-color: #ffffff;
-  border-radius: 8px;
+  border-radius: 0;
   overflow: hidden;
   box-shadow: 0 2px 5px rgba(0,0,0,0.02);
 }
@@ -557,7 +557,7 @@ h1, h2, h3, h4 {
   grid-template-columns: 1fr 1.5fr;
   gap: 2rem;
   background-color: #ffffff;
-  border-radius: 16px;
+  border-radius: 0;
   padding: 3rem;
   box-shadow: 0 10px 30px rgba(0,0,0,0.05);
   text-align: left;
@@ -568,7 +568,7 @@ h1, h2, h3, h4 {
   background-color: var(--accent-primary);
   color: white;
   padding: 2rem;
-  border-radius: 12px;
+  border-radius: 0;
 }
 
 .booking-info h3, .booking-info p, .booking-info h4, .booking-info .time, .booking-info .tagline {
@@ -585,7 +585,7 @@ h1, h2, h3, h4 {
 .contact-card {
   background-color: rgba(255,255,255,0.1);
   padding: 1.5rem;
-  border-radius: 8px;
+  border-radius: 0;
   margin-top: 2rem;
 }
 
@@ -603,7 +603,7 @@ h1, h2, h3, h4 {
 .form-group input, .form-group textarea {
   width: 100%;
   padding: 0.85rem;
-  border-radius: 6px;
+  border-radius: 0;
   border: 1px solid var(--border-color);
   background-color: var(--bg-primary);
   color: var(--text-primary);
@@ -703,7 +703,7 @@ h1, h2, h3, h4 {
 .feature-card {
   border: 1px solid #f3f4f6;
   padding: 2.5rem 2rem;
-  border-radius: 8px;
+  border-radius: 0;
   background-color: #ffffff;
   transition: box-shadow 0.3s ease;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
@@ -742,7 +742,7 @@ h1, h2, h3, h4 {
   width: 100%;
   height: 3px;
   background-color: var(--accent-primary);
-  border-radius: 3px;
+  border-radius: 0;
   transition: all 0.3s ease-in-out;
 }
 
@@ -836,7 +836,7 @@ h1, h2, h3, h4 {
 
 .pricing-features-card {
   background-color: #ffffff;
-  border-radius: 16px;
+  border-radius: 0;
   padding: 3rem;
   box-shadow: 0 10px 30px rgba(0,0,0,0.05);
   max-width: 1000px;
@@ -887,7 +887,7 @@ h1, h2, h3, h4 {
 .trade-card {
   background-color: var(--bg-card);
   padding: 2.5rem;
-  border-radius: 12px;
+  border-radius: 0;
   box-shadow: 0 4px 6px rgba(0,0,0,0.05);
   transition: transform 0.3s;
   border: 1px solid var(--border-color);
@@ -901,7 +901,7 @@ h1, h2, h3, h4 {
 .trade-img-placeholder {
   height: 150px;
   background-color: var(--bg-secondary);
-  border-radius: 8px;
+  border-radius: 0;
   margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
@@ -1051,7 +1051,7 @@ h1, h2, h3, h4 {
 .strategy-card {
   background-color: #ffffff;
   padding: 3rem;
-  border-radius: 16px;
+  border-radius: 0;
   box-shadow: 0 20px 40px rgba(0,0,0,0.08);
   border: 1px solid var(--border-color);
   text-align: center;
@@ -1115,7 +1115,7 @@ h1, h2, h3, h4 {
 .marquee-card {
   width: 400px;
   background-color: #1e293b;
-  border-radius: 12px;
+  border-radius: 0;
   padding: 2rem;
   flex-shrink: 0;
   display: flex;
@@ -1175,7 +1175,7 @@ h1, h2, h3, h4 {
 .service-card {
   background-color: #ffffff;
   padding: 2rem 1.5rem;
-  border-radius: 12px;
+  border-radius: 0;
   box-shadow: 0 4px 6px rgba(0,0,0,0.05);
   transition: transform 0.3s, box-shadow 0.3s;
   border: 1px solid var(--border-color);
