@@ -10,8 +10,8 @@
   --accent-gold: #f59e0b;
   --border-color: #e5e7eb;
   
-  --font-body: 'Montserrat', sans-serif;
-  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-heading: 'Inter', sans-serif;
 }
 
 * {
@@ -51,7 +51,6 @@ h1, h2, h3, h4 {
   font-family: var(--font-heading);
   color: var(--accent-primary);
   font-weight: 900;
-  text-transform: uppercase;
 }
 
 .section-title {
@@ -84,12 +83,12 @@ h1, h2, h3, h4 {
 }
 
 .btn-primary {
-  background-color: var(--accent-primary);
+  background-color: var(--accent-gold);
   color: #ffffff;
 }
 
 .btn-primary:hover {
-  background-color: var(--accent-hover);
+  background-color: #ea580c;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(46, 16, 101, 0.2);
 }
@@ -370,7 +369,7 @@ h1, h2, h3, h4 {
 }
 
 .portfolio-item {
-  background-color: var(--bg-card);
+  background-color: #f8fafc;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 20px rgba(0,0,0,0.05);

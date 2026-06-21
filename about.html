@@ -7,7 +7,8 @@
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="./style.css" />
   </head>
@@ -46,6 +47,20 @@
           <p class="section-subtitle" style="font-size: 1.2rem; max-width: 600px; margin: 0 auto 3rem;">Our Business Only Works When Yours Thrives. We are dedicated to scaling your local business through proven digital systems.</p>
           <div style="width: 100%; max-width: 1000px; height: 400px; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
             <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=2000" alt="Our Team Collaboration" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+        </div>
+        
+        <div class="mission-section grid-2-col" data-aos="fade-up" style="align-items: center; margin-bottom: 6rem; max-width: 1000px; margin-left: auto; margin-right: auto; gap: 4rem;">
+          <div style="background-color: var(--bg-card); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; height: 100%; min-height: 400px;">
+            <div style="text-align: center; color: var(--text-secondary); padding: 2rem;">
+              <i data-lucide="users" style="width: 64px; height: 64px; margin-bottom: 1rem; color: var(--accent-light);"></i>
+              <p style="font-weight: 500;">Founder / Team Photo Placeholder</p>
+            </div>
+          </div>
+          <div>
+            <h3 style="font-size: 2rem; color: var(--accent-primary); margin-bottom: 1.5rem;">Our Mission for Local Businesses</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 1.1rem; line-height: 1.8;">We believe that local businesses are the backbone of our communities. Unfortunately, many are left behind by complex marketing agencies that overcharge and underdeliver.</p>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8;">Our mission is to level the playing field by providing affordable, high-converting digital systems that empower local contractors to dominate their markets, attract more customers, and grow sustainably.</p>
           </div>
         </div>
         
@@ -92,6 +107,15 @@
             <p>An individualized approach means understanding your niche and working together to achieve the best results. Markets change, let us help your business adapt.</p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- Global CTA Section -->
+    <section class="global-cta-section" style="padding: 6rem 0; background-color: var(--accent-primary); color: white; text-align: center;">
+      <div class="container" data-aos="zoom-in">
+        <h2 style="font-size: 2.5rem; margin-bottom: 1rem; color: white;">Ready to See Our Results?</h2>
+        <p style="font-size: 1.1rem; margin-bottom: 2rem; color: rgba(255,255,255,0.9); max-width: 600px; margin-left: auto; margin-right: auto;">Check out our portfolio to see the high-converting marketing systems we've built for other successful contractors.</p>
+        <a href="portfolio.html" class="btn btn-primary" style="background-color: var(--accent-gold); color: white; font-size: 1.1rem; padding: 1rem 2.5rem; border-radius: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.2);">View Our Portfolio</a>
       </div>
     </section>
 
@@ -156,5 +180,6 @@
         });
       }
     </script>
+    <script>lucide.createIcons();</script>
   </body>
 </html>
