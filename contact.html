@@ -47,19 +47,19 @@
         
         <style>
           .custom-booking-card {
-            background-color: #ffffff;
+            background-color: #111111;
             border-radius: 8px;
             display: grid;
             grid-template-columns: 35% 65%;
             max-width: 1000px;
             margin: 2rem auto;
             text-align: left;
-            color: var(--text-primary);
+            color: white;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             font-family: var(--font-body);
           }
           .custom-booking-card input::placeholder, .custom-booking-card textarea::placeholder {
-            color: var(--text-secondary);
+            color: #666;
           }
           .form-row {
             display: grid;
@@ -85,64 +85,64 @@
         <div class="custom-booking-card" data-aos="zoom-in" data-aos-delay="200">
           
           <!-- Left Side -->
-          <div style="padding: 3rem; border-right: 1px solid #e5e7eb; background-color: #f9fafb; display: flex; flex-direction: column;">
+          <div style="padding: 3rem; border-right: 1px solid #333; display: flex; flex-direction: column;">
             <img src="logo.png" alt="Digital Dominant Logo" style="height: 60px; margin-bottom: 2rem; object-fit: contain; align-self: flex-start;">
-            <h3 style="color: var(--text-primary); font-size: 1.4rem; margin-bottom: 1rem;">Client Launch Call</h3>
-            <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); margin-bottom: 2rem; font-weight: 500;">
-              <i data-lucide="clock" style="width: 20px; height: 20px;"></i> 45 min
+            <h3 style="color: white; font-size: 1.4rem; margin-bottom: 1rem; text-transform: uppercase;">CLIENT LAUNCH CALL</h3>
+            <div style="display: flex; align-items: center; gap: 0.5rem; color: #aaa; margin-bottom: 2rem; font-weight: 500;">
+              <span style="font-size: 1.2rem;">⏱</span> 45 min
             </div>
-            <p style="color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem; margin-bottom: 2rem;">Hey Business Owner, In this call i will Understand deep dive on your business and help you and your business to elevate to the next level. Book a call</p>
-            <div style="background-color: var(--text-primary); height: 40px; width: 100%; border-radius: 4px; margin-top: auto;"></div>
+            <p style="color: #ddd; line-height: 1.6; font-size: 0.95rem; margin-bottom: 2rem;">Hey Business Owner, In this call i will Understand deep dive on your business and help you and your business to elevate to the next level. Book a call</p>
+            <div style="background-color: white; height: 40px; width: 100%; border-radius: 4px; margin-top: auto;"></div>
           </div>
 
           <!-- Right Side -->
           <div style="padding: 3rem;">
-            <h3 style="color: var(--text-primary); font-size: 1.3rem; margin-bottom: 2rem; font-weight: 600;">Enter Details</h3>
+            <h3 style="color: white; font-size: 1.3rem; margin-bottom: 2rem; font-weight: 600;">Enter Details</h3>
             <form id="calendly-form" onsubmit="event.preventDefault(); window.open('https://calendly.com/digitaldominant/30min?month=2026-06', '_blank');">
               <div class="form-row">
                 <div>
-                  <label style="display: block; color: var(--text-primary); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">First Name *</label>
-                  <input type="text" required style="width: 100%; background-color: #ffffff; border: 1px solid #d1d5db; border-radius: 6px; padding: 0.75rem; color: var(--text-primary); font-family: inherit;">
+                  <label style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">First Name *</label>
+                  <input type="text" required style="width: 100%; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; padding: 0.75rem; color: white; font-family: inherit;">
                 </div>
                 <div>
-                  <label style="display: block; color: var(--text-primary); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Last Name *</label>
-                  <input type="text" required style="width: 100%; background-color: #ffffff; border: 1px solid #d1d5db; border-radius: 6px; padding: 0.75rem; color: var(--text-primary); font-family: inherit;">
+                  <label style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Last Name *</label>
+                  <input type="text" required style="width: 100%; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; padding: 0.75rem; color: white; font-family: inherit;">
                 </div>
               </div>
               
               <div class="form-row">
                 <div>
-                  <label style="display: block; color: var(--text-primary); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Phone *</label>
-                  <div style="display: flex; background-color: #ffffff; border: 1px solid #d1d5db; border-radius: 6px; overflow: hidden;">
-                    <div style="padding: 0.75rem; border-right: 1px solid #e5e7eb; background-color: #f9fafb; color: var(--text-secondary); display: flex; align-items: center; gap: 5px; font-size: 0.9rem;">
+                  <label style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Phone *</label>
+                  <div style="display: flex; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; overflow: hidden;">
+                    <div style="padding: 0.75rem; border-right: 1px solid #333; color: #aaa; display: flex; align-items: center; gap: 5px; font-size: 0.9rem;">
                       🇮🇳 <span style="font-size: 0.6rem;">▼</span>
                     </div>
-                    <input type="tel" required style="width: 100%; background-color: transparent; border: none; padding: 0.75rem; color: var(--text-primary); font-family: inherit; outline: none;" placeholder="081234 56789">
+                    <input type="tel" required style="width: 100%; background-color: transparent; border: none; padding: 0.75rem; color: white; font-family: inherit; outline: none;" placeholder="081234 56789">
                   </div>
                 </div>
                 <div>
-                  <label style="display: block; color: var(--text-primary); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Email *</label>
-                  <div style="display: flex; background-color: #ffffff; border: 1px solid #d1d5db; border-radius: 6px; overflow: hidden;">
-                    <div style="padding: 0.75rem 1rem; color: var(--text-secondary); display: flex; align-items: center;">
-                      <i data-lucide="mail" style="width: 20px; height: 20px;"></i>
+                  <label style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Email *</label>
+                  <div style="display: flex; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; overflow: hidden;">
+                    <div style="padding: 0.75rem 1rem; color: #666; display: flex; align-items: center;">
+                      ✉
                     </div>
-                    <input type="email" required style="width: 100%; background-color: transparent; border: none; padding: 0.75rem; color: var(--text-primary); font-family: inherit; outline: none;">
+                    <input type="email" required style="width: 100%; background-color: transparent; border: none; padding: 0.75rem; color: white; font-family: inherit; outline: none;">
                   </div>
                 </div>
               </div>
 
               <div style="margin-bottom: 2rem;">
-                <label style="display: block; color: var(--text-primary); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Additional Information</label>
-                <textarea style="width: 100%; background-color: #ffffff; border: 1px solid #d1d5db; border-radius: 6px; padding: 1rem; color: var(--text-primary); font-family: inherit; resize: vertical; min-height: 100px;" placeholder="Is there anything you would like us to know before your appointment?"></textarea>
+                <label style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Additional Information</label>
+                <textarea style="width: 100%; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; padding: 1rem; color: white; font-family: inherit; resize: vertical; min-height: 100px;" placeholder="Is there anything you would like us to know before your appointment?"></textarea>
               </div>
 
               <div style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 3rem;">
-                <input type="checkbox" required style="margin-top: 0.2rem; cursor: pointer; accent-color: var(--accent-gold);">
-                <label style="color: var(--text-primary); font-size: 0.85rem; line-height: 1.4; font-weight: 500;">I confirm that I want to receive content from this company using any contact information I provide.</label>
+                <input type="checkbox" required style="margin-top: 0.2rem; cursor: pointer; accent-color: #dc2626;">
+                <label style="color: white; font-size: 0.85rem; line-height: 1.4; font-weight: 500;">I confirm that I want to receive content from this company using any contact information I provide.</label>
               </div>
 
               <div style="text-align: right;">
-                <button type="submit" style="background-color: var(--accent-gold); color: var(--text-primary); border: none; padding: 0.75rem 2rem; border-radius: 6px; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: background-color 0.3s ease;">Continue</button>
+                <button type="submit" style="background-color: #c92a2a; color: white; border: none; padding: 0.75rem 2rem; border-radius: 6px; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: background-color 0.3s ease;">Continue</button>
               </div>
             </form>
           </div>
