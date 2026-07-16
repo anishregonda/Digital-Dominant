@@ -1214,3 +1214,160 @@ h1, h2, h3, h4 {
   0% { transform: translateX(0); }
   100% { transform: translateX(calc(-300px * 7 - 14rem)); }
 }
+
+/* ===== Influencers Lab — Gemini Gradient-Glow Nav Link ===== */
+@property --glow-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes glow-rotate {
+  0%   { --glow-angle: 0deg; }
+  100% { --glow-angle: 360deg; }
+}
+
+.nav-links a.nav-influencers-lab {
+  position: relative;
+  font-weight: 700;
+  color: var(--accent-primary);
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  z-index: 1;
+  transition: color 0.3s ease, transform 0.2s ease;
+  isolation: isolate;
+}
+
+/* Gradient glow pseudo-element (hidden by default) */
+.nav-links a.nav-influencers-lab::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 10px;
+  background: conic-gradient(
+    from var(--glow-angle),
+    #8b5cf6,
+    #ec4899,
+    #f59e0b,
+    #3b82f6,
+    #10b981,
+    #8b5cf6
+  );
+  z-index: -2;
+  opacity: 0;
+  filter: blur(4px);
+  transition: opacity 0.4s ease;
+  animation: glow-rotate 3s linear infinite;
+}
+
+/* Inner background to create the "border glow" effect */
+.nav-links a.nav-influencers-lab::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: 8px;
+  background: #ffffff;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+/* Hover: activate the glow */
+.nav-links a.nav-influencers-lab:hover::before {
+  opacity: 1;
+}
+
+.nav-links a.nav-influencers-lab:hover::after {
+  opacity: 1;
+}
+
+.nav-links a.nav-influencers-lab:hover {
+  color: #7c3aed;
+  transform: translateY(-1px);
+}
+
+/* Mobile: full-width glow on mobile nav */
+@media (max-width: 900px) {
+  .nav-links a.nav-influencers-lab {
+    display: inline-block;
+    margin: 0.5rem auto;
+  }
+}
+
+/* ===== Team Section (About Page) ===== */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+  max-width: 900px;
+  margin: 3rem auto 0;
+}
+
+.team-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 0;
+  padding: 3rem 2.5rem;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.team-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-light), var(--accent-gold));
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 32px rgba(46, 16, 101, 0.12);
+}
+
+.team-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 auto 1.5rem;
+}
+
+.team-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.25rem;
+  color: var(--text-primary);
+}
+
+.team-card .team-role {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent-light);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.team-card .team-tagline {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.7;
+  font-style: italic;
+}
+
+@media (max-width: 700px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}

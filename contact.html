@@ -27,6 +27,7 @@
         </div>
         <div class="nav-links">
           <a href="index.html">Home</a>
+          <a href="influencers-lab.html" class="nav-influencers-lab">Influencers Lab</a>
           <a href="about.html">About</a>
           <a href="portfolio.html">Portfolio</a>
           <a href="pricing.html">Pricing</a>
@@ -67,6 +68,48 @@
             gap: 1.5rem;
             margin-bottom: 1.5rem;
           }
+          .contact-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #ccc;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            transition: color 0.2s ease;
+          }
+          .contact-info-item:hover {
+            color: white;
+          }
+          .contact-info-item a {
+            color: inherit;
+            text-decoration: none;
+          }
+          .contact-info-item a:hover {
+            text-decoration: underline;
+          }
+          .contact-icon-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+          }
+          .form-success-msg {
+            display: none;
+            background-color: #065f46;
+            color: #d1fae5;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            text-align: center;
+          }
+          .form-success-msg.show {
+            display: block;
+          }
           @media (max-width: 900px) {
             .custom-booking-card {
               grid-template-columns: 1fr;
@@ -87,26 +130,46 @@
           <!-- Left Side -->
           <div style="padding: 3rem; border-right: 1px solid #333; display: flex; flex-direction: column;">
             <img src="logo.png" alt="Digital Dominant Logo" style="height: 60px; margin-bottom: 2rem; object-fit: contain; align-self: flex-start;">
-            <h3 style="color: white; font-size: 1.4rem; margin-bottom: 1rem; text-transform: uppercase;">CLIENT LAUNCH CALL</h3>
-            <div style="display: flex; align-items: center; gap: 0.5rem; color: #aaa; margin-bottom: 2rem; font-weight: 500;">
-              <span style="font-size: 1.2rem;">⏱</span> 45 min
+            <h3 style="color: white; font-size: 1.4rem; margin-bottom: 0.5rem; text-transform: uppercase;">Contact Us</h3>
+            <p style="color: #aaa; font-size: 0.9rem; margin-bottom: 2rem;">We'd love to hear from you. Fill out the form or reach us directly.</p>
+            
+            <div style="margin-bottom: 2rem;">
+              <div class="contact-info-item">
+                <div class="contact-icon-circle"><i data-lucide="mail" style="width: 18px; height: 18px; color: #f59e0b;"></i></div>
+                <a href="mailto:info@digitaldominant.co.uk">info@digitaldominant.co.uk</a>
+              </div>
+              <div class="contact-info-item">
+                <div class="contact-icon-circle"><i data-lucide="phone" style="width: 18px; height: 18px; color: #f59e0b;"></i></div>
+                <a href="tel:+448001234567">+44 800 123 4567</a>
+              </div>
+              <div class="contact-info-item">
+                <div class="contact-icon-circle"><i data-lucide="instagram" style="width: 18px; height: 18px; color: #f59e0b;"></i></div>
+                <a href="https://www.instagram.com/digitaldominant.co.uk/?hl=en" target="_blank">@digitaldominant.co.uk</a>
+              </div>
             </div>
-            <p style="color: #ddd; line-height: 1.6; font-size: 0.95rem; margin-bottom: 2rem;">Hey Business Owner, In this call i will Understand deep dive on your business and help you and your business to elevate to the next level. Book a call</p>
-            <div style="background-color: white; height: 40px; width: 100%; border-radius: 4px; margin-top: auto;"></div>
+
+            <div style="margin-top: auto; padding-top: 1.5rem; border-top: 1px solid #333;">
+              <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 0.75rem;">Prefer a live conversation?</p>
+              <a href="https://calendly.com/digitaldominant/30min?month=2026-06" target="_blank" style="display: inline-block; background-color: #f59e0b; color: #111; padding: 0.6rem 1.5rem; border-radius: 6px; font-weight: 600; font-size: 0.9rem; text-decoration: none; transition: background-color 0.3s ease;">Book a Discovery Call →</a>
+            </div>
           </div>
 
           <!-- Right Side -->
           <div style="padding: 3rem;">
-            <h3 style="color: white; font-size: 1.3rem; margin-bottom: 2rem; font-weight: 600;">Enter Details</h3>
-            <form id="calendly-form" onsubmit="event.preventDefault(); window.open('https://calendly.com/digitaldominant/30min?month=2026-06', '_blank');">
+            <h3 style="color: white; font-size: 1.3rem; margin-bottom: 2rem; font-weight: 600;">Send Us a Message</h3>
+            <div class="form-success-msg" id="form-success">✓ Message sent successfully! We'll get back to you within 24 hours.</div>
+            <form id="contact-form">
+              <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_KEY">
+              <input type="hidden" name="subject" value="New Contact Form Submission - Digital Dominant">
+              <input type="hidden" name="from_name" value="Digital Dominant Website">
               <div class="form-row">
                 <div>
                   <label style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">First Name *</label>
-                  <input type="text" required style="width: 100%; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; padding: 0.75rem; color: white; font-family: inherit;">
+                  <input type="text" name="first_name" required style="width: 100%; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; padding: 0.75rem; color: white; font-family: inherit;">
                 </div>
                 <div>
                   <label style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Last Name *</label>
-                  <input type="text" required style="width: 100%; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; padding: 0.75rem; color: white; font-family: inherit;">
+                  <input type="text" name="last_name" required style="width: 100%; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; padding: 0.75rem; color: white; font-family: inherit;">
                 </div>
               </div>
               
@@ -117,7 +180,7 @@
                     <div style="padding: 0.75rem; border-right: 1px solid #333; color: #aaa; display: flex; align-items: center; gap: 5px; font-size: 0.9rem;">
                       🇮🇳 <span style="font-size: 0.6rem;">▼</span>
                     </div>
-                    <input type="tel" required style="width: 100%; background-color: transparent; border: none; padding: 0.75rem; color: white; font-family: inherit; outline: none;" placeholder="081234 56789">
+                    <input type="tel" name="phone" required style="width: 100%; background-color: transparent; border: none; padding: 0.75rem; color: white; font-family: inherit; outline: none;" placeholder="081234 56789">
                   </div>
                 </div>
                 <div>
@@ -126,29 +189,73 @@
                     <div style="padding: 0.75rem 1rem; color: #666; display: flex; align-items: center;">
                       ✉
                     </div>
-                    <input type="email" required style="width: 100%; background-color: transparent; border: none; padding: 0.75rem; color: white; font-family: inherit; outline: none;">
+                    <input type="email" name="email" required style="width: 100%; background-color: transparent; border: none; padding: 0.75rem; color: white; font-family: inherit; outline: none;">
                   </div>
                 </div>
               </div>
 
               <div style="margin-bottom: 2rem;">
-                <label style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Additional Information</label>
-                <textarea style="width: 100%; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; padding: 1rem; color: white; font-family: inherit; resize: vertical; min-height: 100px;" placeholder="Is there anything you would like us to know before your appointment?"></textarea>
+                <label style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Your Message *</label>
+                <textarea name="message" required style="width: 100%; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; padding: 1rem; color: white; font-family: inherit; resize: vertical; min-height: 120px;" placeholder="Tell us about your business and how we can help..."></textarea>
               </div>
 
-              <div style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 3rem;">
-                <input type="checkbox" required style="margin-top: 0.2rem; cursor: pointer; accent-color: #dc2626;">
+              <div style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 2rem;">
+                <input type="checkbox" required style="margin-top: 0.2rem; cursor: pointer; accent-color: #f59e0b;">
                 <label style="color: white; font-size: 0.85rem; line-height: 1.4; font-weight: 500;">I confirm that I want to receive content from this company using any contact information I provide.</label>
               </div>
 
               <div style="text-align: right;">
-                <button type="submit" style="background-color: #c92a2a; color: white; border: none; padding: 0.75rem 2rem; border-radius: 6px; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: background-color 0.3s ease;">Continue</button>
+                <button type="submit" id="contact-submit-btn" style="background-color: #f59e0b; color: #111; border: none; padding: 0.75rem 2.5rem; border-radius: 6px; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: all 0.3s ease;">Send Message</button>
               </div>
             </form>
           </div>
         </div>
       </div>
     </section>
+
+    <script>
+      // Contact form submission handler
+      const contactForm = document.getElementById('contact-form');
+      const submitBtn = document.getElementById('contact-submit-btn');
+      const successMsg = document.getElementById('form-success');
+
+      contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+
+        const formData = new FormData(contactForm);
+        const data = Object.fromEntries(formData);
+
+        try {
+          const response = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+
+          if (response.ok) {
+            successMsg.classList.add('show');
+            contactForm.reset();
+            submitBtn.textContent = 'Sent ✓';
+            setTimeout(() => {
+              submitBtn.textContent = 'Send Message';
+              submitBtn.disabled = false;
+              successMsg.classList.remove('show');
+            }, 5000);
+          } else {
+            throw new Error('Submission failed');
+          }
+        } catch (err) {
+          // Fallback: open mailto
+          const subject = encodeURIComponent('New Inquiry from ' + data.first_name);
+          const body = encodeURIComponent('Name: ' + data.first_name + ' ' + data.last_name + '\nPhone: ' + data.phone + '\nEmail: ' + data.email + '\n\nMessage:\n' + data.message);
+          window.open('mailto:info@digitaldominant.co.uk?subject=' + subject + '&body=' + body);
+          submitBtn.textContent = 'Send Message';
+          submitBtn.disabled = false;
+        }
+      });
+    </script>
 
     <!-- Footer -->
     <footer class="footer">
@@ -162,6 +269,7 @@
         <div class="footer-col">
           <h4>Navigation</h4>
           <a href="index.html">Home</a>
+          <a href="influencers-lab.html">Influencers Lab</a>
           <a href="testimonials.html">Testimonials</a>
           <a href="portfolio.html">Portfolio</a>
           <a href="pricing.html">Pricing</a>
