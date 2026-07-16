@@ -13,7 +13,9 @@ export default defineConfig({
         pricing: resolve(__dirname, 'pricing.html'),
         testimonials: resolve(__dirname, 'testimonials.html'),
         privacyPolicy: resolve(__dirname, 'privacy-policy.html'),
-        termsConditions: resolve(__dirname, 'terms-conditions.html')
+        termsConditions: resolve(__dirname, 'terms-conditions.html'),
+        influencersLab: resolve(__dirname, 'influencers-lab.html'),
+        thankYou: resolve(__dirname, 'thank-you.html')
       }
     }
   }
