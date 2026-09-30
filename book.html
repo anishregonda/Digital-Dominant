@@ -18,6 +18,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="/vendor/icons.js" defer></script>
     <link href="/vendor/aos.css" rel="stylesheet">
+    <!-- Without JavaScript the animations never start: show everything. -->
+    <noscript><style>[data-aos] { opacity: 1 !important; transform: none !important; }</style></noscript>
     <link rel="stylesheet" href="./style.css" />
     <script defer src="https://hub.digitaldominant.co.uk/t.js" data-site="digital-dominant"></script>
   </head>
@@ -80,7 +82,7 @@
           <div class="booking-form">
             <h2 style="margin-bottom: 0.5rem; color: var(--accent-primary); font-size: 1.4rem;">Rather we call you?</h2>
             <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Leave your details and we'll call you back within 24 hours.</p>
-            <form id="book-form" action="https://wa.me/919949932140" method="get" target="_blank" data-lead-form data-success="thank-you.html?type=call" data-lead-intro="Call-back request from the Book a Call page." data-wa-intro="Hi Digital Dominant, please call me back about a free strategy call:">
+            <form id="book-form" action="https://wa.me/919949932140" method="get" target="_blank" data-lead-form data-dd-ignore data-success="thank-you.html?type=call" data-lead-intro="Call-back request from the Book a Call page." data-wa-intro="Hi Digital Dominant, please call me back about a free strategy call:">
               <div class="form-row">
                 <div class="form-group">
                   <label for="b-name">Your name *</label>
@@ -107,7 +109,7 @@
               </div>
               <div class="hp-field" aria-hidden="true">
                 <label for="b-website">Leave this empty</label>
-                <input id="b-website" type="text" name="website" tabindex="-1" autocomplete="off">
+                <input id="b-website" type="text" name="website" tabindex="-1" autocomplete="off" data-1p-ignore data-lpignore="true" data-bwignore data-form-type="other">
               </div>
               <button type="submit" class="btn btn-primary" style="width: 100%;" id="submit-btn">Request a call back</button>
               <p class="form-note" style="color: var(--text-secondary); margin-top: 0.75rem;">We only use your details to call you back. See our <a href="privacy-policy.html">Privacy Policy</a>.</p>

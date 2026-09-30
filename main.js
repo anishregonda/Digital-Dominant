@@ -11,8 +11,20 @@ const WHATSAPP_NUMBER = '919949932140';
 const PHONE_DISPLAY = '+91\u00a099499\u00a032140'; // non-breaking spaces: never split the number
 const LEAD_TIMEOUT_MS = 6000;
 
+// encodeURIComponent throws on half an emoji (a lone surrogate), which would
+// stop the WhatsApp fallback from opening; swap any such half for "?" first.
+function wellFormed(text) {
+  return Array.from(String(text), (ch) => (ch.length === 1 && ch >= '\ud800' && ch <= '\udfff' ? '?' : ch)).join('');
+}
+
+// At most `max` characters, never cutting an emoji in half; "…" shows it was cut.
+function clip(text, max) {
+  const chars = Array.from(text);
+  return chars.length > max ? `${chars.slice(0, max).join('')}…` : text;
+}
+
 function waLink(text) {
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(wellFormed(text))}`;
 }
 
 // ---------------------------------------------------------------------------
@@ -79,8 +91,12 @@ function initIconsAndAnimations() {
 // ---------------------------------------------------------------------------
 // Lead forms
 // ---------------------------------------------------------------------------
-const PHONE_RE = /^[+\d][\d\s().-]*$/; // same rule as the Hub
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@.]{2,}$/; // same rule as the Hub
+// Exactly the Hub's rules (dd-hub src/lib/website/clean.ts: cleanPhone, isPlainEmail).
+// Anything the Hub would refuse must be caught here, or the visitor is told the
+// form "didn't go through" and sent to WhatsApp for a typo they could fix.
+const PHONE_RE = /^\(?\+?[\d\s().-]+$/;
+const EMAIL_RE = /^[a-z0-9._+'-]{1,64}@(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z][a-z0-9-]{0,22}[a-z0-9]$/i;
+const EMAIL_MAX = 120;
 
 function value(form, name) {
   const field = form.elements.namedItem(name);
@@ -90,7 +106,8 @@ function value(form, name) {
 function fullPhone(form) {
   const number = value(form, 'phone');
   const code = value(form, 'country_code');
-  if (!number || !code || number.startsWith('+')) return number;
+  // Already has a country code: "+91 98480 12345" or "(+91) 98480 12345"
+  if (!number || !code || /^\(?\+/.test(number)) return number;
   const local = number.replace(/^0+/, '');
   // Someone typed the country code without "+" (e.g. 919876543210)
   const codeDigits = code.replace(/\D/g, '');
@@ -128,7 +145,7 @@ function findProblem(form, lead) {
     return { field: phoneField, message: 'Please check your phone number. Use digits only, for example 98765 43210.' };
   }
   const emailField = form.elements.namedItem('email');
-  if (emailField && lead.email && !EMAIL_RE.test(lead.email)) {
+  if (emailField && lead.email && (lead.email.length > EMAIL_MAX || !EMAIL_RE.test(lead.email))) {
     return { field: emailField, message: 'Please check your email address, or leave it empty.' };
   }
   return null;
@@ -157,7 +174,8 @@ async function sendLead(lead) {
     phone: lead.phone,
     email: lead.email,
     message: lead.message,
-    page: location.pathname,
+    // The Hub keeps only the path; the query (gclid, utm_source) just tells it where the visit came from.
+    page: location.pathname + location.search,
     website: lead.website,
   };
   const controller = new AbortController();
@@ -188,7 +206,7 @@ function whatsappText(lead, form) {
   if (lead.phone) lines.push(`Phone: ${lead.phone}`);
   if (lead.email) lines.push(`Email: ${lead.email}`);
   lead.extras.forEach((line) => lines.push(line));
-  if (lead.details) lines.push(`Message: ${lead.details.slice(0, 1200)}`);
+  if (lead.details) lines.push(`Message: ${clip(lead.details, 1200)}`);
   return lines.join('\n');
 }
 
@@ -271,6 +289,7 @@ function initLeadForms() {
       const ok = await sendLead(lead);
 
       if (ok) {
+        form.dataset.sent = '1';
         setStatus(box, 'info', 'Sent. Taking you to the next step…');
         location.assign(form.dataset.success || 'thank-you.html?type=enquiry');
         return;
@@ -282,6 +301,24 @@ function initLeadForms() {
         button.textContent = label;
       }
       fallbackToWhatsApp(form, box, lead);
+    });
+
+    // Back button from the thank-you page: phones restore this page exactly as it
+    // was left (button disabled, "Sending…"). Make the form usable again, and clear
+    // the message that was already sent so a second tap can't send it twice.
+    window.addEventListener('pageshow', (event) => {
+      if (!event.persisted) return;
+      const sent = form.dataset.sent === '1';
+      form.dataset.sending = '';
+      form.dataset.sent = '';
+      if (button) {
+        button.disabled = false;
+        button.textContent = label;
+      }
+      if (sent) {
+        form.reset();
+        setStatus(box, 'info', "Sent. We'll get back to you within 24 hours.");
+      }
     });
   });
 }

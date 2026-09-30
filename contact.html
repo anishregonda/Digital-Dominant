@@ -18,6 +18,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="/vendor/icons.js" defer></script>
     <link href="/vendor/aos.css" rel="stylesheet">
+    <!-- Without JavaScript the animations never start: show everything. -->
+    <noscript><style>[data-aos] { opacity: 1 !important; transform: none !important; }</style></noscript>
     <link rel="stylesheet" href="./style.css" />
     <script defer src="https://hub.digitaldominant.co.uk/t.js" data-site="digital-dominant"></script>
   </head>
@@ -166,7 +168,7 @@
           <!-- Right Side -->
           <div style="padding: 3rem;">
             <h3 style="color: white; font-size: 1.3rem; margin-bottom: 2rem; font-weight: 600;">Send Us a Message</h3>
-            <form id="contact-form" action="https://wa.me/919949932140" method="get" target="_blank" data-lead-form data-success="thank-you.html?type=enquiry" data-wa-intro="Hi Digital Dominant, I tried to send this from your contact form:">
+            <form id="contact-form" action="https://wa.me/919949932140" method="get" target="_blank" data-lead-form data-dd-ignore data-success="thank-you.html?type=enquiry" data-wa-intro="Hi Digital Dominant, I tried to send this from your contact form:">
               <div class="form-row">
                 <div>
                   <label for="c-name" style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Your name *</label>
@@ -240,7 +242,7 @@
 
               <div class="hp-field" aria-hidden="true">
                 <label for="c-website">Leave this empty</label>
-                <input id="c-website" type="text" name="website" tabindex="-1" autocomplete="off">
+                <input id="c-website" type="text" name="website" tabindex="-1" autocomplete="off" data-1p-ignore data-lpignore="true" data-bwignore data-form-type="other">
               </div>
 
               <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;">

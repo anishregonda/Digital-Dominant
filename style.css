@@ -85,13 +85,15 @@ h1, h2, h3, h4 {
   font-family: var(--font-body);
 }
 
+/* Deep purple on amber: 7.1:1 (white on this amber was 2.1:1, unreadable in sunlight) */
 .btn-primary {
   background-color: var(--accent-gold);
-  color: #ffffff;
+  color: var(--accent-primary);
 }
 
 .btn-primary:hover {
-  background-color: #ea580c;
+  background-color: #fbbf24;
+  color: var(--accent-primary);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(46, 16, 101, 0.2);
 }
@@ -1375,7 +1377,7 @@ h1, h2, h3, h4 {
 .team-card .team-role {
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--accent-light);
+  color: var(--violet-text);
   margin-bottom: 1rem;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -1573,7 +1575,7 @@ textarea:focus-visible {
     display: block;
     width: auto;
     margin: 1rem 1.25rem 0.5rem;
-    color: #ffffff;
+    color: var(--accent-primary);
     font-size: 1rem;
   }
   .menu-toggle.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
@@ -2433,6 +2435,9 @@ body.menu-open .wa-float {
   .price-ref { padding: 1.5rem 1.25rem; }
   .case h2 { font-size: 1.75rem; }
   .glance-card { padding: 1.5rem 1.25rem; }
+  /* On first load the floating WhatsApp button sits over the card's right edge:
+     keep the prices and figures clear of it. */
+  .glance-list li { padding-right: 3.5rem; }
 }
 
 @media print {

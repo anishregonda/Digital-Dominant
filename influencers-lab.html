@@ -18,6 +18,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="/vendor/icons.js" defer></script>
     <link href="/vendor/aos.css" rel="stylesheet">
+    <!-- Without JavaScript the animations never start: show everything. -->
+    <noscript><style>[data-aos] { opacity: 1 !important; transform: none !important; }</style></noscript>
     <link rel="stylesheet" href="./style.css" />
     <style>
       /* ===== Influencers Lab Page Styles ===== */
@@ -115,11 +117,11 @@
 
       .il-btn-primary {
         background: var(--accent-gold);
-        color: #ffffff;
+        color: var(--accent-primary); /* 7.1:1 on the amber (white was 2.1:1) */
       }
 
       .il-btn-primary:hover {
-        background: #ea580c;
+        background: #fbbf24;
         transform: translateY(-3px);
         box-shadow: 0 8px 25px rgba(245,158,11,0.35);
       }
@@ -502,7 +504,7 @@
             <div class="il-cta-card-icon">🏢</div>
             <h3>For Businesses</h3>
             <p>Tap into authentic local reach. We'll pair you with the right creators to drive real foot traffic, bookings, and revenue to your business.</p>
-            <a href="https://calendly.com/digitaldominant/30min" target="_blank" class="il-btn il-btn-primary" style="background: #ec4899;">Enquire for Your Business</a>
+            <a href="https://calendly.com/digitaldominant/30min" target="_blank" class="il-btn il-btn-primary" style="background: #db2777; color: #ffffff;">Enquire for Your Business</a>
           </div>
         </div>
       </div>
