@@ -1394,3 +1394,38 @@ h1, h2, h3, h4 {
     gap: 2rem;
   }
 }
+
+/* ---- Mobile polish (Sep 2026) ---- */
+.hero .btn-secondary {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.75);
+}
+.hero .btn-secondary:hover {
+  background-color: #ffffff;
+  color: var(--accent-primary);
+}
+.footer .logo-img {
+  background: #ffffff;
+  padding: 6px 10px;
+  border-radius: 10px;
+}
+@media (max-width: 600px) {
+  .service-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+  .service-card {
+    padding: 1.25rem 0.75rem;
+  }
+}
+/* Slide-in animations start off-screen; never let them widen the page on phones */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+@supports (overflow: clip) {
+  html, body {
+    overflow-x: clip;
+  }
+}

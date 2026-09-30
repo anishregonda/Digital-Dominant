@@ -22,6 +22,7 @@
       .policy-container p, .policy-container li { margin-bottom: 1rem; line-height: 1.6; color: var(--text-secondary); }
       .policy-container ul { margin-left: 2rem; margin-bottom: 1rem; }
     </style>
+      <script src="/vendor/icons.js" defer></script>
   </head>
   <body>
     <nav class="navbar">
@@ -235,6 +236,6 @@
         });
       }
     </script>
-    <script>lucide.createIcons();</script>
+    <script>document.addEventListener('DOMContentLoaded',function(){if(window.lucide)lucide.createIcons();});</script>
   </body>
 </html>
