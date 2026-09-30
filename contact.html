@@ -2,10 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#2e1065" />
     <title>Contact Digital Dominant | +91 99499 32140</title>
     <meta name="description" content="Talk to Digital Dominant about a new website or Google Ads for your business. Call +91 99499 32140 or send us a message." />
     <link rel="canonical" href="https://www.digitaldominant.co.uk/contact.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Contact Digital Dominant | +91 99499 32140" />
+    <meta property="og:description" content="Talk to Digital Dominant about a new website or Google Ads for your business. Call +91 99499 32140 or send us a message." />
+    <meta property="og:url" content="https://www.digitaldominant.co.uk/contact.html" />
+    <meta property="og:image" content="https://www.digitaldominant.co.uk/og-image.png" />
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,38 +19,44 @@
     <script src="/vendor/icons.js" defer></script>
     <link href="/vendor/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="./style.css" />
+    <script defer src="https://hub.digitaldominant.co.uk/t.js" data-site="digital-dominant"></script>
   </head>
   <body>
     <!-- Navbar -->
-    <nav class="navbar">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <nav class="navbar" aria-label="Main">
       <div class="nav-container container">
         <div class="logo">
-          <a href="index.html"><img src="logo.png" alt="Digital Dominant Logo" class="logo-img" /></a>
+          <a href="/" aria-label="Digital Dominant home"><img src="logo.png" alt="Digital Dominant" class="logo-img" width="100" height="100" /></a>
         </div>
-        
-        <div class="menu-toggle" id="mobile-menu">
+        <button class="menu-toggle" id="mobile-menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
           <span class="bar"></span>
           <span class="bar"></span>
           <span class="bar"></span>
-        </div>
-        <div class="nav-links">
-          <a href="index.html">Home</a>
-          <a href="influencers-lab.html" class="nav-influencers-lab">Influencers Lab</a>
+        </button>
+        <div class="nav-links" id="site-nav">
+          <a href="/">Home</a>
+          <a href="work.html">Our Work</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="https://hub.digitaldominant.co.uk/audit" class="nav-audit">Free Audit</a>
           <a href="about.html">About</a>
-          <a href="portfolio.html">Portfolio</a>
-          <a href="contact.html">Contact</a>
+          <a href="contact.html" aria-current="page">Contact</a>
+          <a href="influencers-lab.html" class="nav-influencers-lab">Influencers Lab</a>
+          <a href="https://calendly.com/digitaldominant/30min" target="_blank" rel="noopener" class="btn btn-primary nav-mobile-cta">Book a free call</a>
         </div>
-        <a href="https://calendly.com/digitaldominant/30min?month=2026-06" target="_blank" class="btn btn-primary nav-btn">Book a call</a>
+        <a href="https://calendly.com/digitaldominant/30min" target="_blank" rel="noopener" class="btn btn-primary nav-btn">Book a call</a>
       </div>
     </nav>
+
+    <main id="main" tabindex="-1">
 
     <div style="padding-top: 100px;"></div>
 
     <!-- Contact Section -->
     <section class="book-call-section" style="min-height: 60vh; padding-top: 5rem;">
       <div class="container text-center">
-        <h2 class="section-title" data-aos="fade-up">Get In Touch</h2>
-        <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Reach out to us directly or book a discovery call.</p>
+        <h1 class="section-title" data-aos="fade-up">Get In Touch</h1>
+        <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Send us a message, WhatsApp us or book a free call. We'll get back to you within 24 hours.</p>
         
         <style>
           .custom-booking-card {
@@ -97,19 +109,6 @@
             justify-content: center;
             flex-shrink: 0;
           }
-          .form-success-msg {
-            display: none;
-            background-color: #065f46;
-            color: #d1fae5;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            font-weight: 500;
-            text-align: center;
-          }
-          .form-success-msg.show {
-            display: block;
-          }
           @media (max-width: 900px) {
             .custom-booking-card {
               grid-template-columns: 1fr;
@@ -143,41 +142,34 @@
                 <a href="tel:+919949932140">+91 99499 32140</a>
               </div>
               <div class="contact-info-item">
+                <div class="contact-icon-circle"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false" style="color: #f59e0b;"><path d="M6.2 3.5h11.6A2.7 2.7 0 0 1 20.5 6.2v8.1a2.7 2.7 0 0 1-2.7 2.7H10.4L5.6 20.6v-3.6h.6A2.7 2.7 0 0 1 3.5 14.3V6.2a2.7 2.7 0 0 1 2.7-2.7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path transform="matrix(1.2 0 0 1.2 -2.94 -2.41)" d="M9.4 6.9c.3-.3.8-.3 1 .1l.8 1.5c.2.3.1.7-.1.9l-.5.5c.4.9 1.2 1.7 2.1 2.1l.5-.5c.2-.2.6-.3.9-.1l1.5.8c.4.2.4.7.1 1l-.7.7c-.5.5-1.3.6-1.9.3-1.7-.8-3.1-2.2-3.9-3.9-.3-.6-.2-1.4.3-1.9z" fill="currentColor"/></svg></div>
+                <a href="https://wa.me/919949932140?text=Hi%20Digital%20Dominant%2C%20I%20found%20you%20on%20your%20website%20and%20want%20to%20know%20more." target="_blank" rel="noopener">WhatsApp us</a>
+              </div>
+              <div class="contact-info-item">
                 <div class="contact-icon-circle"><i data-lucide="instagram" style="width: 18px; height: 18px; color: #f59e0b;"></i></div>
-                <a href="https://www.instagram.com/digitaldominant.co.uk/?hl=en" target="_blank">@digitaldominant.co.uk</a>
+                <a href="https://www.instagram.com/digitaldominant.co.uk/" target="_blank">@digitaldominant.co.uk</a>
               </div>
             </div>
 
             <div style="margin-top: auto; padding-top: 1.5rem; border-top: 1px solid #333;">
               <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 0.75rem;">Prefer a live conversation?</p>
-              <a href="https://calendly.com/digitaldominant/30min?month=2026-06" target="_blank" style="display: inline-block; background-color: #f59e0b; color: #111; padding: 0.6rem 1.5rem; border-radius: 6px; font-weight: 600; font-size: 0.9rem; text-decoration: none; transition: background-color 0.3s ease;">Book a Discovery Call →</a>
+              <a href="https://calendly.com/digitaldominant/30min" target="_blank" style="display: inline-block; background-color: #f59e0b; color: #111; padding: 0.6rem 1.5rem; border-radius: 6px; font-weight: 600; font-size: 0.9rem; text-decoration: none; transition: background-color 0.3s ease;">Book a Discovery Call →</a>
             </div>
           </div>
 
           <!-- Right Side -->
           <div style="padding: 3rem;">
             <h3 style="color: white; font-size: 1.3rem; margin-bottom: 2rem; font-weight: 600;">Send Us a Message</h3>
-            <div class="form-success-msg" id="form-success">✓ Message sent successfully! We'll get back to you within 24 hours.</div>
-            <form id="contact-form">
-              <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_KEY">
-              <input type="hidden" name="subject" value="New Contact Form Submission - Digital Dominant">
-              <input type="hidden" name="from_name" value="Digital Dominant Website">
+            <form id="contact-form" action="https://wa.me/919949932140" method="get" target="_blank" data-lead-form data-success="thank-you.html?type=enquiry" data-wa-intro="Hi Digital Dominant, I tried to send this from your contact form:">
               <div class="form-row">
                 <div>
-                  <label style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">First Name *</label>
-                  <input type="text" name="first_name" required style="width: 100%; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; padding: 0.75rem; color: white; font-family: inherit;">
+                  <label for="c-name" style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Your name *</label>
+                  <input id="c-name" type="text" name="name" autocomplete="name" required maxlength="80" style="width: 100%; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; padding: 0.75rem; color: white; font-family: inherit;">
                 </div>
                 <div>
-                  <label style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Last Name *</label>
-                  <input type="text" name="last_name" required style="width: 100%; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; padding: 0.75rem; color: white; font-family: inherit;">
-                </div>
-              </div>
-              
-              <div class="form-row">
-                <div>
-                  <label style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Phone *</label>
+                  <label for="c-phone" style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Phone / WhatsApp *</label>
                   <div style="display: flex; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; overflow: hidden;">
-                    <select name="country_code" style="padding: 0.75rem 0.4rem; background-color: #0a0a0a; border: none; border-right: 1px solid #333; color: #ccc; font-family: inherit; font-size: 0.85rem; outline: none; cursor: pointer; min-width: 80px;">
+                    <select name="country_code" aria-label="Country code" style="padding: 0.75rem 0.4rem; background-color: #0a0a0a; border: none; border-right: 1px solid #333; color: #ccc; font-family: inherit; font-size: 0.85rem; outline: none; cursor: pointer; min-width: 80px;">
                       <option value="+91">🇮🇳 +91</option>
                       <option value="+44">🇬🇧 +44</option>
                       <option value="+1">🇺🇸 +1</option>
@@ -219,143 +211,85 @@
                       <option value="+84">🇻🇳 +84</option>
                       <option value="+62">🇮🇩 +62</option>
                     </select>
-                    <input type="tel" name="phone" required style="width: 100%; background-color: transparent; border: none; padding: 0.75rem; color: white; font-family: inherit; outline: none;" placeholder="Enter phone number">
+                    <input id="c-phone" type="tel" name="phone" autocomplete="tel-national" inputmode="tel" required maxlength="20" style="width: 100%; min-width: 0; background-color: transparent; border: none; padding: 0.75rem; color: white; font-family: inherit;" placeholder="98765 43210">
                   </div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div>
+                  <label for="c-email" style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Email <span style="color: #9ca3af; font-weight: 500;">(optional)</span></label>
+                  <input id="c-email" type="email" name="email" autocomplete="email" maxlength="120" style="width: 100%; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; padding: 0.75rem; color: white; font-family: inherit;">
                 </div>
                 <div>
-                  <label style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Email *</label>
-                  <div style="display: flex; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; overflow: hidden;">
-                    <div style="padding: 0.75rem 1rem; color: #666; display: flex; align-items: center;">
-                      ✉
-                    </div>
-                    <input type="email" name="email" required style="width: 100%; background-color: transparent; border: none; padding: 0.75rem; color: white; font-family: inherit; outline: none;">
-                  </div>
+                  <label for="c-business" style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Business name <span style="color: #9ca3af; font-weight: 500;">(optional)</span></label>
+                  <input id="c-business" type="text" name="business" autocomplete="organization" maxlength="100" data-lead-extra="Business" style="width: 100%; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; padding: 0.75rem; color: white; font-family: inherit;">
                 </div>
               </div>
 
-              <div style="margin-bottom: 2rem;">
-                <label style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Your Message *</label>
-                <textarea name="message" required style="width: 100%; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; padding: 1rem; color: white; font-family: inherit; resize: vertical; min-height: 120px;" placeholder="Tell us about your business and how we can help..."></textarea>
+              <div style="margin-bottom: 1.5rem;">
+                <label for="c-message" style="display: block; color: white; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">What do you need help with? *</label>
+                <textarea id="c-message" name="text" data-lead-message required maxlength="1800" style="width: 100%; background-color: #0a0a0a; border: 1px solid #333; border-radius: 6px; padding: 1rem; color: white; font-family: inherit; resize: vertical; min-height: 120px;" placeholder="For example: I run a salon in Kondapur and want more bookings from Google."></textarea>
               </div>
 
-              <div style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 2rem;">
-                <input type="checkbox" required style="margin-top: 0.2rem; cursor: pointer; accent-color: #f59e0b;">
-                <label style="color: white; font-size: 0.85rem; line-height: 1.4; font-weight: 500;">I confirm that I want to receive content from this company using any contact information I provide.</label>
+              <div class="hp-field" aria-hidden="true">
+                <label for="c-website">Leave this empty</label>
+                <input id="c-website" type="text" name="website" tabindex="-1" autocomplete="off">
               </div>
 
-              <div style="text-align: right;">
-                <button type="submit" id="contact-submit-btn" style="background-color: #f59e0b; color: #111; border: none; padding: 0.75rem 2.5rem; border-radius: 6px; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: all 0.3s ease;">Send Message</button>
+              <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;">
+                <p class="form-note" style="color: #aaa; flex: 1 1 240px; margin: 0;">We only use your details to reply to you. See our <a href="privacy-policy.html">Privacy Policy</a>.</p>
+                <button type="submit" id="contact-submit-btn" style="background-color: #f59e0b; color: #111; border: none; padding: 0.85rem 2.5rem; border-radius: 6px; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: all 0.3s ease;">Send message</button>
               </div>
+              <div class="lead-status" data-lead-status role="status" aria-live="polite"></div>
             </form>
           </div>
         </div>
       </div>
     </section>
 
-    <script>
-      // Contact form submission handler
-      const contactForm = document.getElementById('contact-form');
-      const submitBtn = document.getElementById('contact-submit-btn');
-      const successMsg = document.getElementById('form-success');
 
-      contactForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        submitBtn.textContent = 'Sending...';
-        submitBtn.disabled = true;
-
-        const formData = new FormData(contactForm);
-        const data = Object.fromEntries(formData);
-
-        try {
-          const response = await fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-          });
-
-          if (response.ok) {
-            successMsg.classList.add('show');
-            contactForm.reset();
-            submitBtn.textContent = 'Sent ✓';
-            setTimeout(() => {
-              submitBtn.textContent = 'Send Message';
-              submitBtn.disabled = false;
-              successMsg.classList.remove('show');
-            }, 5000);
-          } else {
-            throw new Error('Submission failed');
-          }
-        } catch (err) {
-          // Fallback: open mailto
-          const subject = encodeURIComponent('New Inquiry from ' + data.first_name);
-          const body = encodeURIComponent('Name: ' + data.first_name + ' ' + data.last_name + '\nPhone: ' + data.phone + '\nEmail: ' + data.email + '\n\nMessage:\n' + data.message);
-          window.open('mailto:info@digitaldominant.co.uk?subject=' + subject + '&body=' + body);
-          submitBtn.textContent = 'Send Message';
-          submitBtn.disabled = false;
-        }
-      });
-    </script>
+    </main>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" id="site-footer">
       <div class="container footer-grid">
-        <div class="footer-col">
-          <div class="logo">
-            <a href="index.html"><img src="logo.png" alt="Digital Dominant Logo" class="logo-img" /></a>
-          </div>
-          <p style="margin-top: 1rem;"><a href="tel:+919949932140" style="display:inline; margin:0;">+91 99499 32140</a></p>
+        <div class="footer-col footer-brand">
+          <a href="/" aria-label="Digital Dominant home" style="display:inline-block; margin:0;"><img src="logo.png" alt="Digital Dominant" class="logo-img" width="100" height="100" loading="lazy" /></a>
+          <p>Websites and Google Ads for local businesses in Hyderabad.</p>
+          <p class="footer-loc">Hyderabad, Telangana, India</p>
         </div>
         <div class="footer-col">
-          <h4>Navigation</h4>
-          <a href="index.html">Home</a>
-          <a href="influencers-lab.html">Influencers Lab</a>
-          <a href="portfolio.html">Portfolio</a>
-        </div>
-        <div class="footer-col">
-          <h4>Company</h4>
-          <a href="about.html">What We Do</a>
+          <h4>Explore</h4>
+          <a href="/">Home</a>
+          <a href="work.html">Our Work</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="https://hub.digitaldominant.co.uk/audit">Free Audit</a>
           <a href="about.html">About</a>
-          <a href="contact.html">Contact US</a>
-          <a href="privacy-policy.html">Privacy Policy</a>
-          <a href="terms-conditions.html">Terms & Conditions</a>
+          <a href="contact.html">Contact</a>
         </div>
         <div class="footer-col">
-          <h4>Action</h4>
-          <a href="https://calendly.com/digitaldominant/30min?month=2026-06" target="_blank">Schedule a call</a>
-          <a href="https://www.instagram.com/digitaldominant.co.uk/?hl=en" target="_blank">Instagram</a>
+          <h4>Services</h4>
+          <a href="website-design-hyderabad.html">Website design, Hyderabad</a>
+          <a href="google-ads-hyderabad.html">Google Ads, Hyderabad</a>
+          <a href="influencers-lab.html">Influencers Lab</a>
+          <a href="book.html">Book a free call</a>
+        </div>
+        <div class="footer-col footer-contact">
+          <h4>Get in touch</h4>
+          <a href="tel:+919949932140">Call +91 99499 32140</a>
+          <a href="https://wa.me/919949932140?text=Hi%20Digital%20Dominant%2C%20I%20found%20you%20on%20your%20website%20and%20want%20to%20know%20more." target="_blank" rel="noopener">WhatsApp us</a>
+          <a href="mailto:info@digitaldominant.co.uk">info@digitaldominant.co.uk</a>
+          <a href="https://www.instagram.com/digitaldominant.co.uk/" target="_blank" rel="noopener">Instagram @digitaldominant.co.uk</a>
         </div>
       </div>
       <div class="footer-bottom container">
-        <p>&copy; Copyright 2026 | All rights reserved | Digital Dominant</p>
+        <p><span class="footer-copy">&copy; 2026 Digital Dominant. All rights reserved.</span> <span class="footer-legal"><a href="privacy-policy.html">Privacy Policy</a><span class="footer-sep" aria-hidden="true">&middot;</span><a href="terms-conditions.html">Terms &amp; Conditions</a></span></p>
       </div>
     </footer>
 
+    <a class="wa-float" href="https://wa.me/919949932140?text=Hi%20Digital%20Dominant%2C%20I%20found%20you%20on%20your%20website%20and%20want%20to%20know%20more." target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp" title="WhatsApp us"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><path d="M6.2 3.5h11.6A2.7 2.7 0 0 1 20.5 6.2v8.1a2.7 2.7 0 0 1-2.7 2.7H10.4L5.6 20.6v-3.6h.6A2.7 2.7 0 0 1 3.5 14.3V6.2a2.7 2.7 0 0 1 2.7-2.7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path transform="matrix(1.2 0 0 1.2 -2.94 -2.41)" d="M9.4 6.9c.3-.3.8-.3 1 .1l.8 1.5c.2.3.1.7-.1.9l-.5.5c.4.9 1.2 1.7 2.1 2.1l.5-.5c.2-.2.6-.3.9-.1l1.5.8c.4.2.4.7.1 1l-.7.7c-.5.5-1.3.6-1.9.3-1.7-.8-3.1-2.2-3.9-3.9-.3-.6-.2-1.4.3-1.9z" fill="currentColor"/></svg></a>
     <script src="/vendor/aos.js"></script>
-    <script>
-      AOS.init({ once: true, offset: 50 });
-    </script>
-  
-    <script>
-      const mobileMenu = document.getElementById('mobile-menu');
-      const navLinks = document.querySelector('.nav-links');
-      
-      if (mobileMenu && navLinks) {
-        // Toggle menu on hamburger click
-        mobileMenu.addEventListener('click', () => {
-          mobileMenu.classList.toggle('active');
-          navLinks.classList.toggle('active');
-        });
-
-        // Close menu when any link inside it is clicked
-        const links = navLinks.querySelectorAll('a');
-        links.forEach(link => {
-          link.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-            navLinks.classList.remove('active');
-          });
-        });
-      }
-    </script>
-    <script>document.addEventListener('DOMContentLoaded',function(){if(window.lucide)lucide.createIcons();});</script>
+    <script type="module" src="/main.js"></script>
   </body>
 </html>

@@ -2,9 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#2e1065" />
     <title>Influencers Lab — The Creator Growth Network | Digital Dominant</title>
     <link rel="canonical" href="https://www.digitaldominant.co.uk/influencers-lab.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Influencers Lab — The Creator Growth Network | Digital Dominant" />
+    <meta property="og:description" content="Influencers Lab by Digital Dominant connects local businesses with vetted local influencers for authentic, high-converting campaigns. Apply as a creator or enquire as a business." />
+    <meta property="og:url" content="https://www.digitaldominant.co.uk/influencers-lab.html" />
+    <meta property="og:image" content="https://www.digitaldominant.co.uk/og-image.png" />
     <meta name="description" content="Influencers Lab by Digital Dominant connects local businesses with vetted local influencers for authentic, high-converting campaigns. Apply as a creator or enquire as a business." />
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -377,30 +383,36 @@
         .il-stats-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
       }
     </style>
+    <script defer src="https://hub.digitaldominant.co.uk/t.js" data-site="digital-dominant"></script>
   </head>
   <body>
     <!-- Navbar -->
-    <nav class="navbar">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <nav class="navbar" aria-label="Main">
       <div class="nav-container container">
         <div class="logo">
-          <a href="index.html"><img src="logo.png" alt="Digital Dominant Logo" class="logo-img" /></a>
+          <a href="/" aria-label="Digital Dominant home"><img src="logo.png" alt="Digital Dominant" class="logo-img" width="100" height="100" /></a>
         </div>
-        
-        <div class="menu-toggle" id="mobile-menu">
+        <button class="menu-toggle" id="mobile-menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
           <span class="bar"></span>
           <span class="bar"></span>
           <span class="bar"></span>
-        </div>
-        <div class="nav-links">
-          <a href="index.html">Home</a>
-          <a href="influencers-lab.html" class="nav-influencers-lab">Influencers Lab</a>
+        </button>
+        <div class="nav-links" id="site-nav">
+          <a href="/">Home</a>
+          <a href="work.html">Our Work</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="https://hub.digitaldominant.co.uk/audit" class="nav-audit">Free Audit</a>
           <a href="about.html">About</a>
-          <a href="portfolio.html">Portfolio</a>
           <a href="contact.html">Contact</a>
+          <a href="influencers-lab.html" class="nav-influencers-lab" aria-current="page">Influencers Lab</a>
+          <a href="https://calendly.com/digitaldominant/30min" target="_blank" rel="noopener" class="btn btn-primary nav-mobile-cta">Book a free call</a>
         </div>
-        <a href="https://calendly.com/digitaldominant/30min?month=2026-06" target="_blank" class="btn btn-primary nav-btn">Book a call</a>
+        <a href="https://calendly.com/digitaldominant/30min" target="_blank" rel="noopener" class="btn btn-primary nav-btn">Book a call</a>
       </div>
     </nav>
+
+    <main id="main" tabindex="-1">
 
     <!-- ===== HERO SECTION ===== -->
     <section class="il-hero" id="il-hero">
@@ -427,21 +439,21 @@
               <i data-lucide="heart-handshake" style="width: 32px; height: 32px; color: #ffffff;"></i>
             </div>
             <h3>Authenticity</h3>
-            <p>Local influencers have built genuine trust with their community. Their recommendations carry real weight — far more than any paid ad ever could.</p>
+            <p>Local influencers have built genuine trust with their community, so their recommendations carry real weight with the people who follow them.</p>
           </div>
           <div class="il-value-card" data-aos="fade-up" data-aos-delay="200">
             <div class="il-value-icon">
               <i data-lucide="megaphone" style="width: 32px; height: 32px; color: #ffffff;"></i>
             </div>
             <h3>Hyper-Local Reach</h3>
-            <p>Reach the exact audience that matters — people in your service area who are actively looking for businesses like yours. Zero wasted impressions.</p>
+            <p>Reach the audience that matters: people in your area who could actually walk through your door.</p>
           </div>
           <div class="il-value-card" data-aos="fade-up" data-aos-delay="300">
             <div class="il-value-icon">
               <i data-lucide="trending-up" style="width: 32px; height: 32px; color: #ffffff;"></i>
             </div>
             <h3>Higher Conversion</h3>
-            <p>Influencer-driven campaigns convert 3-5x better than traditional digital ads. Real people sharing real experiences drives real foot traffic.</p>
+            <p>People trust recommendations from someone they follow. Real people sharing real experiences can bring real customers through your door.</p>
           </div>
         </div>
       </div>
@@ -451,13 +463,13 @@
     <section class="il-process-section" id="il-process">
       <div class="container text-center">
         <h2 class="section-title" data-aos="fade-up">How It <span style="color: var(--accent-light);">Works</span></h2>
-        <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">A simple, proven 3-step process to launch high-impact local campaigns.</p>
+        <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">A simple 3-step process to launch local campaigns.</p>
 
         <div class="il-process-grid">
           <div class="il-process-card" data-aos="fade-up" data-aos-delay="100">
             <div class="il-step-number">1</div>
             <h3>Creator Vetting</h3>
-            <p>We carefully vet every creator in our network for audience quality, engagement rates, content caliber, and local relevance. Only the top 10% make it in.</p>
+            <p>We carefully vet every creator in our network for audience quality, engagement rates, content caliber, and local relevance before they join.</p>
           </div>
           <div class="il-process-card" data-aos="fade-up" data-aos-delay="200">
             <div class="il-step-number">2</div>
@@ -490,72 +502,53 @@
             <div class="il-cta-card-icon">🏢</div>
             <h3>For Businesses</h3>
             <p>Tap into authentic local reach. We'll pair you with the right creators to drive real foot traffic, bookings, and revenue to your business.</p>
-            <a href="https://calendly.com/digitaldominant/30min?month=2026-06" target="_blank" class="il-btn il-btn-primary" style="background: #ec4899;">Enquire for Your Business</a>
+            <a href="https://calendly.com/digitaldominant/30min" target="_blank" class="il-btn il-btn-primary" style="background: #ec4899;">Enquire for Your Business</a>
           </div>
         </div>
       </div>
     </section>
 
+    </main>
+
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" id="site-footer">
       <div class="container footer-grid">
-        <div class="footer-col">
-          <div class="logo">
-            <a href="index.html"><img src="logo.png" alt="Digital Dominant Logo" class="logo-img" /></a>
-          </div>
-          <p style="margin-top: 1rem;"><a href="tel:+919949932140" style="display:inline; margin:0;">+91 99499 32140</a></p>
+        <div class="footer-col footer-brand">
+          <a href="/" aria-label="Digital Dominant home" style="display:inline-block; margin:0;"><img src="logo.png" alt="Digital Dominant" class="logo-img" width="100" height="100" loading="lazy" /></a>
+          <p>Websites and Google Ads for local businesses in Hyderabad.</p>
+          <p class="footer-loc">Hyderabad, Telangana, India</p>
         </div>
         <div class="footer-col">
-          <h4>Navigation</h4>
-          <a href="index.html">Home</a>
-          <a href="influencers-lab.html">Influencers Lab</a>
-          <a href="portfolio.html">Portfolio</a>
-        </div>
-        <div class="footer-col">
-          <h4>Company</h4>
-          <a href="about.html">What We Do</a>
+          <h4>Explore</h4>
+          <a href="/">Home</a>
+          <a href="work.html">Our Work</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="https://hub.digitaldominant.co.uk/audit">Free Audit</a>
           <a href="about.html">About</a>
-          <a href="contact.html">Contact US</a>
-          <a href="privacy-policy.html">Privacy Policy</a>
-          <a href="terms-conditions.html">Terms & Conditions</a>
+          <a href="contact.html">Contact</a>
         </div>
         <div class="footer-col">
-          <h4>Action</h4>
-          <a href="https://calendly.com/digitaldominant/30min?month=2026-06" target="_blank">Schedule a call</a>
-          <a href="https://www.instagram.com/digitaldominant.co.uk/?hl=en" target="_blank">Instagram</a>
+          <h4>Services</h4>
+          <a href="website-design-hyderabad.html">Website design, Hyderabad</a>
+          <a href="google-ads-hyderabad.html">Google Ads, Hyderabad</a>
+          <a href="influencers-lab.html">Influencers Lab</a>
+          <a href="book.html">Book a free call</a>
+        </div>
+        <div class="footer-col footer-contact">
+          <h4>Get in touch</h4>
+          <a href="tel:+919949932140">Call +91 99499 32140</a>
+          <a href="https://wa.me/919949932140?text=Hi%20Digital%20Dominant%2C%20I%20found%20you%20on%20your%20website%20and%20want%20to%20know%20more." target="_blank" rel="noopener">WhatsApp us</a>
+          <a href="mailto:info@digitaldominant.co.uk">info@digitaldominant.co.uk</a>
+          <a href="https://www.instagram.com/digitaldominant.co.uk/" target="_blank" rel="noopener">Instagram @digitaldominant.co.uk</a>
         </div>
       </div>
       <div class="footer-bottom container">
-        <p>&copy; Copyright 2026 | All rights reserved | Digital Dominant</p>
+        <p><span class="footer-copy">&copy; 2026 Digital Dominant. All rights reserved.</span> <span class="footer-legal"><a href="privacy-policy.html">Privacy Policy</a><span class="footer-sep" aria-hidden="true">&middot;</span><a href="terms-conditions.html">Terms &amp; Conditions</a></span></p>
       </div>
     </footer>
 
+    <a class="wa-float" href="https://wa.me/919949932140?text=Hi%20Digital%20Dominant%2C%20I%20found%20you%20on%20your%20website%20and%20want%20to%20know%20more." target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp" title="WhatsApp us"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><path d="M6.2 3.5h11.6A2.7 2.7 0 0 1 20.5 6.2v8.1a2.7 2.7 0 0 1-2.7 2.7H10.4L5.6 20.6v-3.6h.6A2.7 2.7 0 0 1 3.5 14.3V6.2a2.7 2.7 0 0 1 2.7-2.7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path transform="matrix(1.2 0 0 1.2 -2.94 -2.41)" d="M9.4 6.9c.3-.3.8-.3 1 .1l.8 1.5c.2.3.1.7-.1.9l-.5.5c.4.9 1.2 1.7 2.1 2.1l.5-.5c.2-.2.6-.3.9-.1l1.5.8c.4.2.4.7.1 1l-.7.7c-.5.5-1.3.6-1.9.3-1.7-.8-3.1-2.2-3.9-3.9-.3-.6-.2-1.4.3-1.9z" fill="currentColor"/></svg></a>
     <script src="/vendor/aos.js"></script>
-    <script>
-      AOS.init({ once: true, offset: 50 });
-    </script>
-  
-    <script>
-      const mobileMenu = document.getElementById('mobile-menu');
-      const navLinks = document.querySelector('.nav-links');
-      
-      if (mobileMenu && navLinks) {
-        // Toggle menu on hamburger click
-        mobileMenu.addEventListener('click', () => {
-          mobileMenu.classList.toggle('active');
-          navLinks.classList.toggle('active');
-        });
-
-        // Close menu when any link inside it is clicked
-        const links = navLinks.querySelectorAll('a');
-        links.forEach(link => {
-          link.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-            navLinks.classList.remove('active');
-          });
-        });
-      }
-    </script>
-    <script>document.addEventListener('DOMContentLoaded',function(){if(window.lucide)lucide.createIcons();});</script>
+    <script type="module" src="/main.js"></script>
   </body>
 </html>
