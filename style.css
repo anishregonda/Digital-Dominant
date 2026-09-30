@@ -2503,3 +2503,6 @@ main:focus { outline: none; }
 }
 
 button.btn { font-size: 1rem; }
+
+/* Work cards: never wider than a small phone (360px Android) */
+.portfolio-grid { grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr)); }

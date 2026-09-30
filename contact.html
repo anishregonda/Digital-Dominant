@@ -109,9 +109,12 @@
             justify-content: center;
             flex-shrink: 0;
           }
+          .contact-info-item a {
+            overflow-wrap: anywhere;
+          }
           @media (max-width: 900px) {
             .custom-booking-card {
-              grid-template-columns: 1fr;
+              grid-template-columns: minmax(0, 1fr);
             }
             .custom-booking-card > div:first-child {
               border-right: none !important;
@@ -121,6 +124,9 @@
           @media (max-width: 600px) {
             .form-row {
               grid-template-columns: 1fr;
+            }
+            .custom-booking-card > div {
+              padding: 2rem 1.25rem !important;
             }
           }
         </style>
