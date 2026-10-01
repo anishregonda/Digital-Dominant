@@ -2,7 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#2e1065" />
     <title>Digital Dominant | Websites & Google Ads for Local Businesses</title>
     <meta name="description" content="Digital Dominant builds fast websites and runs Google Ads for local businesses. Based in Hyderabad. Sites live in 6–10 days, no lock-in contracts, monthly results report." />
     <link rel="canonical" href="https://www.digitaldominant.co.uk/" />
@@ -10,39 +11,48 @@
     <meta property="og:title" content="Digital Dominant | Websites & Google Ads for Local Businesses" />
     <meta property="og:description" content="Digital Dominant builds fast websites and runs Google Ads for local businesses. Based in Hyderabad. Sites live in 6–10 days, no lock-in contracts, monthly results report." />
     <meta property="og:url" content="https://www.digitaldominant.co.uk/" />
-    <meta property="og:image" content="https://www.digitaldominant.co.uk/logo.png" />
+    <meta property="og:image" content="https://www.digitaldominant.co.uk/og-image.png" />
     <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfessionalService", "name": "Digital Dominant", "url": "https://www.digitaldominant.co.uk/", "logo": "https://www.digitaldominant.co.uk/logo.png", "image": "https://www.digitaldominant.co.uk/logo.png", "description": "Website design and Google Ads for local businesses.", "telephone": "+91-99499-32140", "email": "info@digitaldominant.co.uk", "address": {"@type": "PostalAddress", "addressLocality": "Hyderabad", "addressRegion": "Telangana", "addressCountry": "IN"}, "areaServed": [{"@type": "City", "name": "Hyderabad"}, {"@type": "Country", "name": "India"}], "sameAs": ["https://www.instagram.com/digitaldominant.co.uk/"], "knowsAbout": ["Website design", "Google Ads", "Local SEO", "Meta Ads"]}</script>
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="/vendor/aos.css" rel="stylesheet">
+    <!-- Without JavaScript the animations never start: show everything. -->
+    <noscript><style>[data-aos] { opacity: 1 !important; transform: none !important; }</style></noscript>
     <link rel="stylesheet" href="./style.css" />
     <script src="/vendor/icons.js" defer></script>
+    <script defer src="https://hub.digitaldominant.co.uk/t.js" data-site="digital-dominant"></script>
   </head>
   <body>
     <!-- Navbar -->
-    <nav class="navbar" data-aos="fade-down" data-aos-duration="800">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <nav class="navbar" aria-label="Main">
       <div class="nav-container container">
         <div class="logo">
-          <a href="#home"><img src="logo.png" alt="Digital Dominant Logo" class="logo-img" /></a>
+          <a href="/" aria-label="Digital Dominant home"><img src="logo.png" alt="Digital Dominant" class="logo-img" width="100" height="100" /></a>
         </div>
-        
-        <div class="menu-toggle" id="mobile-menu">
+        <button class="menu-toggle" id="mobile-menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
           <span class="bar"></span>
           <span class="bar"></span>
           <span class="bar"></span>
-        </div>
-        <div class="nav-links">
-          <a href="#home">Home</a>
+        </button>
+        <div class="nav-links" id="site-nav">
+          <a href="/" aria-current="page">Home</a>
+          <a href="work.html">Our Work</a>
+          <a href="pricing.html">Plans</a>
+          <a href="hub.html">DD Hub</a>
+          <a href="https://hub.digitaldominant.co.uk/audit" class="nav-audit">Free Audit</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
           <a href="influencers-lab.html" class="nav-influencers-lab">Influencers Lab</a>
-          <a href="portfolio.html">Portfolio</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
+          <a href="https://calendly.com/digitaldominant/30min" target="_blank" rel="noopener" class="btn btn-primary nav-mobile-cta">Book a free call</a>
         </div>
-        <a href="https://calendly.com/digitaldominant/30min?month=2026-06" target="_blank" class="btn btn-primary nav-btn">Book a call</a>
+        <a href="https://calendly.com/digitaldominant/30min" target="_blank" rel="noopener" class="btn btn-primary nav-btn">Book a call</a>
       </div>
     </nav>
+
+    <main id="main" tabindex="-1">
 
     <!-- Hero Section -->
     <header class="hero" id="home">
@@ -50,10 +60,11 @@
         <div class="hero-text" data-aos="fade-right" data-aos-duration="1000">
           <h1>Websites &amp; Google Ads for Local Businesses</h1>
           <p>Digital Dominant builds fast, mobile-first websites and runs Google Ads that bring local businesses more calls, bookings and customers. Based in Hyderabad.</p>
-          <div class="hero-actions">
-            <a href="portfolio.html" class="btn btn-secondary">See Our Portfolio</a>
-            <a href="https://calendly.com/digitaldominant/30min?month=2026-06" target="_blank" class="btn btn-primary">Book a Call</a>
+          <div class="hero-actions" data-wa-avoid>
+            <a href="https://calendly.com/digitaldominant/30min" target="_blank" rel="noopener" class="btn btn-primary">Book a free 30-minute call</a>
+            <a href="https://hub.digitaldominant.co.uk/audit" class="btn btn-secondary">Free Google Growth Check</a>
           </div>
+          <p class="hero-links"><a href="work.html">See our work</a> &middot; <a href="pricing.html">See our plans</a></p>
         </div>
         <div class="hero-visual" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
           <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1000" alt="Professional Marketing Analytics Dashboard" class="hero-img" style="border: 1px solid rgba(255,255,255,0.1); border-radius: 0; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); object-fit: cover;" />
@@ -79,33 +90,47 @@
           </div>
         </div>
         <div class="trust-banner" data-aos="flip-up" data-aos-delay="200">
-          <p>We build stunning, high-converting websites that turn your visitors into paying customers.<br>Combined with our proven marketing and review systems, we help you dominate your local market and scale effortlessly.</p>
+          <p>We build fast websites that make it easy to call, WhatsApp or visit you, and run Google Ads that put you in front of people searching nearby.<br>Every call and enquiry is tracked, so you can see what's working.</p>
         </div>
       </div>
     </section>
 
-    <!-- Pricing Preview Section -->
+    <!-- Free Google Growth Check -->
+    <section class="audit-banner" id="free-check" aria-labelledby="audit-title">
+      <div class="container audit-banner-inner">
+        <div class="audit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.8-4.8"/><path d="m7.8 10.8 2 2 3.6-3.8"/></svg></div>
+        <div>
+          <span class="kicker">Free</span>
+          <h2 id="audit-title">Free Google Growth Check</h2>
+          <p>See what customers see when they search for you on Google (your rating, reviews, opening hours and website link) plus a short list of fixes. It's free.</p>
+        </div>
+        <a href="https://hub.digitaldominant.co.uk/audit" class="btn btn-primary">Run my free check &rarr;</a>
+      </div>
+    </section>
+
+    <!-- Plans Preview Section -->
     <section class="strategy-call-section" id="pricing">
       <div class="container">
         <div class="strategy-layout">
           <div class="strategy-text" data-aos="fade-right">
-            <span class="kicker" style="color: var(--accent-light); font-weight: 700; letter-spacing: 1px;">LET'S TALK</span>
-            <h2 class="section-title" style="text-align: left; margin-top: 1rem;">Pricing Built Around <span style="color: var(--accent-light);">Your Business</span></h2>
-            <p style="margin-bottom: 2rem; font-size: 1.1rem; color: var(--text-secondary);">We don't do one-size-fits-all. Book a free quick call and we'll put together a custom plan that fits your business, your market, and your budget.</p>
+            <span class="kicker">Plans</span>
+            <h2 class="section-title" style="text-align: left;">Simple, custom plans. <span style="color: var(--accent-light);">Built around your goals.</span></h2>
+            <p style="margin-bottom: 1.5rem; font-size: 1.1rem; color: var(--text-secondary);">Every business needs a different mix, so we don't sell fixed packages. Tell us your goals on a free 30-minute call and you'll get a written one-page proposal.</p>
             <ul class="strategy-benefits">
-              <li>Pricing tailored to your business size & goals</li>
-              <li>No contracts — cancel anytime</li>
-              <li>See exactly how our system works for your industry</li>
-              <li>Get a free reputation audit on the call</li>
+              <li><span><strong>Setup</strong>: website, Google profile cleanup, Google Ads with call tracking and a review QR stand</span></li>
+              <li><span><strong>Monthly care</strong>: weekly search-term cleanup, Google profile posts, review replies and a plain-English report</span></li>
+              <li><span><strong>Your ad budget</strong> goes straight to Google or Meta, never marked up</span></li>
+              <li><span>No lock-in. Cancel any month.</span></li>
             </ul>
+            <a href="pricing.html" class="btn btn-dark" style="margin-top: 1rem;">See what's included</a>
           </div>
           <div class="strategy-card-wrapper" data-aos="fade-left">
             <div class="strategy-card">
               <div class="strategy-icon"><i data-lucide="calendar" style="width: 48px; height: 48px; color: #3b82f6;"></i></div>
-              <h3>Free Strategy Call</h3>
-              <p>Talk directly with our team. We'll learn about your business and show you exactly what results to expect.</p>
-              <a href="https://calendly.com/digitaldominant/30min?month=2026-06" target="_blank" class="btn btn-primary" style="width: 100%; text-align: center;">Book Your Free Call -></a>
-              <span class="strategy-subtext">No commitment. No pressure. Just results.</span>
+              <h3>Free 30-Minute Call</h3>
+              <p>Talk directly with the people who'll do the work. We'll look at your business together, tell you honestly what we'd do first, and send you a plan in writing.</p>
+              <a href="https://calendly.com/digitaldominant/30min" target="_blank" rel="noopener" class="btn btn-primary" style="width: 100%; text-align: center;">Book a free 30-minute call&nbsp;&rarr;</a>
+              <span class="strategy-subtext">No commitment. No pressure.</span>
             </div>
           </div>
         </div>
@@ -119,12 +144,12 @@
         <p class="section-subtitle">Real clients, real work. We publish the numbers after 30 days of tracking.</p>
         <div class="portfolio-grid">
           <div class="portfolio-item">
-            <a href="https://bhadrakaliclothstore.com/" target="_blank" rel="noopener"><img src="work_bhadrakali.jpg" alt="Bhadrakali Cloth Store website homepage" loading="lazy"></a>
+            <a href="https://bhadrakaliclothstore.com/" target="_blank" rel="noopener"><img src="work_bhadrakali.jpg" width="1200" height="750" alt="Bhadrakali Cloth Store website homepage" loading="lazy"></a>
             <div class="portfolio-info">
               <h3>Bhadrakali Cloth Store</h3>
               <p style="font-weight: 600; margin-bottom: 0.75rem;">Website + Google Ads &middot; Miyapur, Hyderabad</p>
               <p>Custom website with a 53-fabric catalogue, prices, WhatsApp enquiries and Google Ads conversion tracking.</p>
-              <p style="margin-top: 1rem;"><a href="https://bhadrakaliclothstore.com/" target="_blank" rel="noopener" style="color: var(--accent-light); font-weight: 700;">View live site &rarr;</a></p>
+              <p style="margin-top: 1rem;"><a href="https://bhadrakaliclothstore.com/" target="_blank" rel="noopener" style="color: var(--violet-text); font-weight: 700;">View live site &rarr;</a></p>
             </div>
           </div>
           <div class="portfolio-item">
@@ -136,59 +161,62 @@
               <h3>Hair Factor Unisex Salon</h3>
               <p style="font-weight: 600; margin-bottom: 0.75rem;">Google Ads &middot; Begumpet, Hyderabad</p>
               <p>Rebuilt the Search campaign with 42 keywords, sitelinks and callouts, and set up call tracking so every call from an ad is counted.</p>
+              <p style="margin-top: 1rem;"><a href="work.html#hair-factor" style="color: var(--violet-text); font-weight: 700;">Read the case study &rarr;</a></p>
             </div>
           </div>
         </div>
-        <a href="portfolio.html" class="btn btn-primary" style="margin-top: 2rem;">View Portfolio</a>
+        <a href="work.html" class="btn btn-primary" style="margin-top: 2rem;">See the case studies</a>
       </div>
     </section>
 
-    <!-- Trades We Serve Section -->
+    <!-- Local Businesses We Serve Section -->
     <section class="trades-grid-section" id="trades">
       <div class="container text-center" data-aos="fade-up">
-        <h2 class="section-title">Built for <span style="color: #3b82f6;">Local Service Businesses</span></h2>
+        <h2 class="section-title">Built for <span style="color: #3b82f6;">Local Businesses in Hyderabad</span></h2>
+        <p class="section-subtitle" style="margin-bottom: 0;">If your customers find you on Google and call, WhatsApp or walk in, we can help.</p>
         <div class="service-cards-grid">
           <div class="service-card">
-            <div class="service-icon" style="color: var(--text-primary); margin-bottom: 1rem;"><i data-lucide="thermometer-sun" style="width: 40px; height: 40px;"></i></div>
-            <h4 style="color: var(--text-primary);">HVAC</h4>
+            <div class="service-icon" style="color: var(--text-primary); margin-bottom: 1rem;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.1 15.9"/><path d="M14.5 14.5 20 20"/><path d="M8.1 8.1 12 12"/></svg></div>
+            <h4 style="color: var(--text-primary);">Salons &amp; Spas</h4>
           </div>
           <div class="service-card">
-            <div class="service-icon" style="color: var(--text-primary); margin-bottom: 1rem;"><i data-lucide="home" style="width: 40px; height: 40px;"></i></div>
-            <h4 style="color: var(--text-primary);">Roofing</h4>
-          </div>
-          <div class="service-card">
-            <div class="service-icon" style="color: var(--text-primary); margin-bottom: 1rem;"><i data-lucide="dog" style="width: 40px; height: 40px;"></i></div>
-            <h4 style="color: var(--text-primary);">Dog Grooming</h4>
-          </div>
-          <div class="service-card">
-            <div class="service-icon" style="color: var(--text-primary); margin-bottom: 1rem;"><i data-lucide="wrench" style="width: 40px; height: 40px;"></i></div>
-            <h4 style="color: var(--text-primary);">Plumbing</h4>
-          </div>
-          <div class="service-card">
-            <div class="service-icon" style="color: var(--text-primary); margin-bottom: 1rem;"><i data-lucide="zap" style="width: 40px; height: 40px;"></i></div>
-            <h4 style="color: var(--text-primary);">Electrical</h4>
-          </div>
-          <div class="service-card">
-            <div class="service-icon" style="color: var(--text-primary); margin-bottom: 1rem;"><i data-lucide="leaf" style="width: 40px; height: 40px;"></i></div>
-            <h4 style="color: var(--text-primary);">Landscaping</h4>
+            <div class="service-icon" style="color: var(--text-primary); margin-bottom: 1rem;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M12 8v8M8 12h8"/></svg></div>
+            <h4 style="color: var(--text-primary);">Clinics</h4>
           </div>
           <div class="service-card">
             <div class="service-icon" style="color: var(--text-primary); margin-bottom: 1rem;"><i data-lucide="smile" style="width: 40px; height: 40px;"></i></div>
-            <h4 style="color: var(--text-primary);">Dental</h4>
+            <h4 style="color: var(--text-primary);">Dentists</h4>
+          </div>
+          <div class="service-card">
+            <div class="service-icon" style="color: var(--text-primary); margin-bottom: 1rem;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 7.5h13l-1 13h-11z"/><path d="M9 7.5V6a3 3 0 0 1 6 0v1.5"/></svg></div>
+            <h4 style="color: var(--text-primary);">Clothing &amp; Retail</h4>
+          </div>
+          <div class="service-card">
+            <div class="service-icon" style="color: var(--text-primary); margin-bottom: 1rem;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3v18"/><path d="M4.5 3v5a2.5 2.5 0 0 0 5 0V3"/><path d="M17 21V3c-2 1-3.5 3.5-3.5 7.5V14H17"/></svg></div>
+            <h4 style="color: var(--text-primary);">Restaurants &amp; Caf&eacute;s</h4>
+          </div>
+          <div class="service-card">
+            <div class="service-icon" style="color: var(--text-primary); margin-bottom: 1rem;"><i data-lucide="thermometer-sun" style="width: 40px; height: 40px;"></i></div>
+            <h4 style="color: var(--text-primary);">AC Repair</h4>
           </div>
           <div class="service-card">
             <div class="service-icon" style="color: var(--text-primary); margin-bottom: 1rem;"><i data-lucide="car" style="width: 40px; height: 40px;"></i></div>
-            <h4 style="color: var(--text-primary);">Auto Repair</h4>
+            <h4 style="color: var(--text-primary);">Car Service</h4>
           </div>
           <div class="service-card">
-            <div class="service-icon" style="color: var(--text-primary); margin-bottom: 1rem;"><i data-lucide="sparkles" style="width: 40px; height: 40px;"></i></div>
-            <h4 style="color: var(--text-primary);">Cleaning</h4>
+            <div class="service-icon" style="color: var(--text-primary); margin-bottom: 1rem;"><i data-lucide="dog" style="width: 40px; height: 40px;"></i></div>
+            <h4 style="color: var(--text-primary);">Pet Care</h4>
+          </div>
+          <div class="service-card">
+            <div class="service-icon" style="color: var(--text-primary); margin-bottom: 1rem;"><i data-lucide="wrench" style="width: 40px; height: 40px;"></i></div>
+            <h4 style="color: var(--text-primary);">Home Services</h4>
           </div>
           <div class="service-card">
             <div class="service-icon" style="color: var(--text-primary); margin-bottom: 1rem;"><i data-lucide="truck" style="width: 40px; height: 40px;"></i></div>
-            <h4 style="color: var(--text-primary);">Moving</h4>
+            <h4 style="color: var(--text-primary);">Packers &amp; Movers</h4>
           </div>
         </div>
+        <p style="margin-top: 2.5rem; font-size: 1.05rem;"><a href="website-design-hyderabad.html" class="text-link">Website design in Hyderabad</a> &nbsp;&middot;&nbsp; <a href="google-ads-hyderabad.html" class="text-link">Google Ads in Hyderabad</a></p>
       </div>
     </section>
 
@@ -197,18 +225,18 @@
       <div class="container">
         <div class="benefits-layout" data-aos="fade-up">
           <div class="benefit-card">
-            <h3>Convert More Sales</h3>
-            <p>Enhance your sales conversion rates by utilizing industry-specific marketing strategies that deliver results.</p>
+            <h3>More Calls and WhatsApp Messages</h3>
+            <p>Clear call and WhatsApp buttons on every page, and Google Ads that show your business to people searching nearby. Every call from an ad is counted.</p>
           </div>
           <div class="benefit-divider"></div>
           <div class="benefit-card">
-            <h3>5-Star Reviews on Autopilot</h3>
-            <p>Showcasing reviews will skyrocket your sales. Amplify your customer reviews to fortify your stellar reputation and drive more success.</p>
+            <h3>More Google Reviews, the Right Way</h3>
+            <p>A review QR stand on your counter makes it easy for happy customers to leave a Google review, and we reply to your reviews every month.</p>
           </div>
           <div class="benefit-divider"></div>
           <div class="benefit-card">
             <h3>Stand Out From Competitors</h3>
-            <p>Creating a top-notch professional website doesn't have to be a complex process. Obtain a website that fills you with pride, minus the hassle.</p>
+            <p>A professional website doesn't have to be a long, complicated project. Get a site you're proud to share, without the hassle.</p>
           </div>
         </div>
       </div>
@@ -218,7 +246,7 @@
     <section class="ceo-banner" data-aos="fade-up">
       <div class="container text-center">
         <p class="ceo-quote">"The only way to grow a business is to be able to constantly be working ON your business not IN your business, and that's what we want to help you with here at Digital Dominant — C. Rahul, Founder & CEO &amp; R. Anish, Co-Founder"</p>
-        <a href="https://calendly.com/digitaldominant/30min?month=2026-06" target="_blank" class="btn btn-accent mt-4">Meet with One of Our Team</a>
+        <a href="https://calendly.com/digitaldominant/30min" target="_blank" class="btn btn-accent mt-4">Meet with One of Our Team</a>
       </div>
     </section>
 
@@ -230,7 +258,7 @@
           <br>
           <details class="faq-item">
             <summary>How much does it cost?</summary>
-            <p>Our pricing is tailored to your business needs and the scope of the project. Book a call for a custom quote.</p>
+            <p>It depends on what your business needs, so we don't publish fixed prices. Tell us your goals on a free 30-minute call and you'll get a written one-page proposal. There's no lock-in, and your ad budget is paid by you directly to Google or Meta. See <a href="pricing.html" class="text-link">our plans</a> for what's included.</p>
           </details>
           <details class="faq-item">
             <summary>What kinds of businesses do you work with?</summary>
@@ -238,7 +266,7 @@
           </details>
           <details class="faq-item">
             <summary>What timeframe can I expect when designing a new site?</summary>
-            <p>Because of our streamlined workflow, your brand-new, high-converting website will be designed, built, and launched in just 6 to 10 days.</p>
+            <p>Your new website is designed, built and launched in 6 to 10 days, counted from when we have your logo, photos, services and prices.</p>
           </details>
           <details class="faq-item">
             <summary>Will my site be mobile-friendly?</summary>
@@ -261,69 +289,48 @@
       </div>
     </section>
 
+    </main>
+
     <!-- Footer -->
-    <footer class="footer" id="contact">
+    <footer class="footer" id="site-footer">
       <div class="container footer-grid">
-        <div class="footer-col" data-aos="fade-up" data-aos-delay="100">
-          <div class="logo">
-            <a href="#home"><img src="logo.png" alt="Digital Dominant Logo" class="logo-img" /></a>
-          </div>
-          <p style="margin-top: 1rem;">Phone: <a href="tel:+919949932140" style="display:inline; margin:0;">+91 99499 32140</a></p>
-          <p><a href="#contact" style="display:inline; margin:0;">Contact Us</a></p>
+        <div class="footer-col footer-brand">
+          <a href="/" aria-label="Digital Dominant home" style="display:inline-block; margin:0;"><img src="logo.png" alt="Digital Dominant" class="logo-img" width="100" height="100" loading="lazy" /></a>
+          <p>Websites and Google Ads for local businesses in Hyderabad.</p>
+          <p class="footer-loc">Hyderabad, Telangana, India</p>
         </div>
-        <div class="footer-col" data-aos="fade-up" data-aos-delay="200">
-          <h4>Navigation</h4>
-          <a href="#home">Home</a>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="/">Home</a>
+          <a href="work.html">Our Work</a>
+          <a href="pricing.html">Plans</a>
+          <a href="hub.html">DD Hub</a>
+          <a href="https://hub.digitaldominant.co.uk/audit">Free Audit</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <a href="website-design-hyderabad.html">Website design, Hyderabad</a>
+          <a href="google-ads-hyderabad.html">Google Ads, Hyderabad</a>
           <a href="influencers-lab.html">Influencers Lab</a>
-          <a href="portfolio.html">Portfolio</a>
-          <a href="#about">About</a>
+          <a href="book.html">Book a free call</a>
         </div>
-        <div class="footer-col" data-aos="fade-up" data-aos-delay="300">
-          <h4>Company</h4>
-          <a href="privacy-policy.html">Privacy Policy</a>
-          <a href="terms-conditions.html">Terms & Conditions</a>
-        </div>
-        <div class="footer-col" data-aos="fade-up" data-aos-delay="400">
-          <h4>Action</h4>
-          <a href="https://calendly.com/digitaldominant/30min?month=2026-06" target="_blank">Schedule a call</a>
-          <a href="https://www.instagram.com/digitaldominant.co.uk/?hl=en" target="_blank">Instagram</a>
+        <div class="footer-col footer-contact">
+          <h4>Get in touch</h4>
+          <a href="tel:+919949932140">Call +91 99499 32140</a>
+          <a href="https://wa.me/919949932140?text=Hi%20Digital%20Dominant%2C%20I%20found%20you%20on%20your%20website%20and%20want%20to%20know%20more." target="_blank" rel="noopener">WhatsApp us</a>
+          <a href="mailto:info@digitaldominant.co.uk">info@digitaldominant.co.uk</a>
+          <a href="https://www.instagram.com/digitaldominant.co.uk/" target="_blank" rel="noopener">Instagram @digitaldominant.co.uk</a>
         </div>
       </div>
       <div class="footer-bottom container">
-        <p>&copy; Copyright 2026 | All rights reserved | Digital Dominant</p>
+        <p><span class="footer-copy">&copy; 2026 Digital Dominant. All rights reserved.</span> <span class="footer-legal"><a href="privacy-policy.html">Privacy Policy</a><span class="footer-sep" aria-hidden="true">&middot;</span><a href="terms-conditions.html">Terms &amp; Conditions</a></span></p>
       </div>
     </footer>
 
+    <a class="wa-float" href="https://wa.me/919949932140?text=Hi%20Digital%20Dominant%2C%20I%20found%20you%20on%20your%20website%20and%20want%20to%20know%20more." target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp" title="WhatsApp us"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><path d="M6.2 3.5h11.6A2.7 2.7 0 0 1 20.5 6.2v8.1a2.7 2.7 0 0 1-2.7 2.7H10.4L5.6 20.6v-3.6h.6A2.7 2.7 0 0 1 3.5 14.3V6.2a2.7 2.7 0 0 1 2.7-2.7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path transform="matrix(1.2 0 0 1.2 -2.94 -2.41)" d="M9.4 6.9c.3-.3.8-.3 1 .1l.8 1.5c.2.3.1.7-.1.9l-.5.5c.4.9 1.2 1.7 2.1 2.1l.5-.5c.2-.2.6-.3.9-.1l1.5.8c.4.2.4.7.1 1l-.7.7c-.5.5-1.3.6-1.9.3-1.7-.8-3.1-2.2-3.9-3.9-.3-.6-.2-1.4.3-1.9z" fill="currentColor"/></svg></a>
     <script src="/vendor/aos.js"></script>
-    <script>
-      AOS.init({
-        once: true,
-        offset: 100
-      });
-    </script>
     <script type="module" src="/main.js"></script>
-  
-    <script>
-      const mobileMenu = document.getElementById('mobile-menu');
-      const navLinks = document.querySelector('.nav-links');
-      
-      if (mobileMenu && navLinks) {
-        // Toggle menu on hamburger click
-        mobileMenu.addEventListener('click', () => {
-          mobileMenu.classList.toggle('active');
-          navLinks.classList.toggle('active');
-        });
-
-        // Close menu when any link inside it is clicked
-        const links = navLinks.querySelectorAll('a');
-        links.forEach(link => {
-          link.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-            navLinks.classList.remove('active');
-          });
-        });
-      }
-      document.addEventListener('DOMContentLoaded',function(){if(window.lucide)lucide.createIcons();});
-    </script>
   </body>
 </html>

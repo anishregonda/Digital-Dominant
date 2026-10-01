@@ -2,41 +2,56 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#2e1065" />
     <title>About Us | Digital Dominant, Web & Ads Agency in Hyderabad</title>
     <meta name="description" content="Digital Dominant is a web design and Google Ads agency in Hyderabad helping local businesses get more calls, bookings and customers online." />
     <link rel="canonical" href="https://www.digitaldominant.co.uk/about.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="About Us | Digital Dominant, Web & Ads Agency in Hyderabad" />
+    <meta property="og:description" content="Digital Dominant is a web design and Google Ads agency in Hyderabad helping local businesses get more calls, bookings and customers online." />
+    <meta property="og:url" content="https://www.digitaldominant.co.uk/about.html" />
+    <meta property="og:image" content="https://www.digitaldominant.co.uk/og-image.png" />
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="/vendor/icons.js" defer></script>
     <link href="/vendor/aos.css" rel="stylesheet">
+    <!-- Without JavaScript the animations never start: show everything. -->
+    <noscript><style>[data-aos] { opacity: 1 !important; transform: none !important; }</style></noscript>
     <link rel="stylesheet" href="./style.css" />
+    <script defer src="https://hub.digitaldominant.co.uk/t.js" data-site="digital-dominant"></script>
   </head>
   <body>
     <!-- Navbar -->
-    <nav class="navbar">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <nav class="navbar" aria-label="Main">
       <div class="nav-container container">
         <div class="logo">
-          <a href="index.html"><img src="logo.png" alt="Digital Dominant Logo" class="logo-img" /></a>
+          <a href="/" aria-label="Digital Dominant home"><img src="logo.png" alt="Digital Dominant" class="logo-img" width="100" height="100" /></a>
         </div>
-        
-        <div class="menu-toggle" id="mobile-menu">
+        <button class="menu-toggle" id="mobile-menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
           <span class="bar"></span>
           <span class="bar"></span>
           <span class="bar"></span>
-        </div>
-        <div class="nav-links">
-          <a href="index.html">Home</a>
-          <a href="influencers-lab.html" class="nav-influencers-lab">Influencers Lab</a>
-          <a href="about.html">About</a>
-          <a href="portfolio.html">Portfolio</a>
+        </button>
+        <div class="nav-links" id="site-nav">
+          <a href="/">Home</a>
+          <a href="work.html">Our Work</a>
+          <a href="pricing.html">Plans</a>
+          <a href="hub.html">DD Hub</a>
+          <a href="https://hub.digitaldominant.co.uk/audit" class="nav-audit">Free Audit</a>
+          <a href="about.html" aria-current="page">About</a>
           <a href="contact.html">Contact</a>
+          <a href="influencers-lab.html" class="nav-influencers-lab">Influencers Lab</a>
+          <a href="https://calendly.com/digitaldominant/30min" target="_blank" rel="noopener" class="btn btn-primary nav-mobile-cta">Book a free call</a>
         </div>
-        <a href="https://calendly.com/digitaldominant/30min?month=2026-06" target="_blank" class="btn btn-primary nav-btn">Book a call</a>
+        <a href="https://calendly.com/digitaldominant/30min" target="_blank" rel="noopener" class="btn btn-primary nav-btn">Book a call</a>
       </div>
     </nav>
+
+    <main id="main" tabindex="-1">
 
     <div style="padding-top: 100px;"></div>
 
@@ -44,10 +59,10 @@
     <section class="about-section" id="about">
       <div class="container">
         <div class="about-hero" data-aos="fade-up" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 5rem;">
-          <h2 class="section-title" style="font-size: 3rem;">We Partner With All Local Businesses</h2>
-          <p class="section-subtitle" style="font-size: 1.2rem; max-width: 600px; margin: 0 auto 3rem;">Our Business Only Works When Yours Thrives. We are dedicated to scaling your local business through proven digital systems.</p>
+          <h1 class="section-title" style="font-size: 3rem;">We Partner With All Local Businesses</h1>
+          <p class="section-subtitle" style="font-size: 1.2rem; max-width: 600px; margin: 0 auto 3rem;">Our Business Only Works When Yours Thrives. We help local businesses grow with simple, measurable digital systems: fast websites, well-run Google Ads and more Google reviews.</p>
           <div style="width: 100%; max-width: 1000px; height: 400px; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
-            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=2000" alt="Our Team Collaboration" style="width: 100%; height: 100%; object-fit: cover;">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=2000" alt="People planning a marketing project around a laptop" style="width: 100%; height: 100%; object-fit: cover;">
           </div>
         </div>
         
@@ -72,7 +87,7 @@
             <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8;">We decided to build something different—a specialized system designed exclusively for local businesses. We don't just build websites; we build scalable lead-generation engines that work around the clock so you can focus on what you do best: running your business.</p>
           </div>
           <div style="background: var(--bg-card); padding: 3rem; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center;">
-            <h4 style="color: var(--accent-gold); font-size: 1.5rem; margin-bottom: 1rem;">The Digital Dominant Promise</h4>
+            <h4 style="color: #b45309; font-size: 1.5rem; margin-bottom: 1rem;">The Digital Dominant Promise</h4>
             <ul style="list-style: none; text-align: left; margin: 0; padding: 0;">
               <li style="margin-bottom: 1rem; color: var(--text-secondary); font-size: 1.05rem;">✓ No long-term lock-in contracts</li>
               <li style="margin-bottom: 1rem; color: var(--text-secondary); font-size: 1.05rem;">✓ Transparent monthly reporting</li>
@@ -135,72 +150,54 @@
     <!-- Global CTA Section -->
     <section class="global-cta-section" style="padding: 6rem 0; background-color: var(--accent-primary); color: white; text-align: center;">
       <div class="container" data-aos="zoom-in">
-        <h2 style="font-size: 2.5rem; margin-bottom: 1rem; color: white;">Ready to See Our Results?</h2>
-        <p style="font-size: 1.1rem; margin-bottom: 2rem; color: rgba(255,255,255,0.9); max-width: 600px; margin-left: auto; margin-right: auto;">Check out our portfolio to see the high-converting marketing systems we've built for other local businesses.</p>
-        <a href="portfolio.html" class="btn btn-primary" style="background-color: var(--accent-gold); color: white; font-size: 1.1rem; padding: 1rem 2.5rem; border-radius: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.2);">View Our Portfolio</a>
+        <h2 style="font-size: 2.5rem; margin-bottom: 1rem; color: white;">Want to See Our Work?</h2>
+        <p style="font-size: 1.1rem; margin-bottom: 2rem; color: rgba(255,255,255,0.9); max-width: 600px; margin-left: auto; margin-right: auto;">See what we've built for local businesses in Hyderabad, what we changed, and what's next for each project.</p>
+        <a href="work.html" class="btn btn-primary" style="background-color: var(--accent-gold); color: var(--accent-primary); font-size: 1.1rem; padding: 1rem 2.5rem; border-radius: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.2);">See Our Work</a>
       </div>
     </section>
 
+    </main>
+
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" id="site-footer">
       <div class="container footer-grid">
-        <div class="footer-col">
-          <div class="logo">
-            <a href="index.html"><img src="logo.png" alt="Digital Dominant Logo" class="logo-img" /></a>
-          </div>
-          <p style="margin-top: 1rem;"><a href="tel:+919949932140" style="display:inline; margin:0;">+91 99499 32140</a></p>
+        <div class="footer-col footer-brand">
+          <a href="/" aria-label="Digital Dominant home" style="display:inline-block; margin:0;"><img src="logo.png" alt="Digital Dominant" class="logo-img" width="100" height="100" loading="lazy" /></a>
+          <p>Websites and Google Ads for local businesses in Hyderabad.</p>
+          <p class="footer-loc">Hyderabad, Telangana, India</p>
         </div>
         <div class="footer-col">
-          <h4>Navigation</h4>
-          <a href="index.html">Home</a>
-          <a href="influencers-lab.html">Influencers Lab</a>
-          <a href="portfolio.html">Portfolio</a>
-        </div>
-        <div class="footer-col">
-          <h4>Company</h4>
-          <a href="about.html">What We Do</a>
+          <h4>Explore</h4>
+          <a href="/">Home</a>
+          <a href="work.html">Our Work</a>
+          <a href="pricing.html">Plans</a>
+          <a href="hub.html">DD Hub</a>
+          <a href="https://hub.digitaldominant.co.uk/audit">Free Audit</a>
           <a href="about.html">About</a>
-          <a href="contact.html">Contact US</a>
-          <a href="privacy-policy.html">Privacy Policy</a>
-          <a href="terms-conditions.html">Terms & Conditions</a>
+          <a href="contact.html">Contact</a>
         </div>
         <div class="footer-col">
-          <h4>Action</h4>
-          <a href="https://calendly.com/digitaldominant/30min?month=2026-06" target="_blank">Schedule a call</a>
-          <a href="https://www.instagram.com/digitaldominant.co.uk/?hl=en" target="_blank">Instagram</a>
+          <h4>Services</h4>
+          <a href="website-design-hyderabad.html">Website design, Hyderabad</a>
+          <a href="google-ads-hyderabad.html">Google Ads, Hyderabad</a>
+          <a href="influencers-lab.html">Influencers Lab</a>
+          <a href="book.html">Book a free call</a>
+        </div>
+        <div class="footer-col footer-contact">
+          <h4>Get in touch</h4>
+          <a href="tel:+919949932140">Call +91 99499 32140</a>
+          <a href="https://wa.me/919949932140?text=Hi%20Digital%20Dominant%2C%20I%20found%20you%20on%20your%20website%20and%20want%20to%20know%20more." target="_blank" rel="noopener">WhatsApp us</a>
+          <a href="mailto:info@digitaldominant.co.uk">info@digitaldominant.co.uk</a>
+          <a href="https://www.instagram.com/digitaldominant.co.uk/" target="_blank" rel="noopener">Instagram @digitaldominant.co.uk</a>
         </div>
       </div>
       <div class="footer-bottom container">
-        <p>&copy; Copyright 2026 | All rights reserved | Digital Dominant</p>
+        <p><span class="footer-copy">&copy; 2026 Digital Dominant. All rights reserved.</span> <span class="footer-legal"><a href="privacy-policy.html">Privacy Policy</a><span class="footer-sep" aria-hidden="true">&middot;</span><a href="terms-conditions.html">Terms &amp; Conditions</a></span></p>
       </div>
     </footer>
 
+    <a class="wa-float" href="https://wa.me/919949932140?text=Hi%20Digital%20Dominant%2C%20I%20found%20you%20on%20your%20website%20and%20want%20to%20know%20more." target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp" title="WhatsApp us"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><path d="M6.2 3.5h11.6A2.7 2.7 0 0 1 20.5 6.2v8.1a2.7 2.7 0 0 1-2.7 2.7H10.4L5.6 20.6v-3.6h.6A2.7 2.7 0 0 1 3.5 14.3V6.2a2.7 2.7 0 0 1 2.7-2.7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path transform="matrix(1.2 0 0 1.2 -2.94 -2.41)" d="M9.4 6.9c.3-.3.8-.3 1 .1l.8 1.5c.2.3.1.7-.1.9l-.5.5c.4.9 1.2 1.7 2.1 2.1l.5-.5c.2-.2.6-.3.9-.1l1.5.8c.4.2.4.7.1 1l-.7.7c-.5.5-1.3.6-1.9.3-1.7-.8-3.1-2.2-3.9-3.9-.3-.6-.2-1.4.3-1.9z" fill="currentColor"/></svg></a>
     <script src="/vendor/aos.js"></script>
-    <script>
-      AOS.init({ once: true, offset: 50 });
-    </script>
-  
-    <script>
-      const mobileMenu = document.getElementById('mobile-menu');
-      const navLinks = document.querySelector('.nav-links');
-      
-      if (mobileMenu && navLinks) {
-        // Toggle menu on hamburger click
-        mobileMenu.addEventListener('click', () => {
-          mobileMenu.classList.toggle('active');
-          navLinks.classList.toggle('active');
-        });
-
-        // Close menu when any link inside it is clicked
-        const links = navLinks.querySelectorAll('a');
-        links.forEach(link => {
-          link.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-            navLinks.classList.remove('active');
-          });
-        });
-      }
-    </script>
-    <script>document.addEventListener('DOMContentLoaded',function(){if(window.lucide)lucide.createIcons();});</script>
+    <script type="module" src="/main.js"></script>
   </body>
 </html>
