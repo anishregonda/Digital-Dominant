@@ -1,5 +1,5 @@
-// Shared behaviour for every page: mobile menu, scroll animations, icons and
-// the lead forms (contact + book) that post to DD Hub.
+// Shared behaviour for every page: mobile menu, scroll animations, icons, the
+// floating WhatsApp button and the lead forms (contact + book) that post to DD Hub.
 //
 // Lead forms never fake success: we only move on to the thank-you page when
 // the Hub answers {ok:true}. Anything else (error, blocked, offline, or no
@@ -86,6 +86,39 @@ function initIconsAndAnimations() {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     window.AOS.init({ once: true, offset: 60, duration: 700, disable: reduceMotion });
   }
+}
+
+// ---------------------------------------------------------------------------
+// Floating WhatsApp button: never on top of a page's own buttons
+// ---------------------------------------------------------------------------
+// Button groups marked data-wa-avoid (e.g. a hero or closing CTA that already
+// offers WhatsApp): while one of their buttons passes under the floating
+// button, the floating button steps aside (.is-tucked) so it never covers it.
+function initFloatAvoid() {
+  const wa = document.querySelector('.wa-float');
+  const buttons = [...document.querySelectorAll('[data-wa-avoid] .btn')];
+  if (!wa || !buttons.length) return;
+
+  const GAP = 8; // px of breathing room around the floating button
+  let queued = false;
+  const update = () => {
+    queued = false;
+    const f = wa.getBoundingClientRect(); // tucking only fades it, so this box never moves
+    const covered = buttons.some((b) => {
+      const r = b.getBoundingClientRect();
+      return r.width > 0 && r.right > f.left - GAP && r.left < f.right + GAP && r.bottom > f.top - GAP && r.top < f.bottom + GAP;
+    });
+    wa.classList.toggle('is-tucked', covered);
+  };
+  const queue = () => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(update);
+  };
+  window.addEventListener('scroll', queue, { passive: true });
+  window.addEventListener('resize', queue);
+  window.addEventListener('load', queue, { once: true }); // fonts and images can move the buttons
+  update();
 }
 
 // ---------------------------------------------------------------------------
@@ -326,6 +359,7 @@ function initLeadForms() {
 function init() {
   initMenu();
   initIconsAndAnimations();
+  initFloatAvoid();
   initLeadForms();
 }
 
