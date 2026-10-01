@@ -37,6 +37,7 @@ export default defineConfig({
         portfolio: resolve(__dirname, 'portfolio.html'),
         pricing: resolve(__dirname, 'pricing.html'),
         hub: resolve(__dirname, 'hub.html'),
+        calculator: resolve(__dirname, 'calculator.html'),
         websiteDesignHyderabad: resolve(__dirname, 'website-design-hyderabad.html'),
         googleAdsHyderabad: resolve(__dirname, 'google-ads-hyderabad.html'),
         testimonials: resolve(__dirname, 'testimonials.html'),

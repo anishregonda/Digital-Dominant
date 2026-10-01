@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#2e1065" />
+    <title>Lead Leak Calculator</title>
+    <meta name="description" content="How much is your website leaking? Put in your monthly visitors, conversion rate and customer value, and see what a better conversion rate is worth each month. Your numbers, our arithmetic, nothing stored." />
+    <link rel="canonical" href="https://www.digitaldominant.co.uk/calculator" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Digital Dominant" />
+    <meta property="og:title" content="Lead Leak Calculator | Digital Dominant" />
+    <meta property="og:description" content="Your visitors, your conversion rate, your customer value: see what moving from 2% to 4% is worth a month. Change any slider and it recalculates." />
+    <meta property="og:url" content="https://www.digitaldominant.co.uk/calculator" />
+    <meta property="og:image" content="https://www.digitaldominant.co.uk/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lead Leak Calculator | Digital Dominant" />
+    <meta name="twitter:description" content="See what a better conversion rate is worth to your business each month. Your numbers, our arithmetic, nothing stored." />
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Lead Leak Calculator", "url": "https://www.digitaldominant.co.uk/calculator", "applicationCategory": "BusinessApplication", "operatingSystem": "Any", "browserRequirements": "Requires JavaScript", "description": "Works out what a higher website conversion rate is worth to a business each month, from its monthly visitors, conversion rate, customer value and close rate.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "provider": {"@type": "ProfessionalService", "name": "Digital Dominant", "url": "https://www.digitaldominant.co.uk/"}}</script>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="/vendor/aos.css" rel="stylesheet">
+    <!-- Without JavaScript the animations never start: show everything. -->
+    <noscript><style>[data-aos] { opacity: 1 !important; transform: none !important; }</style></noscript>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="/vendor/icons.js" defer></script>
+    <script defer src="https://hub.digitaldominant.co.uk/t.js" data-site="digital-dominant"></script>
+  </head>
+  <body class="calc-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <nav class="navbar" aria-label="Main">
+      <div class="nav-container container">
+        <div class="logo">
+          <a href="/" aria-label="Digital Dominant home"><img src="logo.png" alt="Digital Dominant" class="logo-img" width="100" height="100" /></a>
+        </div>
+        <button class="menu-toggle" id="mobile-menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+        <div class="nav-links" id="site-nav">
+          <a href="/">Home</a>
+          <a href="work.html">Our Work</a>
+          <a href="pricing.html">Plans</a>
+          <a href="hub.html">DD Hub</a>
+          <a href="https://hub.digitaldominant.co.uk/audit" class="nav-audit">Free Audit</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="influencers-lab.html" class="nav-influencers-lab">Influencers Lab</a>
+          <a href="https://calendly.com/digitaldominant/30min" target="_blank" rel="noopener" class="btn btn-primary nav-mobile-cta">Book a free call</a>
+        </div>
+        <a href="https://calendly.com/digitaldominant/30min" target="_blank" rel="noopener" class="btn btn-primary nav-btn">Book a call</a>
+      </div>
+    </nav>
+
+    <main id="main" tabindex="-1">
+
+    <header class="hero hero-v2 page-hero page-hero-simple calc-hero">
+      <div class="container hero-content">
+        <div class="hero-text">
+          <span class="kicker">Lead Leak Calculator</span>
+          <h1>How much is your website <em>leaking?</em></h1>
+          <p>Your numbers, our arithmetic. Put in your monthly visitors, the share that become a lead today, and what a customer is worth. Change any slider and it recalculates. Nothing is stored: the numbers live in the link, so you can send it to a partner.</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="section calc-section" aria-label="Calculator">
+      <div class="container calc-layout">
+
+        <form class="calc-form" id="calc" novalidate aria-label="Your numbers">
+          <div class="calc-form-head">
+            <h2>Your numbers</h2>
+            <div class="calc-currency" role="group" aria-label="Currency">
+              <button type="button" class="calc-cur" data-cur="usd" aria-pressed="true">$ USD</button>
+              <button type="button" class="calc-cur" data-cur="inr" aria-pressed="false">&#8377; INR</button>
+            </div>
+          </div>
+
+          <div class="calc-field">
+            <label for="n-v">Monthly website visitors</label>
+            <span class="calc-hint" id="h-v">From Google Analytics or your ads account. Paid and organic together.</span>
+            <div class="calc-num">
+              <input id="n-v" type="number" inputmode="numeric" min="0" step="100" value="2000" aria-describedby="h-v">
+            </div>
+            <input class="calc-range" id="r-v" type="range" min="100" max="50000" step="100" value="2000" aria-label="Monthly website visitors, slider">
+          </div>
+
+          <div class="calc-field">
+            <label for="n-cr">Conversion rate today</label>
+            <span class="calc-hint" id="h-cr">Visitors who call, book or send a form. If you don&rsquo;t know it, 2% is a common starting point.</span>
+            <div class="calc-num">
+              <input id="n-cr" type="number" inputmode="decimal" min="0" max="100" step="0.1" value="2" aria-describedby="h-cr">
+              <span class="is-suffix">%</span>
+            </div>
+            <input class="calc-range" id="r-cr" type="range" min="0" max="20" step="0.1" value="2" aria-label="Conversion rate today, slider">
+          </div>
+
+          <div class="calc-field">
+            <label for="n-t">Target conversion rate</label>
+            <span class="calc-hint" id="h-t">What a fast page with a 3-question tool should reach. Start with double.</span>
+            <div class="calc-num">
+              <input id="n-t" type="number" inputmode="decimal" min="0" max="100" step="0.1" value="4" aria-describedby="h-t">
+              <span class="is-suffix">%</span>
+            </div>
+            <input class="calc-range" id="r-t" type="range" min="0" max="25" step="0.1" value="4" aria-label="Target conversion rate, slider">
+          </div>
+
+          <div class="calc-field">
+            <label for="n-val">What a new customer is worth</label>
+            <span class="calc-hint" id="h-val">Average first job, case or treatment plan. Lifetime value if you know it.</span>
+            <div class="calc-num">
+              <span class="calc-sym" data-sym>$</span>
+              <input id="n-val" type="number" inputmode="numeric" min="0" step="100" value="3000" aria-describedby="h-val">
+            </div>
+            <input class="calc-range" id="r-val" type="range" min="100" max="100000" step="100" value="3000" aria-label="What a new customer is worth, slider">
+          </div>
+
+          <div class="calc-field">
+            <label for="n-close">Leads that become customers</label>
+            <span class="calc-hint" id="h-close">Your close rate. One in four is a common starting point.</span>
+            <div class="calc-num">
+              <input id="n-close" type="number" inputmode="numeric" min="0" max="100" step="1" value="25" aria-describedby="h-close">
+              <span class="is-suffix">%</span>
+            </div>
+            <input class="calc-range" id="r-close" type="range" min="1" max="100" step="1" value="25" aria-label="Leads that become customers, slider">
+          </div>
+        </form>
+
+        <aside class="calc-results" aria-label="Results">
+          <div class="calc-card">
+            <span class="kicker">Worth about</span>
+            <p class="calc-big"><span id="out-month">$30,000</span><small>a month, at the same traffic and the same ad spend</small></p>
+            <p class="calc-year">That&rsquo;s about <strong id="out-year">$360,000</strong> a year.</p>
+            <dl class="calc-grid">
+              <div><dt>Leads today</dt><dd id="out-leads-now">40</dd></div>
+              <div><dt>Leads at target</dt><dd id="out-leads-target">80</dd></div>
+              <div><dt>Extra leads a month</dt><dd id="out-leads">40</dd></div>
+              <div><dt>Extra customers a month</dt><dd id="out-customers">10</dd></div>
+            </dl>
+            <p class="calc-warn" id="calc-warn" role="status"></p>
+            <p class="calc-formula" id="out-formula"><strong>Your numbers, our arithmetic:</strong> 2,000 visitors &times; (4% &minus; 2%) = 40 extra leads &times; 25% close = 10 customers &times; $3,000 = $30,000 a month</p>
+            <div class="calc-actions" data-wa-avoid>
+              <a href="https://calendly.com/digitaldominant/30min" target="_blank" rel="noopener" class="btn btn-primary">Book a free 30-minute call</a>
+              <button type="button" class="btn btn-ghost" id="copy-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.1.1l3-3a5 5 0 0 0-7.1-7.1l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.1-.1l-3 3a5 5 0 0 0 7.1 7.1l1.7-1.7"/></svg>
+                Copy link
+              </button>
+            </div>
+            <p class="calc-copied" id="copy-status" role="status" aria-live="polite"></p>
+          </div>
+
+          <form class="calc-plan" id="calc-plan-form" action="https://wa.me/919949932140" method="get" target="_blank" novalidate data-lead-form data-dd-ignore data-success="inline" data-thanks="calc-thanks" data-lead-contact="either" data-lead-intro="Lead Leak Calculator: please send me this as a plan." data-wa-intro="Hi Digital Dominant, I used your Lead Leak Calculator and would like this as a plan:">
+            <h2>Send me this as a plan</h2>
+            <p>We&rsquo;ll reply with what we&rsquo;d change first to get from today&rsquo;s rate to the target, and a written quote.</p>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="p-name">Your name *</label>
+                <input type="text" id="p-name" name="name" autocomplete="name" required maxlength="80" data-lead-missing="Please add your name.">
+              </div>
+              <div class="form-group">
+                <label for="p-email">Email <span class="optional">(or phone)</span></label>
+                <input type="email" id="p-email" name="email" autocomplete="email" maxlength="120" inputmode="email">
+              </div>
+            </div>
+            <div class="form-group" style="margin-bottom: 1rem;">
+              <label for="p-phone">Phone / WhatsApp <span class="optional">(or email)</span></label>
+              <input type="tel" id="p-phone" name="phone" autocomplete="tel" inputmode="tel" maxlength="20" placeholder="+1 515 555 0100">
+            </div>
+            <input type="hidden" name="calc" data-lead-extra="Calculator" data-calc-summary value="">
+            <div class="hp-field" aria-hidden="true">
+              <label for="p-website">Leave this empty</label>
+              <input id="p-website" type="text" name="website" tabindex="-1" autocomplete="off" data-1p-ignore data-lpignore="true" data-bwignore data-form-type="other">
+            </div>
+            <button type="submit" class="btn btn-primary">Send me the plan</button>
+            <p class="form-note">We only use your details to reply. See our <a href="privacy-policy.html">Privacy Policy</a>.</p>
+            <div class="lead-status" data-lead-status role="status" aria-live="polite"></div>
+          </form>
+          <div class="calc-plan lead-thanks" id="calc-thanks" hidden tabindex="-1">
+            <div class="lead-thanks-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+            <h3>Got it. Your numbers are on their way to us.</h3>
+            <p>We&rsquo;ll reply within 24 hours with what we&rsquo;d change first and a written quote. Want to skip the wait?</p>
+            <a href="https://calendly.com/digitaldominant/30min" target="_blank" rel="noopener" class="btn btn-primary">Book a free 30-minute call</a>
+            <p class="lead-alt">Or WhatsApp us on <a href="https://wa.me/919949932140" target="_blank" rel="noopener">+91&nbsp;99499&nbsp;32140</a>.</p>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+
+    <section class="section section-alt" aria-labelledby="notes-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">What the numbers mean</span>
+          <h2 class="section-title" id="notes-title">The arithmetic, in plain words</h2>
+        </div>
+        <div class="calc-notes">
+          <div class="calc-note">
+            <h3>Conversion rate</h3>
+            <p>The share of visitors who do the thing you want: call, book, or send a form. If 2,000 people visit and 40 enquire, that&rsquo;s 2%. Your ads account or analytics shows it; if not, we measure it in weeks 1&ndash;2.</p>
+          </div>
+          <div class="calc-note">
+            <h3>Why double is a fair target</h3>
+            <p>A fast page with a 3-question tool removes the two biggest reasons people leave: the wait and the form. We start from double your current rate and adjust once your own numbers come in. Move the slider to whatever you believe.</p>
+          </div>
+          <div class="calc-note">
+            <h3>Same traffic, same spend</h3>
+            <p>The calculator changes nothing about your ad budget. The extra leads come from the visitors you already pay for, which is why cost per lead falls as conversion rises.</p>
+          </div>
+          <div class="calc-note">
+            <h3>It&rsquo;s an estimate, not a promise</h3>
+            <p>The result is your inputs multiplied together. Real results depend on your market, your offer and how fast leads are followed up. We report the real numbers weekly in your portal once we start.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band" aria-labelledby="cta-title">
+      <div class="container">
+        <h2 id="cta-title">Want these numbers to be real?</h2>
+        <p>Book a free 30-minute call. We&rsquo;ll put your real traffic and conversion rate into the calculator together, show you three things on your site, and send a written plan within 24 hours.</p>
+        <div class="cta-actions" data-wa-avoid>
+          <a href="https://calendly.com/digitaldominant/30min" target="_blank" rel="noopener" class="btn btn-primary">Book a free 30-minute call</a>
+          <a href="https://wa.me/919949932140?text=Hi%20Digital%20Dominant%2C%20I%20used%20the%20Lead%20Leak%20Calculator%20and%20want%20to%20know%20more." target="_blank" rel="noopener" class="btn btn-wa">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.2 3.5h11.6A2.7 2.7 0 0 1 20.5 6.2v8.1a2.7 2.7 0 0 1-2.7 2.7H10.4L5.6 20.6v-3.6h.6A2.7 2.7 0 0 1 3.5 14.3V6.2a2.7 2.7 0 0 1 2.7-2.7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path transform="matrix(1.2 0 0 1.2 -2.94 -2.41)" d="M9.4 6.9c.3-.3.8-.3 1 .1l.8 1.5c.2.3.1.7-.1.9l-.5.5c.4.9 1.2 1.7 2.1 2.1l.5-.5c.2-.2.6-.3.9-.1l1.5.8c.4.2.4.7.1 1l-.7.7c-.5.5-1.3.6-1.9.3-1.7-.8-3.1-2.2-3.9-3.9-.3-.6-.2-1.4.3-1.9z" fill="currentColor"/></svg>
+            WhatsApp us
+          </a>
+          <a href="https://hub.digitaldominant.co.uk/audit" class="btn btn-outline-light">Free Google Growth Check</a>
+        </div>
+      </div>
+    </section>
+
+    </main>
+
+    <footer class="footer" id="site-footer">
+      <div class="container footer-grid">
+        <div class="footer-col footer-brand">
+          <a href="/" aria-label="Digital Dominant home" style="display:inline-block; margin:0;"><img src="logo.png" alt="Digital Dominant" class="logo-img" width="100" height="100" loading="lazy" /></a>
+          <p>Your technical growth partner: a fast lead-capture site, Google and Meta ads run into it, and cost per lead reported weekly in your own portal.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="/">Home</a>
+          <a href="work.html">Our Work</a>
+          <a href="pricing.html">Plans</a>
+          <a href="hub.html">DD Hub</a>
+          <a href="calculator.html">Lead Leak Calculator</a>
+          <a href="https://hub.digitaldominant.co.uk/audit">Free Google Growth Check</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>What we do</h4>
+          <a href="pricing.html#website-rebuild">Website rebuild</a>
+          <a href="pricing.html#google-ads">Google Ads</a>
+          <a href="pricing.html#meta-ads">Meta ads</a>
+          <a href="hub.html">Lead routing, reviews &amp; portal</a>
+          <a href="pricing.html#custom-software">Custom software</a>
+          <a href="influencers-lab.html">Influencers Lab</a>
+          <a href="book.html">Book a free call</a>
+        </div>
+        <div class="footer-col footer-contact">
+          <h4>Get in touch</h4>
+          <a href="tel:+919949932140">Call +91 99499 32140</a>
+          <a href="https://wa.me/919949932140?text=Hi%20Digital%20Dominant%2C%20I%20found%20you%20on%20your%20website%20and%20want%20to%20know%20more." target="_blank" rel="noopener">WhatsApp us</a>
+          <a href="mailto:info@digitaldominant.co.uk">info@digitaldominant.co.uk</a>
+          <a href="https://www.instagram.com/digitaldominant.co.uk/" target="_blank" rel="noopener">Instagram @digitaldominant.co.uk</a>
+        </div>
+      </div>
+      <div class="footer-bottom container">
+        <p><span class="footer-copy">&copy; 2026 Digital Dominant. All rights reserved.</span> <span class="footer-legal"><a href="privacy-policy.html">Privacy Policy</a><span class="footer-sep" aria-hidden="true">&middot;</span><a href="terms-conditions.html">Terms &amp; Conditions</a></span></p>
+      </div>
+    </footer>
+
+    <a class="wa-float" href="https://wa.me/919949932140?text=Hi%20Digital%20Dominant%2C%20I%20found%20you%20on%20your%20website%20and%20want%20to%20know%20more." target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp" title="WhatsApp us"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><path d="M6.2 3.5h11.6A2.7 2.7 0 0 1 20.5 6.2v8.1a2.7 2.7 0 0 1-2.7 2.7H10.4L5.6 20.6v-3.6h.6A2.7 2.7 0 0 1 3.5 14.3V6.2a2.7 2.7 0 0 1 2.7-2.7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path transform="matrix(1.2 0 0 1.2 -2.94 -2.41)" d="M9.4 6.9c.3-.3.8-.3 1 .1l.8 1.5c.2.3.1.7-.1.9l-.5.5c.4.9 1.2 1.7 2.1 2.1l.5-.5c.2-.2.6-.3.9-.1l1.5.8c.4.2.4.7.1 1l-.7.7c-.5.5-1.3.6-1.9.3-1.7-.8-3.1-2.2-3.9-3.9-.3-.6-.2-1.4.3-1.9z" fill="currentColor"/></svg></a>
+    <script src="/vendor/aos.js"></script>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

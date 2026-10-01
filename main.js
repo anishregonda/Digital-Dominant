@@ -99,7 +99,9 @@ function initIconsAndAnimations() {
 // floating button steps aside (.is-tucked) so it never covers it. Single buttons
 // count too: on a 320px phone a lone "Book a call" button can sit right under
 // the floating button.
-const FLOAT_AVOID = '[data-wa-avoid] .btn, a[data-wa-avoid], main .btn, main .il-btn, main .thank-you-btn, main button';
+// The calculator's number fields and the qualifier's option chips sit on the
+// right edge of a phone screen too, so the whole form counts.
+const FLOAT_AVOID = '[data-wa-avoid] .btn, a[data-wa-avoid], main .btn, main .il-btn, main .thank-you-btn, main button, main .calc-form, main .q-form';
 
 function initFloatAvoid() {
   const wa = document.querySelector('.wa-float');
@@ -166,8 +168,11 @@ function readLead(form) {
   const messageField = form.querySelector('[data-lead-message]');
   const details = messageField ? messageField.value.trim() : value(form, 'message');
   const intro = form.dataset.leadIntro || '';
-  // Optional fields the Hub has no column for (e.g. business name) ride along in the message.
+  // Optional fields the Hub has no column for (e.g. business name, the
+  // qualifier's answers, the calculator's numbers) ride along in the message.
+  // For a radio group only the picked option counts.
   const extras = [...form.querySelectorAll('[data-lead-extra]')]
+    .filter((field) => field.type !== 'radio' || field.checked)
     .map((field) => [field.dataset.leadExtra, field.value.trim()])
     .filter(([, text]) => text)
     .map(([label, text]) => `${label}: ${text}`);
@@ -182,13 +187,43 @@ function readLead(form) {
   };
 }
 
+// Forms marked novalidate (the qualifier, the calculator's plan form) skip the
+// browser's own checks, so required fields and radio groups are checked here.
+function findMissing(form) {
+  const seen = new Set();
+  for (const field of form.querySelectorAll('[required]')) {
+    if (field.type === 'radio') {
+      if (seen.has(field.name)) continue;
+      seen.add(field.name);
+      const group = [...form.querySelectorAll('input[type="radio"]')].filter((r) => r.name === field.name);
+      if (group.some((r) => r.checked)) continue;
+      const fieldset = field.closest('fieldset');
+      return { field, message: (fieldset && fieldset.dataset.leadMissing) || 'Please pick one of the options.' };
+    }
+    if (typeof field.value === 'string' && !field.value.trim()) {
+      return { field, message: field.dataset.leadMissing || 'Please fill this in.' };
+    }
+  }
+  return null;
+}
+
 function findProblem(form, lead) {
+  if (form.hasAttribute('novalidate')) {
+    const missing = findMissing(form);
+    if (missing) return missing;
+  }
   const digits = lead.phone.replace(/\D/g, '').length;
   const phoneField = form.elements.namedItem('phone');
-  if (phoneField && (!lead.phone || !PHONE_RE.test(lead.phone) || digits < 7 || digits > 15)) {
+  const emailField = form.elements.namedItem('email');
+  // data-lead-contact="either": a phone number or an email address, whichever they prefer.
+  const either = form.dataset.leadContact === 'either';
+  if (either && phoneField && emailField && !lead.phone && !lead.email) {
+    return { field: phoneField, message: 'Please add a phone number or an email address so we can reply.' };
+  }
+  const phoneNeeded = phoneField && !(either && !lead.phone);
+  if (phoneNeeded && (!lead.phone || !PHONE_RE.test(lead.phone) || digits < 7 || digits > 15)) {
     return { field: phoneField, message: 'Please check your phone number. Use digits only, for example 98765 43210.' };
   }
-  const emailField = form.elements.namedItem('email');
   if (emailField && lead.email && (lead.email.length > EMAIL_MAX || !EMAIL_RE.test(lead.email))) {
     return { field: emailField, message: 'Please check your email address, or leave it empty.' };
   }
@@ -334,6 +369,22 @@ function initLeadForms() {
 
       if (ok) {
         form.dataset.sent = '1';
+        // data-success="inline": stay on the page (the calculator keeps its numbers
+        // on screen) and swap the form for the thank-you block next to it.
+        if (form.dataset.success === 'inline') {
+          const thanks = document.getElementById(form.dataset.thanks || '');
+          form.hidden = true;
+          if (thanks) {
+            thanks.hidden = false;
+            try {
+              thanks.focus({ preventScroll: false });
+              thanks.scrollIntoView({ block: 'nearest' });
+            } catch {
+              /* ignore */
+            }
+          }
+          return;
+        }
         setStatus(box, 'info', 'Sent. Taking you to the next step…');
         location.assign(form.dataset.success || 'thank-you.html?type=enquiry');
         return;
@@ -367,11 +418,252 @@ function initLeadForms() {
   });
 }
 
+// ---------------------------------------------------------------------------
+// Lead Leak Calculator (calculator.html)
+// ---------------------------------------------------------------------------
+// Arithmetic on the visitor's own numbers, nothing else:
+//   extra leads     = visitors × (target% − today%)
+//   extra customers = extra leads × close%
+//   worth a month   = extra customers × customer value
+// The state lives in the URL query (?v=2000&cr=2&t=4&val=3000&close=25&cur=usd)
+// so a prefilled link can be sent. No cookies, nothing stored anywhere.
+const CALC_FIELDS = {
+  v: { def: 2000, min: 0, max: 100000000, decimals: 0 },
+  cr: { def: 2, min: 0, max: 100, decimals: 1 },
+  t: { def: 4, min: 0, max: 100, decimals: 1 },
+  val: { def: 3000, min: 0, max: 1000000000, decimals: 0 },
+  close: { def: 25, min: 0, max: 100, decimals: 0 },
+};
+const CALC_CURRENCIES = {
+  usd: { code: 'USD', locale: 'en-US', symbol: '$', valueMax: 100000 },
+  inr: { code: 'INR', locale: 'en-IN', symbol: '₹', valueMax: 1000000 },
+};
+
+function initCalculator() {
+  const form = document.getElementById('calc');
+  if (!form) return;
+
+  const byId = (id) => document.getElementById(id);
+  const num = (k) => byId(`n-${k}`);
+  const range = (k) => byId(`r-${k}`);
+  const keys = Object.keys(CALC_FIELDS);
+  const state = {};
+  let cur = 'usd';
+  let urlTimer = 0;
+
+  const clampNum = (k, raw) => {
+    const f = CALC_FIELDS[k];
+    const n = Number.parseFloat(String(raw).replace(/,/g, ''));
+    if (!Number.isFinite(n)) return f.min;
+    const scale = 10 ** f.decimals;
+    return Math.min(f.max, Math.max(f.min, Math.round(n * scale) / scale));
+  };
+
+  // Read the link first: a prospect may arrive with their numbers already in it.
+  const params = new URLSearchParams(location.search);
+  keys.forEach((k) => {
+    state[k] = params.has(k) ? clampNum(k, params.get(k)) : CALC_FIELDS[k].def;
+  });
+  if (params.get('cur') === 'inr') cur = 'inr';
+
+  const money = () => CALC_CURRENCIES[cur];
+  const fmtInt = (n) => new Intl.NumberFormat(money().locale, { maximumFractionDigits: 0 }).format(n);
+  const fmtCount = (n) =>
+    Math.abs(n) < 10 && Math.round(n) !== n
+      ? new Intl.NumberFormat(money().locale, { maximumFractionDigits: 1 }).format(n)
+      : fmtInt(n);
+  const fmtMoney = (n) =>
+    new Intl.NumberFormat(money().locale, { style: 'currency', currency: money().code, maximumFractionDigits: 0 }).format(n);
+  const fmtPct = (n) => `${new Intl.NumberFormat('en-US', { maximumFractionDigits: 1 }).format(n)}%`;
+
+  const buildQuery = () => {
+    const q = new URLSearchParams();
+    keys.forEach((k) => q.set(k, String(state[k])));
+    q.set('cur', cur);
+    return q.toString();
+  };
+  const buildUrl = () => `${location.origin}${location.pathname}?${buildQuery()}`;
+
+  // Safari limits history.replaceState to 100 calls per 30 seconds and throws
+  // past that; a slider drag fires far more input events. Write the URL a
+  // moment after the last change instead of on every one.
+  const writeUrl = () => {
+    clearTimeout(urlTimer);
+    urlTimer = 0;
+    try {
+      history.replaceState(null, '', `${location.pathname}?${buildQuery()}`);
+    } catch {
+      /* ignore: the Copy link button builds the URL from the state anyway */
+    }
+  };
+  const scheduleUrl = () => {
+    clearTimeout(urlTimer);
+    urlTimer = setTimeout(writeUrl, 250);
+  };
+
+  const paintRange = (k) => {
+    const r = range(k);
+    if (!r) return;
+    const min = Number(r.min);
+    const max = Number(r.max);
+    const v = Math.min(max, Math.max(min, state[k]));
+    r.value = String(v);
+    r.style.setProperty('--p', `${max > min ? ((v - min) / (max - min)) * 100 : 0}%`);
+  };
+
+  const syncInputs = (except) => {
+    keys.forEach((k) => {
+      const n = num(k);
+      if (n && n !== except) n.value = String(state[k]);
+      paintRange(k);
+    });
+  };
+
+  const compute = () => {
+    const leadsNow = (state.v * state.cr) / 100;
+    const leadsTarget = (state.v * state.t) / 100;
+    const extraLeads = Math.max(0, leadsTarget - leadsNow);
+    const extraCustomers = (extraLeads * state.close) / 100;
+    const month = extraCustomers * state.val;
+    return { leadsNow, leadsTarget, extraLeads, extraCustomers, month, year: month * 12 };
+  };
+
+  const setText = (id, text) => {
+    const el = byId(id);
+    if (el) el.textContent = text;
+  };
+
+  const render = () => {
+    const r = compute();
+    setText('out-month', fmtMoney(r.month));
+    setText('out-year', fmtMoney(r.year));
+    setText('out-leads-now', fmtCount(r.leadsNow));
+    setText('out-leads-target', fmtCount(r.leadsTarget));
+    setText('out-leads', fmtCount(r.extraLeads));
+    setText('out-customers', fmtCount(r.extraCustomers));
+
+    let warn = '';
+    if (state.t < state.cr) warn = `Your target is below today's rate, so there is nothing extra to count. Move the target above ${fmtPct(state.cr)}.`;
+    else if (state.t === state.cr) warn = "Target equals today's rate. Move the target up to see what the difference is worth.";
+    setText('calc-warn', warn);
+
+    const arithmetic = `${fmtInt(state.v)} visitors × (${fmtPct(state.t)} − ${fmtPct(state.cr)}) = ${fmtCount(r.extraLeads)} extra leads × ${fmtPct(state.close)} close = ${fmtCount(r.extraCustomers)} customers × ${fmtMoney(state.val)} = ${fmtMoney(r.month)} a month`;
+    const formula = byId('out-formula');
+    if (formula) {
+      formula.textContent = '';
+      const label = document.createElement('strong');
+      label.textContent = 'Your numbers, our arithmetic: ';
+      formula.append(label, arithmetic);
+    }
+
+    document.querySelectorAll('[data-sym]').forEach((el) => {
+      el.textContent = money().symbol;
+    });
+    document.querySelectorAll('.calc-cur').forEach((b) => {
+      b.setAttribute('aria-pressed', String(b.dataset.cur === cur));
+    });
+
+    // The "Send me this as a plan" form carries the numbers in the message.
+    const summary = document.querySelector('[data-calc-summary]');
+    if (summary) summary.value = `${arithmetic} (${fmtMoney(r.year)} a year). Link: ${buildUrl()}`;
+  };
+
+  const update = (except) => {
+    syncInputs(except);
+    scheduleUrl();
+    render();
+  };
+
+  keys.forEach((k) => {
+    const n = num(k);
+    const r = range(k);
+    if (n) {
+      n.addEventListener('input', () => {
+        if (n.value === '') return; // still typing; keep the last good number
+        state[k] = clampNum(k, n.value);
+        update(n);
+      });
+      n.addEventListener('blur', () => {
+        state[k] = clampNum(k, n.value);
+        update();
+      });
+    }
+    if (r) {
+      r.addEventListener('input', () => {
+        state[k] = clampNum(k, r.value);
+        update();
+      });
+    }
+  });
+
+  document.querySelectorAll('.calc-cur').forEach((button) => {
+    button.addEventListener('click', () => {
+      cur = button.dataset.cur === 'inr' ? 'inr' : 'usd';
+      const rv = range('val');
+      if (rv) rv.max = String(money().valueMax);
+      update();
+    });
+  });
+
+  // Enter in a number field must never reload the page.
+  form.addEventListener('submit', (event) => event.preventDefault());
+
+  const copy = byId('copy-link');
+  const copyStatus = byId('copy-status');
+  if (copy) {
+    copy.addEventListener('click', async () => {
+      writeUrl();
+      const url = buildUrl();
+      let done = false;
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(url);
+          done = true;
+        }
+      } catch {
+        done = false;
+      }
+      if (!done) {
+        // Older browsers, or no clipboard permission: select a temporary field and copy.
+        const field = document.createElement('input');
+        field.value = url;
+        field.setAttribute('readonly', '');
+        field.style.position = 'fixed';
+        field.style.left = '-9999px';
+        document.body.append(field);
+        field.select();
+        try {
+          done = document.execCommand('copy');
+        } catch {
+          done = false;
+        }
+        field.remove();
+      }
+      if (copyStatus) {
+        copyStatus.textContent = done
+          ? 'Link copied. Anyone who opens it sees these numbers.'
+          : `Copying didn't work here. The link is: ${url}`;
+      }
+    });
+  }
+
+  // Make sure the plan form carries the latest URL even if the timer hasn't fired.
+  const plan = byId('calc-plan-form');
+  if (plan) plan.addEventListener('submit', writeUrl, true);
+
+  const rv = range('val');
+  if (rv) rv.max = String(money().valueMax);
+  syncInputs();
+  writeUrl();
+  render();
+}
+
 function init() {
   initMenu();
   initIconsAndAnimations();
   initFloatAvoid();
   initLeadForms();
+  initCalculator();
 }
 
 if (document.readyState === 'loading') {
