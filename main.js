@@ -427,11 +427,13 @@ function initLeadForms() {
 //   worth a month   = extra customers × customer value
 // The state lives in the URL query (?v=2000&cr=2&t=4&val=3000&close=25&cur=usd)
 // so a prefilled link can be sent. No cookies, nothing stored anywhere.
+// Caps keep a typo (an extra zero or three) from producing a figure that no
+// longer fits on a phone screen: ten million visitors or ten million per customer.
 const CALC_FIELDS = {
-  v: { def: 2000, min: 0, max: 100000000, decimals: 0 },
+  v: { def: 2000, min: 0, max: 10000000, decimals: 0 },
   cr: { def: 2, min: 0, max: 100, decimals: 1 },
   t: { def: 4, min: 0, max: 100, decimals: 1 },
-  val: { def: 3000, min: 0, max: 1000000000, decimals: 0 },
+  val: { def: 3000, min: 0, max: 10000000, decimals: 0 },
   close: { def: 25, min: 0, max: 100, decimals: 0 },
 };
 const CALC_CURRENCIES = {
@@ -451,10 +453,12 @@ function initCalculator() {
   let cur = 'usd';
   let urlTimer = 0;
 
-  const clampNum = (k, raw) => {
+  // A number inside the field's bounds, or `fallback` when the text isn't a number
+  // at all (an empty field, "abc" in a shared link): never silently zero.
+  const clampNum = (k, raw, fallback) => {
     const f = CALC_FIELDS[k];
     const n = Number.parseFloat(String(raw).replace(/,/g, ''));
-    if (!Number.isFinite(n)) return f.min;
+    if (!Number.isFinite(n)) return fallback === undefined ? f.min : fallback;
     const scale = 10 ** f.decimals;
     return Math.min(f.max, Math.max(f.min, Math.round(n * scale) / scale));
   };
@@ -462,7 +466,7 @@ function initCalculator() {
   // Read the link first: a prospect may arrive with their numbers already in it.
   const params = new URLSearchParams(location.search);
   keys.forEach((k) => {
-    state[k] = params.has(k) ? clampNum(k, params.get(k)) : CALC_FIELDS[k].def;
+    state[k] = params.has(k) ? clampNum(k, params.get(k), CALC_FIELDS[k].def) : CALC_FIELDS[k].def;
   });
   if (params.get('cur') === 'inr') cur = 'inr';
 
@@ -583,8 +587,10 @@ function initCalculator() {
         state[k] = clampNum(k, n.value);
         update(n);
       });
+      // Leaving a field empty (cleared to retype, then tapped elsewhere) keeps the
+      // last good number instead of dropping to zero; out-of-range typing is clamped.
       n.addEventListener('blur', () => {
-        state[k] = clampNum(k, n.value);
+        state[k] = clampNum(k, n.value, state[k]);
         update();
       });
     }

@@ -4198,6 +4198,12 @@ button.btn { font-size: 1rem; }
 
 .calc-year strong { color: var(--amber-text); font-weight: 900; }
 
+/* A very large figure (a typo with extra zeros) wraps inside the card instead of
+   pushing the column, and the page, wider than a phone screen. */
+.calc-layout > * { min-width: 0; }
+.calc-year,
+.calc-grid dd { overflow-wrap: anywhere; }
+
 .calc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
