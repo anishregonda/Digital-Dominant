@@ -2650,6 +2650,9 @@ textarea:focus-visible {
   .price-ref-actions { align-items: stretch; }
   .price-ref-actions .btn { text-align: center; }
   .price-ref-actions .text-link { align-self: center; }
+  /* Home page "Free 30-Minute Call" card: room for the whole
+     "Book a free 30-minute call →" label on one line at 360px and up */
+  .strategy-card { padding: 2.25rem 1.25rem; }
 }
 
 /* ---- Closing CTA band ---- */
