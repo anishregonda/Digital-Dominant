@@ -91,12 +91,17 @@ function initIconsAndAnimations() {
 // ---------------------------------------------------------------------------
 // Floating WhatsApp button: never on top of a page's own buttons
 // ---------------------------------------------------------------------------
-// Button groups marked data-wa-avoid (e.g. a hero or closing CTA that already
-// offers WhatsApp): while one of their buttons passes under the floating
-// button, the floating button steps aside (.is-tucked) so it never covers it.
+// Every button in the page's <main> (.btn, the Influencers Lab and thank-you
+// page buttons, form buttons), plus button groups marked data-wa-avoid (e.g. a
+// hero or closing CTA that already offers WhatsApp): while one of them passes
+// under the floating button, the floating button steps aside (.is-tucked) so it
+// never covers it. Single buttons count too: on a 320px phone a lone "Book a
+// call" button can sit right under the floating button.
+const FLOAT_AVOID = '[data-wa-avoid] .btn, main .btn, main .il-btn, main .thank-you-btn, main button';
+
 function initFloatAvoid() {
   const wa = document.querySelector('.wa-float');
-  const buttons = [...document.querySelectorAll('[data-wa-avoid] .btn')];
+  const buttons = [...document.querySelectorAll(FLOAT_AVOID)];
   if (!wa || !buttons.length) return;
 
   const GAP = 8; // px of breathing room around the floating button
