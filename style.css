@@ -2586,6 +2586,7 @@ button.btn { font-size: 1rem; }
   color: #ffffff;
   max-width: 560px;
   margin-bottom: 1rem;
+  text-wrap: balance; /* no lone last word on a phone */
 }
 
 .hub-hero .hero-text p:not(.hub-lead):not(.hero-links) { margin-bottom: 1.5rem; }
@@ -2622,6 +2623,12 @@ button.btn { font-size: 1rem; }
   font-weight: 600;
   color: rgba(255, 255, 255, 0.85);
   text-align: center;
+  /* on a 320px phone the label drops under "Home screen" cleanly, no dangling separator */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem 0.6rem;
 }
 
 /* ---- Screens: a swipeable row on phones, a 3 + 2 grid on wide screens ---- */

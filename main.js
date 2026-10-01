@@ -118,6 +118,10 @@ function initFloatAvoid() {
   window.addEventListener('scroll', queue, { passive: true });
   window.addEventListener('resize', queue);
   window.addEventListener('load', queue, { once: true }); // fonts and images can move the buttons
+  window.addEventListener('pageshow', queue); // back/forward cache: check again on return
+  // The page can also move under a still screen: an FAQ answer opening or closing
+  // slides the closing buttons up or down without any scroll. Watch the page's size.
+  if (typeof ResizeObserver === 'function') new ResizeObserver(queue).observe(document.body);
   update();
 }
 
