@@ -93,11 +93,13 @@ function initIconsAndAnimations() {
 // ---------------------------------------------------------------------------
 // Every button in the page's <main> (.btn, the Influencers Lab and thank-you
 // page buttons, form buttons), plus button groups marked data-wa-avoid (e.g. a
-// hero or closing CTA that already offers WhatsApp): while one of them passes
-// under the floating button, the floating button steps aside (.is-tucked) so it
-// never covers it. Single buttons count too: on a 320px phone a lone "Book a
-// call" button can sit right under the floating button.
-const FLOAT_AVOID = '[data-wa-avoid] .btn, main .btn, main .il-btn, main .thank-you-btn, main button';
+// hero or closing CTA that already offers WhatsApp) and single button-style
+// links marked data-wa-avoid (the contact card's "Book a free 30-minute call"
+// has no .btn): while one of them passes under the floating button, the
+// floating button steps aside (.is-tucked) so it never covers it. Single buttons
+// count too: on a 320px phone a lone "Book a call" button can sit right under
+// the floating button.
+const FLOAT_AVOID = '[data-wa-avoid] .btn, a[data-wa-avoid], main .btn, main .il-btn, main .thank-you-btn, main button';
 
 function initFloatAvoid() {
   const wa = document.querySelector('.wa-float');
