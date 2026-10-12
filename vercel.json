@@ -3,9 +3,14 @@
   "functions": {
     "api/growth-check.js": { "maxDuration": 60 }
   },
+  "redirects": [
+    { "source": "/pricing.html", "destination": "/services.html#plans", "permanent": true },
+    { "source": "/pricing", "destination": "/services.html#plans", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/hub", "destination": "/hub.html" },
     { "source": "/calculator", "destination": "/calculator.html" },
-    { "source": "/growth-check", "destination": "/growth-check.html" }
+    { "source": "/growth-check", "destination": "/growth-check.html" },
+    { "source": "/services", "destination": "/services.html" }
   ]
 }

@@ -5219,3 +5219,19 @@ form[hidden],
   .gc-cta .btn,
   .gc-actions .btn { flex: 1 1 100%; justify-content: center; text-align: center; }
 }
+
+/* ---- Services page: cards with more than one link ---- */
+.svc-card p + p { margin-top: 0.6rem; }
+
+.svc-card .svc-links {
+  margin-top: auto;
+  padding-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+}
+
+.svc-card .svc-links .text-link {
+  margin-top: 0;
+  padding-top: 0;
+}

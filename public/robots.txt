@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /thank-you.html
+Disallow: /api/
 
 Sitemap: https://www.digitaldominant.co.uk/sitemap.xml

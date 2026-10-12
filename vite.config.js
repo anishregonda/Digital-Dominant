@@ -35,7 +35,8 @@ export default defineConfig({
         contact: resolve(__dirname, 'contact.html'),
         work: resolve(__dirname, 'work.html'),
         portfolio: resolve(__dirname, 'portfolio.html'),
-        pricing: resolve(__dirname, 'pricing.html'),
+        pricing: resolve(__dirname, 'pricing.html'), // redirect to services.html#plans for old links
+        services: resolve(__dirname, 'services.html'),
         hub: resolve(__dirname, 'hub.html'),
         calculator: resolve(__dirname, 'calculator.html'),
         growthCheck: resolve(__dirname, 'growth-check.html'),
