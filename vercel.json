@@ -1,5 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "api/growth-check.js": { "maxDuration": 60 }
+  },
   "rewrites": [
     { "source": "/hub", "destination": "/hub.html" },
     { "source": "/calculator", "destination": "/calculator.html" }

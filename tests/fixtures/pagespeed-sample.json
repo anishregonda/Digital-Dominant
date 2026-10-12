@@ -1,0 +1,18 @@
+{
+  "captchaResult": "CAPTCHA_NOT_NEEDED",
+  "kind": "pagespeedonline#result",
+  "id": "https://smithroofing.example/",
+  "lighthouseResult": {
+    "requestedUrl": "https://smithroofing.example/",
+    "finalUrl": "https://smithroofing.example/",
+    "lighthouseVersion": "12.8.2",
+    "categories": {
+      "performance": { "id": "performance", "title": "Performance", "score": 0.54 }
+    },
+    "audits": {
+      "largest-contentful-paint": { "id": "largest-contentful-paint", "numericValue": 4123.4, "displayValue": "4.1 s" },
+      "cumulative-layout-shift": { "id": "cumulative-layout-shift", "numericValue": 0.123, "displayValue": "0.123" },
+      "total-byte-weight": { "id": "total-byte-weight", "numericValue": 3456789, "displayValue": "Total size was 3,376 KiB" }
+    }
+  }
+}
