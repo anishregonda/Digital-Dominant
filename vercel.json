@@ -5,6 +5,7 @@
   },
   "rewrites": [
     { "source": "/hub", "destination": "/hub.html" },
-    { "source": "/calculator", "destination": "/calculator.html" }
+    { "source": "/calculator", "destination": "/calculator.html" },
+    { "source": "/growth-check", "destination": "/growth-check.html" }
   ]
 }

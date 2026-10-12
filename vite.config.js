@@ -38,6 +38,7 @@ export default defineConfig({
         pricing: resolve(__dirname, 'pricing.html'),
         hub: resolve(__dirname, 'hub.html'),
         calculator: resolve(__dirname, 'calculator.html'),
+        growthCheck: resolve(__dirname, 'growth-check.html'),
         websiteDesignHyderabad: resolve(__dirname, 'website-design-hyderabad.html'),
         googleAdsHyderabad: resolve(__dirname, 'google-ads-hyderabad.html'),
         testimonials: resolve(__dirname, 'testimonials.html'),

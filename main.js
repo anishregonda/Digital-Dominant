@@ -1,5 +1,7 @@
 // Shared behaviour for every page: mobile menu, scroll animations, icons, the
-// floating WhatsApp button and the lead forms (contact + book) that post to DD Hub.
+// floating WhatsApp button, the lead forms (contact + book) that post to DD Hub,
+// the Lead Leak Calculator and the Free Growth Check (which runs on this site's
+// own /api/growth-check, not on the Hub).
 //
 // Lead forms never fake success: we only move on to the thank-you page when
 // the Hub answers {ok:true}. Anything else (error, blocked, offline, or no
@@ -664,12 +666,263 @@ function initCalculator() {
   render();
 }
 
+// ---------------------------------------------------------------------------
+// Free Growth Check (growth-check.html)
+// ---------------------------------------------------------------------------
+// Runs on this site's own /api/growth-check (a Vercel function), never on the
+// Hub. Everything that comes back is shown with textContent, never as HTML:
+// titles and file names in the report come from someone else's website.
+const GC_ENDPOINT = '/api/growth-check';
+const GC_TIMEOUT_MS = 60000; // the function stops itself at about 45 s
+const GC_STATUS_WORDS = { pass: 'Pass', warn: 'Needs work', fail: 'Fail', skipped: 'Not checked' };
+const GC_RING = 2 * Math.PI * 52; // circumference of the score ring (r = 52)
+
+function el(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text !== undefined) node.textContent = text;
+  return node;
+}
+
+function siteLabel(href) {
+  return String(href || '').replace(/^https?:\/\//i, '').replace(/\/$/, '');
+}
+
+function growthCheckWhatsApp(report) {
+  const lines = [
+    'Hi Digital Dominant, please send me the fixes from my Free Growth Check.',
+    `Business: ${clip(report.business || '', 80)}`,
+    `Website: ${report.finalUrl || report.url}`,
+    `Score: ${report.score}/100 (${report.grade})`,
+  ];
+  const fixes = Array.isArray(report.topFixes) ? report.topFixes : [];
+  if (fixes.length) {
+    lines.push('Top fixes:');
+    fixes.forEach((fix, i) => lines.push(`${i + 1}. ${clip(String(fix.text || ''), 200)}`));
+  }
+  return waLink(lines.join('\n'));
+}
+
+function renderGrowthCheck(report) {
+  const byId = (id) => document.getElementById(id);
+  const score = Math.max(0, Math.min(100, Number(report.score) || 0));
+
+  byId('gc-score').textContent = String(score);
+  byId('gc-ring').dataset.grade = String(report.grade || '');
+  byId('gc-ring-value').style.strokeDasharray = `${(score / 100) * GC_RING} ${GC_RING}`;
+  byId('gc-grade').textContent = String(report.grade || '');
+  byId('gc-grade-label').textContent = String(report.gradeLabel || '');
+  byId('gc-result-business').textContent = String(report.business || siteLabel(report.finalUrl));
+  byId('gc-result-site').textContent = siteLabel(report.finalUrl || report.url);
+  byId('gc-speed-note').hidden = Boolean(report.speed && report.speed.available);
+
+  const fixes = byId('gc-fixes');
+  fixes.textContent = '';
+  const topFixes = Array.isArray(report.topFixes) ? report.topFixes : [];
+  if (topFixes.length) {
+    topFixes.forEach((fix) => {
+      const item = el('li');
+      item.append(el('strong', '', String(fix.title || '')), el('span', '', String(fix.text || '')));
+      fixes.append(item);
+    });
+  } else {
+    const item = el('li');
+    item.append(
+      el('strong', '', 'Nothing urgent'),
+      el('span', '', 'Your homepage covers everything we check. Book a call and we’ll look at your Google reviews and competitors next.'),
+    );
+    fixes.append(item);
+  }
+
+  const groups = byId('gc-groups');
+  groups.textContent = '';
+  (Array.isArray(report.groups) ? report.groups : []).forEach((group) => {
+    const box = el('section', 'gc-group');
+    box.append(el('h3', '', String(group.title || '')));
+    const list = el('ul');
+    (Array.isArray(group.checks) ? group.checks : []).forEach((check) => {
+      const status = GC_STATUS_WORDS[check.status] ? check.status : 'skipped';
+      const item = el('li', `gc-item is-${status}`);
+      const icon = el('span', 'gc-icon');
+      icon.setAttribute('aria-hidden', 'true');
+      const body = el('div');
+      body.append(el('strong', '', String(check.name || '')), el('span', '', String(check.detail || '')));
+      item.append(icon, body, el('span', 'visually-hidden', ` ${GC_STATUS_WORDS[status]}`));
+      list.append(item);
+    });
+    box.append(list);
+    groups.append(box);
+  });
+
+  const notes = byId('gc-notes');
+  notes.textContent = '';
+  const noteList = Array.isArray(report.notes) ? report.notes : [];
+  noteList.forEach((note) => notes.append(el('li', '', String(note))));
+  notes.hidden = noteList.length === 0;
+
+  byId('gc-wa').href = growthCheckWhatsApp(report);
+}
+
+function initGrowthCheck() {
+  const form = document.getElementById('gc-form');
+  if (!form) return;
+  const byId = (id) => document.getElementById(id);
+  const panels = { what: byId('gc-what'), loading: byId('gc-loading'), error: byId('gc-error'), result: byId('gc-result') };
+  const show = (name) => {
+    Object.entries(panels).forEach(([key, panel]) => {
+      if (panel) panel.hidden = key !== name;
+    });
+  };
+  const button = form.querySelector('[type="submit"]');
+  const label = button ? button.textContent : '';
+  const formError = byId('gc-form-error');
+  const businessField = form.elements.namedItem('business');
+  const urlField = form.elements.namedItem('url');
+  let running = false;
+
+  // A link can carry the site in: /growth-check?url=example.com&business=Example
+  const params = new URLSearchParams(location.search);
+  if (params.get('url')) urlField.value = params.get('url').slice(0, 2048);
+  if (params.get('business')) businessField.value = params.get('business').slice(0, 80);
+
+  const setFormError = (text, field) => {
+    formError.textContent = text;
+    formError.hidden = !text;
+    if (field) field.focus();
+  };
+
+  const bringIntoView = (node) => {
+    try {
+      node.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    } catch {
+      /* ignore */
+    }
+  };
+
+  const focusPanel = (node) => {
+    try {
+      node.focus({ preventScroll: true });
+    } catch {
+      /* ignore */
+    }
+    bringIntoView(node);
+  };
+
+  const reset = () => {
+    running = false;
+    if (button) {
+      button.disabled = false;
+      button.textContent = label;
+    }
+  };
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (running) return;
+    const business = businessField.value.trim();
+    const url = urlField.value.trim();
+    if (!business) {
+      setFormError('Please enter your business name.', businessField);
+      return;
+    }
+    if (!url) {
+      setFormError('Please enter your website, like yourbusiness.com.', urlField);
+      return;
+    }
+    setFormError('');
+
+    running = true;
+    if (button) {
+      button.disabled = true;
+      button.textContent = 'Checking…';
+    }
+    byId('gc-loading-site').textContent = siteLabel(url);
+    byId('gc-elapsed').textContent = '0';
+    show('loading');
+    bringIntoView(panels.loading);
+    const started = Date.now();
+    const ticker = setInterval(() => {
+      byId('gc-elapsed').textContent = String(Math.round((Date.now() - started) / 1000));
+    }, 1000);
+
+    const controller = new AbortController();
+    const stop = setTimeout(() => controller.abort(), GC_TIMEOUT_MS);
+    let report = null;
+    let failure = '';
+    try {
+      const response = await fetch(GC_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ business, url }),
+        signal: controller.signal,
+        credentials: 'same-origin',
+        cache: 'no-store',
+      });
+      try {
+        report = await response.json();
+      } catch {
+        report = null;
+      }
+      if (!response.ok || !report || report.ok !== true) {
+        failure =
+          (report && typeof report.error === 'string' && report.error) ||
+          'Something went wrong on our side. Please try again in a minute.';
+      }
+    } catch {
+      failure = controller.signal.aborted
+        ? 'The check took too long this time. Please try again, or book a call and we’ll run it with you.'
+        : 'We couldn’t reach our checker. Please check your connection and try again.';
+    } finally {
+      clearTimeout(stop);
+      clearInterval(ticker);
+      reset();
+    }
+
+    if (failure) {
+      byId('gc-error-text').textContent = failure;
+      show('error');
+      focusPanel(panels.error);
+      return;
+    }
+    renderGrowthCheck(report);
+    show('result');
+    focusPanel(panels.result);
+  });
+
+  const retry = byId('gc-retry');
+  if (retry) {
+    retry.addEventListener('click', () => {
+      if (typeof form.requestSubmit === 'function') form.requestSubmit();
+      else form.dispatchEvent(new Event('submit', { cancelable: true }));
+    });
+  }
+
+  const again = byId('gc-again');
+  if (again) {
+    again.addEventListener('click', () => {
+      urlField.value = '';
+      show('what');
+      bringIntoView(form);
+      urlField.focus({ preventScroll: true });
+    });
+  }
+
+  // Back/forward cache: never come back to a stuck "Checking…" button.
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted && running) {
+      reset();
+      show('what');
+    }
+  });
+}
+
 function init() {
   initMenu();
   initIconsAndAnimations();
   initFloatAvoid();
   initLeadForms();
   initCalculator();
+  initGrowthCheck();
 }
 
 if (document.readyState === 'loading') {
