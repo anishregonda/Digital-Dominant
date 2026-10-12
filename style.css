@@ -790,13 +790,6 @@ h1, h2, h3, h4 {
     width: 100%;
   }
 
-  /* Fix Influencers Lab link alignment on mobile */
-  .nav-links a.nav-influencers-lab {
-    text-align: center !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-
   /* Hamburger Animation */
   .menu-toggle.active .bar:nth-child(1) {
     transform: translateY(8px) rotate(45deg);
@@ -1240,85 +1233,6 @@ h1, h2, h3, h4 {
   100% { transform: translateX(calc(-300px * 7 - 14rem)); }
 }
 
-/* ===== Influencers Lab — Gemini Gradient-Glow Nav Link ===== */
-@property --glow-angle {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
-}
-
-@keyframes glow-rotate {
-  0%   { --glow-angle: 0deg; }
-  100% { --glow-angle: 360deg; }
-}
-
-.nav-links a.nav-influencers-lab {
-  position: relative;
-  font-weight: 700;
-  color: var(--accent-primary);
-  padding: 0.4rem 1rem;
-  border-radius: 8px;
-  z-index: 1;
-  transition: color 0.3s ease, transform 0.2s ease;
-  isolation: isolate;
-}
-
-/* Gradient glow pseudo-element (hidden by default) */
-.nav-links a.nav-influencers-lab::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: 10px;
-  background: conic-gradient(
-    from var(--glow-angle),
-    #8b5cf6,
-    #ec4899,
-    #f59e0b,
-    #3b82f6,
-    #10b981,
-    #8b5cf6
-  );
-  z-index: -2;
-  opacity: 0;
-  filter: blur(4px);
-  transition: opacity 0.4s ease;
-  animation: glow-rotate 3s linear infinite;
-}
-
-/* Inner background to create the "border glow" effect */
-.nav-links a.nav-influencers-lab::after {
-  content: '';
-  position: absolute;
-  inset: 1px;
-  border-radius: 8px;
-  background: #ffffff;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-/* Hover: activate the glow */
-.nav-links a.nav-influencers-lab:hover::before {
-  opacity: 1;
-}
-
-.nav-links a.nav-influencers-lab:hover::after {
-  opacity: 1;
-}
-
-.nav-links a.nav-influencers-lab:hover {
-  color: #7c3aed;
-  transform: translateY(-1px);
-}
-
-/* Mobile: full-width glow on mobile nav */
-@media (max-width: 900px) {
-  .nav-links a.nav-influencers-lab {
-    display: inline-block;
-    margin: 0.5rem auto;
-  }
-}
-
 /* ===== Team Section (About Page) ===== */
 .team-grid {
   display: grid;
@@ -1565,8 +1479,7 @@ textarea:focus-visible {
     max-height: calc(100dvh - var(--nav-h));
     overflow-y: auto;
   }
-  .nav-links a.nav-audit,
-  .nav-links a.nav-influencers-lab {
+  .nav-links a.nav-audit {
     display: inline-block;
     width: auto;
     margin: 0.5rem auto;
@@ -2911,11 +2824,11 @@ button.btn { font-size: 1rem; }
    DD Hub page (hub.html): phone screenshots, features, privacy
    ===================================================================== */
 
-/* One more nav link ("DD Hub"): keep the desktop bar on one line from 901px */
+/* Narrow desktops: keep the menu, Client login and Book a call on one line from 901px */
 @media (min-width: 901px) and (max-width: 1100px) {
-  .nav-links a { margin: 0 0.4rem; font-size: 0.86rem; }
+  .nav-links a { margin: 0 0.6rem; font-size: 0.9rem; }
   .nav-links a.nav-audit { padding: 0.35rem 0.6rem; }
-  .nav-links a.nav-influencers-lab { padding: 0.35rem 0.7rem; }
+  .nav-actions { gap: 1rem; }
   .nav-btn { padding-left: 1rem; padding-right: 1rem; font-size: 0.9rem; }
 }
 
