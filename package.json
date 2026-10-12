@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node tests/growth-check-unit.test.js && node tests/growth-check-ssrf.test.js && node tests/growth-check-handler.test.js",
+    "test": "node tests/growth-check-unit.test.js && node tests/growth-check-accuracy.test.js && node tests/growth-check-ssrf.test.js && node tests/growth-check-handler.test.js",
     "test:live": "node tests/growth-check-live.test.js",
     "test:e2e": "vite build && node tests/site-e2e.test.js",
     "preview:vercel": "vite build && node tests/lib/vercel-local.js 4311"

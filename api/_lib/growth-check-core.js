@@ -9,11 +9,15 @@
 //      performance) in parallel, with a ~30 s timeout. No key, a quota error
 //      (429) or any other failure just means "speed test unavailable"; the
 //      image-weight check still runs.
-//   3. Fetch the page: 10 s timeout, 2 MB cap, a normal browser user-agent.
+//   3. Fetch the page: 10 s timeout, 2 MB cap, a normal browser user-agent. A
+//      bare domain whose HTTPS doesn't work is tried again on http:// (10 s more).
 //   4. Read the HTML once (analyzeHtml) and weigh up to 25 of its images with
-//      HEAD / one-byte range requests in parallel (short timeouts).
+//      HEAD / one-byte range requests in parallel (short timeouts). On Wix,
+//      also read the site's tag list (Wix adds tracking codes after the page loads).
 //   5. Turn the facts into plain-words checks, a 0-100 score, a grade and the
-//      top 3 fixes.
+//      top 3 fixes. Where the page doesn't let us see something (a page drawn
+//      by JavaScript, Wix tags we couldn't read), the check is "not checked"
+//      and left out of the score, never reported as missing.
 //
 // SCORING. Every check has a weight (points). Pass earns all of its points,
 // warn half, fail none. A check that couldn't run (no speed test, images that
@@ -333,31 +337,169 @@ export function parseSrcset(value) {
     let url = s.slice(i, j);
     let descriptor = '';
     if (url.endsWith(',')) {
-      url = url.replace(/,+$/, '');
+      // Trim trailing commas by hand: a regex like /,+$/ backtracks on "x,,,,y," and
+      // a hostile page could make it crawl.
+      let end = url.length;
+      while (end > 0 && url.charCodeAt(end - 1) === 44) end -= 1;
+      url = url.slice(0, end);
       i = j;
     } else {
       let k = j;
       while (k < n && s[k] !== ',') k += 1;
-      descriptor = s.slice(j, k).trim();
+      // Real descriptors are a few characters ("640w", "2x"); never run a regex over more.
+      descriptor = s.slice(j, Math.min(k, j + 64)).trim();
       i = k + 1;
     }
     if (!url) continue;
-    const w = /(\d+)w/.exec(descriptor);
-    const x = /([\d.]+)x/.exec(descriptor);
+    const w = /(?:^|\s)(\d{1,5})w(?=\s|$)/.exec(descriptor);
+    const x = /(?:^|\s)(\d{1,2}(?:\.\d{1,3})?)x(?=\s|$)/.exec(descriptor);
     out.push({ url, w: w ? Number(w[1]) : null, x: x ? Number(x[1]) : null });
   }
   return out;
 }
 
-// The candidate a phone would most likely download: the one nearest 1080px wide.
-function pickSrcsetCandidate(list) {
+// The phone we weigh images for: 390 CSS pixels wide, 3 device pixels per CSS
+// pixel (an iPhone; most Android phones are close).
+export const PHONE_WIDTH = 390;
+export const PHONE_DPR = 3;
+
+// The candidate that phone would download, the way Chrome picks: work out how
+// wide the image is on screen from `sizes`, then take the smallest candidate
+// that is sharp enough, or the one below it if that's nearly as sharp.
+export function pickSrcsetCandidate(list, sizes) {
   if (!list.length) return null;
   const withWidth = list.filter((c) => c.w);
-  if (withWidth.length) {
-    return withWidth.reduce((best, c) => (Math.abs(c.w - 1080) < Math.abs(best.w - 1080) ? c : best)).url;
+  const slot = Math.max(1, slotWidth(sizes));
+  const byDensity = (withWidth.length ? withWidth.map((c) => ({ url: c.url, d: c.w / slot })) : list.map((c) => ({ url: c.url, d: c.x || 1 })))
+    .sort((a, b) => a.d - b.d);
+  for (let k = 0; k < byDensity.length; k++) {
+    if (byDensity[k].d >= PHONE_DPR) {
+      if (k > 0 && PHONE_DPR < Math.sqrt(byDensity[k - 1].d * byDensity[k].d)) return byDensity[k - 1].url;
+      return byDensity[k].url;
+    }
   }
-  const twoX = list.find((c) => c.x === 2);
-  return (twoX || list[list.length - 1]).url;
+  return byDensity[byDensity.length - 1].url;
+}
+
+// How wide (CSS px) an image shows on the phone, from its `sizes` attribute:
+// "(max-width: 767px) 100vw, 50vw", "(min-width: 769px) 160px, 110px",
+// "auto, 400px", "calc((100vw - 35px) / 2)". The first entry whose condition
+// fits the phone wins; anything we can't read means the full screen width.
+export function slotWidth(sizes) {
+  const text = String(sizes || '').slice(0, 1000);
+  for (const raw of splitTopLevel(text)) {
+    const entry = raw.trim();
+    if (!entry || /^auto$/i.test(entry)) continue;
+    const at = lengthStart(entry);
+    const condition = entry.slice(0, at).trim();
+    if (condition && !mediaFitsPhone(condition)) continue;
+    const width = cssLengthPx(entry.slice(at).trim());
+    return width === null ? PHONE_WIDTH : width;
+  }
+  return PHONE_WIDTH;
+}
+
+function splitTopLevel(text) {
+  const parts = [];
+  let depth = 0;
+  let from = 0;
+  for (let k = 0; k < text.length; k++) {
+    const c = text[k];
+    if (c === '(') depth += 1;
+    else if (c === ')') depth = Math.max(0, depth - 1);
+    else if (c === ',' && depth === 0) {
+      parts.push(text.slice(from, k));
+      from = k + 1;
+    }
+  }
+  parts.push(text.slice(from));
+  return parts;
+}
+
+// Where the length starts in "(media condition) length": the last word, or the
+// whole calc(...) at the end.
+function lengthStart(entry) {
+  let k = entry.length - 1;
+  if (entry[k] === ')') {
+    let depth = 0;
+    for (; k >= 0; k--) {
+      if (entry[k] === ')') depth += 1;
+      else if (entry[k] === '(') {
+        depth -= 1;
+        if (depth === 0) break;
+      }
+    }
+    while (k > 0 && /[a-z-]/i.test(entry[k - 1])) k -= 1;
+    return Math.max(0, k);
+  }
+  while (k >= 0 && !/\s/.test(entry[k])) k -= 1;
+  return k + 1;
+}
+
+// "(min-width: 769px)", "(max-width: 47.9375em) and (min-width: 20em)".
+function mediaFitsPhone(condition) {
+  return condition.split(/\s+and\s+/i).every((part) => {
+    const m = /^\(\s*(min|max)-width\s*:\s*(\d{1,5}(?:\.\d{1,4})?)(px|em|rem)\s*\)$/i.exec(part.trim());
+    if (!m) return false; // a condition we don't read: assume it isn't the phone
+    const px = Number(m[2]) * (m[3].toLowerCase() === 'px' ? 1 : 16);
+    return m[1].toLowerCase() === 'min' ? PHONE_WIDTH >= px : PHONE_WIDTH <= px;
+  });
+}
+
+// "100vw", "160px", "22rem", "calc((100vw - 35px) / 2)" -> CSS px, or null.
+function cssLengthPx(text) {
+  const calc = /^calc\((.*)\)$/i.exec(text);
+  const src = calc ? calc[1] : text;
+  let i = 0;
+  const skip = () => {
+    while (i < src.length && /\s/.test(src[i])) i += 1;
+  };
+  const factor = () => {
+    skip();
+    if (src[i] === '(') {
+      i += 1;
+      const v = sum();
+      skip();
+      if (src[i] !== ')') throw new Error('calc');
+      i += 1;
+      return v;
+    }
+    const m = /^(\d{1,5}(?:\.\d{1,4})?|\.\d{1,4})(vw|px|rem|em)?/i.exec(src.slice(i, i + 24));
+    if (!m) throw new Error('calc');
+    i += m[0].length;
+    const n = Number(m[1]);
+    const unit = (m[2] || '').toLowerCase();
+    return unit === 'vw' ? (n * PHONE_WIDTH) / 100 : unit === 'rem' || unit === 'em' ? n * 16 : n;
+  };
+  const product = () => {
+    let v = factor();
+    for (;;) {
+      skip();
+      const op = src[i];
+      if (op !== '*' && op !== '/') return v;
+      i += 1;
+      const r = factor();
+      v = op === '*' ? v * r : v / r;
+    }
+  };
+  const sum = () => {
+    let v = product();
+    for (;;) {
+      skip();
+      const op = src[i];
+      if (op !== '+' && op !== '-') return v;
+      i += 1;
+      const r = product();
+      v = op === '+' ? v + r : v - r;
+    }
+  };
+  try {
+    const v = sum();
+    skip();
+    return i === src.length && Number.isFinite(v) && v > 0 ? v : null;
+  } catch {
+    return null;
+  }
 }
 
 const PLACEHOLDER_SRC = /^data:|(?:^|\/)(?:blank|spacer|pixel|placeholder|lazy[-_]?load(?:er)?|transparent|empty)\.(?:gif|png|svg)/i;
@@ -405,17 +547,28 @@ function resolveAgainst(href, base) {
 
 const SEARCH_FIELD_NAMES = new Set(['q', 's', 'search', 'query', 'keyword', 'keywords', 'term']);
 const FIELD_TYPES_IGNORED = new Set(['hidden', 'submit', 'button', 'reset', 'image', 'checkbox', 'radio', 'file', 'range', 'color']);
+// Forms and booking tools that are drawn by a script or an iframe, so the page's
+// own HTML has no <form>. Shown as "Found a <label> form." Keep every pattern
+// free of unbounded wildcards (".*"): they run over the whole page.
 const FORM_PROVIDERS = [
   ['Typeform', /typeform\.com\/(?:to|embed)|embed\.typeform\.com/i],
   ['Jotform', /jotform\.(?:com|us)\/|form\.jotform/i],
-  ['Google Forms', /docs\.google\.com\/forms|forms\.gle\//i],
+  ['Google', /docs\.google\.com\/forms|forms\.gle\//i],
   ['HubSpot', /js\.hsforms\.net|hbspt\.forms\.create|share\.hsforms\.com/i],
   ['Wufoo', /wufoo\.com\/(?:forms|embed)/i],
   ['Formstack', /formstack\.com\/forms/i],
-  ['Cognito Forms', /cognitoforms\.com/i],
+  ['Cognito', /cognitoforms\.com/i],
   ['Tally', /tally\.so\/(?:r|embed)\//i],
-  ['Zoho Forms', /forms\.zohopublic\.|zfvsform/i],
-  ['Elfsight form', /elfsight\.com.*form|eapps-form-builder/i],
+  ['Zoho', /forms\.zohopublic\.|zfvsform/i],
+  // Squarespace draws its form blocks with JavaScript.
+  ['Squarespace', /sqs-block-form|data-sqsp-block="form"/i],
+  // Online booking / request-a-quote tools that home-service businesses use instead of a form.
+  ['ServiceTitan booking', /scheduler\.servicetitan\.com/i],
+  ['Housecall Pro booking', /online-booking\.housecallpro\.com|housecallpro\.com\/book/i],
+  ['Jobber', /clienthub\.getjobber\.com|work_request_embed/i],
+  ['Calendly booking', /assets\.calendly\.com\/assets\/external\/widget|calendly-inline-widget/i],
+  ['Acuity booking', /embed\.acuityscheduling\.com|app\.acuityscheduling\.com\/schedule/i],
+  ['Square booking', /squareup\.com\/appointments\/(?:book|buyer)/i],
 ];
 
 // Everything the checks need, read from the HTML in one pass.
@@ -437,7 +590,11 @@ export function analyzeHtml(html, pageUrl) {
     imageTags: 0,
     inlineImages: 0,
     textLength: 0,
+    scripts: 0, // <script> elements that run (not JSON data)
     baseHref: null,
+    generator: null,
+    scriptTel: null, // a tap-to-call link that a script draws (menus, page builders, JSON)
+    wix: null, // { metaSiteId, siteId } on Wix sites, which load tracking codes after the page
   };
   let svgDepth = 0;
   let h1Start = -1;
@@ -466,6 +623,7 @@ export function analyzeHtml(html, pageUrl) {
     raw({ name, attrs, content }) {
       if (name === 'title' && svgDepth === 0 && facts.title === null) facts.title = cleanText(decodeEntities(content), 200);
       if (name === 'script' && /ld\+json/i.test(attrs.type || '')) jsonLd.push(content.slice(0, 100000));
+      else if (name === 'script' && !/json|template|text\/html/i.test(attrs.type || '')) facts.scripts += 1;
     },
     tag(tag) {
       const { name, closing, attrs } = tag;
@@ -502,6 +660,7 @@ export function analyzeHtml(html, pageUrl) {
           if (key === 'description' && facts.metaDescription === null) facts.metaDescription = cleanText(content, 400);
           else if (key === 'viewport' && facts.viewport === null) facts.viewport = cleanText(content, 200);
           else if (key.startsWith('og:') && !(key in facts.og)) facts.og[key] = cleanText(content, 300);
+          else if (key === 'generator' && facts.generator === null) facts.generator = cleanText(content, 80);
           break;
         }
         case 'h1':
@@ -518,7 +677,6 @@ export function analyzeHtml(html, pageUrl) {
           break;
         }
         case 'form': {
-          // A <picture>'s <source> candidates aren't counted: only one gets downloaded, and its <img> is.
           const hint = `${attrs.role || ''} ${attrs.action || ''} ${attrs.id || ''} ${attrs.class || ''} ${attrs.name || ''}`;
           form = {
             fields: 0,
@@ -556,8 +714,20 @@ export function analyzeHtml(html, pageUrl) {
           if ((w > 0 && w <= 2) || (h > 0 && h <= 2)) break; // tracking pixel
           const lazy = attrs['data-src'] || attrs['data-lazy-src'] || attrs['data-original'] || attrs['data-lazy'];
           const src = attrs.src && !PLACEHOLDER_SRC.test(attrs.src.trim()) ? attrs.src : null;
-          const srcset = attrs.srcset || attrs['data-srcset'] || attrs['data-lazy-srcset'];
-          const chosen = src || lazy || (srcset ? pickSrcsetCandidate(parseSrcset(srcset)) : null);
+          // A phone downloads from srcset whenever there is one (src is only the
+          // fallback, and is often the biggest size), so weigh the srcset size a
+          // phone would pick. Lazy-loaders park a placeholder in srcset and the
+          // real list in data-srcset / data-lazy-srcset.
+          // A <picture>'s <source> candidates aren't counted: only one gets downloaded, and its <img> is.
+          let fromSrcset = null;
+          for (const set of [attrs.srcset, attrs['data-srcset'], attrs['data-lazy-srcset']]) {
+            const pick = set ? pickSrcsetCandidate(parseSrcset(set), attrs.sizes) : null;
+            if (pick && !PLACEHOLDER_SRC.test(pick.trim())) {
+              fromSrcset = pick;
+              break;
+            }
+          }
+          const chosen = fromSrcset || src || lazy;
           if (chosen) addImage(chosen, 'img');
           else if (attrs.src && attrs.src.trim().startsWith('data:image')) facts.inlineImages += 1;
           break;
@@ -565,7 +735,7 @@ export function analyzeHtml(html, pageUrl) {
         case 'link': {
           const rel = (attrs.rel || '').toLowerCase();
           if (rel.includes('preload') && (attrs.as || '').toLowerCase() === 'image') {
-            addImage(attrs.href || (attrs.imagesrcset ? pickSrcsetCandidate(parseSrcset(attrs.imagesrcset)) : ''), 'preload');
+            addImage(attrs.href || (attrs.imagesrcset ? pickSrcsetCandidate(parseSrcset(attrs.imagesrcset), attrs.imagesizes) : ''), 'preload');
           }
           break;
         }
@@ -604,7 +774,33 @@ export function analyzeHtml(html, pageUrl) {
   facts.tracking = findTracking(html);
   facts.whatsappInScripts = /wa\.me\/\d|api\.whatsapp\.com\/send|whatsapp\.com\/send\?phone/i.test(html);
   facts.formProviders = FORM_PROVIDERS.filter(([, re]) => re.test(html)).map(([label]) => label);
+  if (!facts.telLinks.length) facts.scriptTel = findScriptTel(html);
+  if (/wix\.com/i.test(facts.generator || '')) {
+    const metaSiteId = /"metaSiteId":"([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})"/.exec(html);
+    const siteId = /"siteId":"([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})"/.exec(html);
+    facts.wix = metaSiteId && siteId ? { metaSiteId: metaSiteId[1], siteId: siteId[1] } : { metaSiteId: null, siteId: null };
+  }
   return facts;
+}
+
+// A tap-to-call link that isn't an <a href="tel:"> in the HTML yet: menus and
+// page builders often draw it with a script from JSON ("href":"tel:+1512...").
+// Lower-case "tel:" right after a quote or "=" and straight into the number, so
+// a printed label like "Tel: 512 555 0100" doesn't count. Squarespace's phone
+// "Call" bar is drawn from its site settings.
+function findScriptTel(html) {
+  const re = /["'=]tel:(?:\/\/)?((?:\+|%2B)?\d[\d().\s%-]{5,22}\d)/g;
+  let m;
+  for (let tries = 0; tries < 50 && (m = re.exec(html)) !== null; tries++) {
+    if (html.lastIndexOf('<!--', m.index) > html.lastIndexOf('-->', m.index)) continue; // commented out
+    const number = cleanText(decodeURIComponentSafe(m[1]), 30);
+    if (number.replace(/\D/g, '').length >= 7) return number;
+  }
+  const sqsPhone = /"contactPhoneNumber"\s*:\s*"([^"\\]{5,40})"/.exec(html);
+  if (sqsPhone && sqsPhone[1].replace(/\D/g, '').length >= 7 && /"isContactPhoneNumberEnabled"\s*:\s*true/.test(html)) {
+    return cleanText(sqsPhone[1], 30);
+  }
+  return null;
 }
 
 function decodeURIComponentSafe(value) {
@@ -622,9 +818,19 @@ function uniqueMatches(html, re, group = 0) {
   return [...out];
 }
 
+// Tag managers other than Google's. They can carry Analytics, Ads and the Pixel,
+// but what's inside them can't be seen from the page.
+const OTHER_TAG_MANAGERS = [
+  ['Adobe Launch', /assets\.adobedtm\.com/i],
+  ['Tealium', /tags\.tiqcdn\.com/i],
+  ['Segment', /cdn\.segment\.com/i],
+];
+
 export function findTracking(html) {
-  const ga4 = uniqueMatches(html, /(?:[?&]id=|['"])(G-[A-Z0-9]{6,12})(?=['"&\s]|$)/g, 1);
-  const ua = uniqueMatches(html, /(?:[?&]id=|['"])(UA-\d{4,10}-\d{1,4})(?=['"&\s]|$)/g, 1);
+  // The ids can sit inside escaped JSON too (Shopify's Google channel writes
+  // \"G-ABC123\"), so a backslash may follow the id.
+  const ga4 = uniqueMatches(html, /(?:[?&]id=|['"])(G-[A-Z0-9]{6,12})(?=[\\'"&\s]|$)/g, 1);
+  const ua = uniqueMatches(html, /(?:[?&]id=|['"])(UA-\d{4,10}-\d{1,4})(?=[\\'"&\s]|$)/g, 1);
   const gtm = uniqueMatches(html, /\b(GTM-[A-Z0-9]{4,10})\b/g, 1);
   const ads = uniqueMatches(html, /\b(AW-\d{6,12})\b/g, 1);
   // gtag.js loaded with only an AW- id is the Google Ads tag, not Analytics;
@@ -635,16 +841,23 @@ export function findTracking(html) {
   const pixelJs = /connect\.facebook\.net\/[^"'\s]{0,40}\/fbevents\.js/i.test(html);
   const pixelInit = /fbq\(\s*['"]init['"]/.test(html);
   const pixelImg = /facebook\.com\/tr\?[^"'\s]{0,40}id=\d/i.test(html);
+  // Shopify's Facebook & Instagram app loads the Pixel from its own config:
+  // {\"pixel_id\":\"123...\",\"pixel_type\":\"facebook_pixel\"}
+  const pixelShopify = /pixel_type\\*"\s*:\s*\\*"facebook_pixel/.test(html);
   const pixelIds = uniqueMatches(html, /fbq\(\s*['"]init['"]\s*,\s*['"](\d{8,20})['"]/g, 1);
+  const otherTagManager = (OTHER_TAG_MANAGERS.find(([, re]) => re.test(html)) || [])[0] || null;
+  const hasGoogleTagManager = gtm.length > 0 || gtmJs;
   return {
     ga4,
     ua,
     gtm: gtm.length ? gtm : gtmJs ? ['GTM'] : [],
     ads,
     googleTags,
-    hasAnalytics: ga4.length > 0 || ua.length > 0 || googleTags.length > 0 || gtm.length > 0 || gtmJs || analyticsJs,
-    hasTagManager: gtm.length > 0 || gtmJs,
-    hasMetaPixel: pixelJs || pixelInit || pixelImg,
+    otherTagManager,
+    hasAnalytics:
+      ga4.length > 0 || ua.length > 0 || googleTags.length > 0 || hasGoogleTagManager || analyticsJs || Boolean(otherTagManager),
+    hasTagManager: hasGoogleTagManager || Boolean(otherTagManager),
+    hasMetaPixel: pixelJs || pixelInit || pixelImg || pixelShopify,
     pixelIds,
   };
 }
@@ -842,6 +1055,24 @@ function heaviestList(images) {
     .join(', ');
 }
 
+// width=device-width fits any phone. So does a phone-sized fixed width (Wix's
+// mobile sites use width=320 and the browser scales it to the screen), and an
+// initial-scale=1 with no width. A desktop width (width=1024) shows zoomed out.
+export function viewportFitsPhones(viewport) {
+  const width = /(?:^|[\s,;])width\s*=\s*([\w.-]{1,20})/i.exec(viewport);
+  if (width) {
+    const value = width[1].toLowerCase();
+    return value === 'device-width' || (/^\d{1,4}$/.test(value) && Number(value) <= 480);
+  }
+  return /initial-scale\s*=\s*1(?:\.0*)?(?![\d.])/i.test(viewport);
+}
+
+// Almost no text in a page that isn't tiny, and scripts to draw it: it's drawn
+// by JavaScript after it loads.
+export function isScriptDrawn(facts, page) {
+  return facts.textLength < 200 && page.htmlBytes > 5000 && facts.scripts > 0;
+}
+
 export function evaluateChecks({ facts, page, images, speed }) {
   const t = facts.tracking;
   const results = {};
@@ -936,7 +1167,7 @@ export function evaluateChecks({ facts, page, images, speed }) {
   }
 
   const vp = facts.viewport;
-  if (vp && /width\s*=\s*device-width/i.test(vp)) {
+  if (vp && viewportFitsPhones(vp)) {
     results.viewport = { status: 'pass', detail: 'Set up to fit phone screens.' };
   } else if (vp) {
     results.viewport = {
@@ -1056,6 +1287,8 @@ export function evaluateChecks({ facts, page, images, speed }) {
   // ---- Getting leads ----
   if (facts.telLinks.length) {
     results.click_to_call = { status: 'pass', detail: `Found: ${cleanText(facts.telLinks[0], 30)}.` };
+  } else if (facts.scriptTel) {
+    results.click_to_call = { status: 'pass', detail: `Found: ${cleanText(facts.scriptTel, 30)}.` };
   } else {
     results.click_to_call = {
       status: 'fail',
@@ -1099,12 +1332,15 @@ export function evaluateChecks({ facts, page, images, speed }) {
   }
 
   // ---- Tracking ----
+  // The tag manager that could be carrying the Ads tag or the Pixel out of sight.
+  const tagManager = t.gtm.length ? 'Tag Manager' : t.otherTagManager ? `your tag manager (${t.otherTagManager})` : '';
   if (t.hasAnalytics) {
     const found = [];
     if (t.ga4.length) found.push(`Google Analytics (${t.ga4[0]})`);
     else if (t.googleTags.length) found.push(`a Google tag (${t.googleTags[0]})`);
     else if (t.ua.length) found.push(`old Universal Analytics (${t.ua[0]})`);
-    if (t.hasTagManager) found.push(t.gtm[0] && t.gtm[0] !== 'GTM' ? `Tag Manager (${t.gtm[0]})` : 'Tag Manager');
+    if (t.gtm.length) found.push(t.gtm[0] !== 'GTM' ? `Tag Manager (${t.gtm[0]})` : 'Tag Manager');
+    else if (t.otherTagManager) found.push(`a tag manager (${t.otherTagManager})`);
     if (!found.length) found.push('Google Analytics');
     results.analytics = { status: 'pass', detail: `Found ${found.join(' and ')}.` };
   } else {
@@ -1117,11 +1353,11 @@ export function evaluateChecks({ facts, page, images, speed }) {
 
   if (t.ads.length) {
     results.google_ads_tag = { status: 'pass', detail: `Found (${t.ads.slice(0, 2).join(', ')}).` };
-  } else if (t.hasTagManager) {
+  } else if (tagManager) {
     results.google_ads_tag = {
       status: 'warn',
-      detail: 'Not on the page itself. It may be inside Tag Manager, which we can’t see into.',
-      fix: 'Check that Google Ads conversion tracking is set up inside Tag Manager.',
+      detail: `Not on the page itself. It may be inside ${tagManager}, which we can’t see into.`,
+      fix: `Check that Google Ads conversion tracking is set up inside ${tagManager}.`,
     };
   } else {
     results.google_ads_tag = {
@@ -1133,11 +1369,11 @@ export function evaluateChecks({ facts, page, images, speed }) {
 
   if (t.hasMetaPixel) {
     results.meta_pixel = { status: 'pass', detail: 'Found the Meta Pixel.' };
-  } else if (t.hasTagManager) {
+  } else if (tagManager) {
     results.meta_pixel = {
       status: 'warn',
-      detail: 'Not on the page itself. It may be inside Tag Manager.',
-      fix: 'Check that the Meta Pixel is set up inside Tag Manager.',
+      detail: `Not on the page itself. It may be inside ${tagManager}.`,
+      fix: `Check that the Meta Pixel is set up inside ${tagManager}.`,
     };
   } else {
     results.meta_pixel = {
@@ -1145,6 +1381,32 @@ export function evaluateChecks({ facts, page, images, speed }) {
       detail: 'No Meta Pixel, so Facebook and Instagram ads can’t be measured or retargeted.',
       fix: 'Add the Meta Pixel so Facebook and Instagram ads can be measured and retargeted.',
     };
+  }
+
+  // Wix adds tracking codes after the page loads. When we couldn't read them,
+  // "missing" would be a guess, so the check is left out instead.
+  if (t.unseen) {
+    for (const id of ['analytics', 'google_ads_tag', 'meta_pixel']) {
+      if (results[id].status === 'fail') {
+        results[id] = {
+          status: 'skipped',
+          detail: `${t.unseen} adds tracking codes after the page loads, and we couldn’t read them this time, so this isn’t scored.`,
+        };
+      }
+    }
+  }
+
+  // A page drawn by JavaScript after it loads may show a headline, a phone link,
+  // a form or a WhatsApp button that isn't in its code yet: "couldn't check", not "missing".
+  if (isScriptDrawn(facts, page)) {
+    for (const id of ['h1', 'click_to_call', 'contact_form', 'whatsapp']) {
+      if (results[id].status === 'fail') {
+        results[id] = {
+          status: 'skipped',
+          detail: 'This page is drawn by JavaScript after it loads, so we couldn’t check this from its code.',
+        };
+      }
+    }
   }
 
   return CHECKS.map((def) => ({ ...def, ...results[def.id] }));
@@ -1266,7 +1528,52 @@ async function fetchPage(url, ctx) {
   }
   if (!contentType && !looksLikeHtml(text)) throw new CheckError('not_html', 'That address isn’t a web page.');
   if (!text.trim()) throw new CheckError('empty', 'That page came back empty.');
+  if (text.length < 200000 && BOT_WALL.test(text.slice(0, 65536))) {
+    throw new CheckError(
+      'blocked',
+      'That website showed our check a security challenge instead of the page. Some security settings block automated visits. Book a call and we’ll check it with you.',
+    );
+  }
   return { html: text, finalUrl: res.url, redirects: res.redirects, htmlBytes: res.bytes, truncated: res.truncated };
+}
+
+// Firewalls that answer "200 OK" with a challenge page instead of the site
+// (Cloudflare, Sucuri, Imperva, DDoS-Guard). Checking that page would report
+// everything as missing.
+const BOT_WALL =
+  /<title>\s*(?:Just a moment\.\.\.|Attention Required! \| Cloudflare|DDoS-Guard|Checking your browser|Pardon Our Interruption)|window\._cf_chl_opt|sucuri_cloudproxy_js|Incapsula incident ID/i;
+
+// Wix adds Google Analytics, Tag Manager, the Ads tag and the Pixel after the page
+// loads, from the site's own tag list (the same request a browser makes). Returns
+// the tags' code, or null if it can't be read.
+export const WIX_TAGS_TIMEOUT_MS = 5000;
+async function fetchWixTags(pageUrl, wix, { deps, dnsCache, signal }) {
+  if (!wix.metaSiteId || !wix.siteId) return null;
+  const url = new URL(`/_api/tag-manager/api/v1/tags/sites/${wix.metaSiteId}`, pageUrl);
+  url.search = '';
+  url.searchParams.set('wixSite', String(/\.wixsite\.com$/i.test(url.hostname)));
+  url.searchParams.set('htmlsiteId', wix.siteId);
+  const own = AbortSignal.any ? AbortSignal.any([signal, AbortSignal.timeout(WIX_TAGS_TIMEOUT_MS)]) : signal;
+  try {
+    const res = await safeFetch(url, {
+      method: 'GET',
+      headers: { accept: 'application/json' },
+      timeoutMs: WIX_TAGS_TIMEOUT_MS,
+      maxBytes: 512 * 1024,
+      maxRedirects: 2,
+      signal: own,
+      resolve: deps.resolve,
+      isAllowed: deps.isAllowed,
+      transport: deps.transport,
+      cache: dnsCache,
+    });
+    if (res.status !== 200 || res.truncated) return null;
+    const data = JSON.parse(res.body.toString('utf8'));
+    if (!data || !Array.isArray(data.tags)) return null;
+    return data.tags.map((tag) => (tag && typeof tag.content === 'string' ? tag.content : '')).join('\n');
+  } catch {
+    return null;
+  }
 }
 
 // input: { url, business }
@@ -1310,12 +1617,16 @@ export async function runGrowthCheck(input = {}, options = {}) {
       page = await fetchPage(url, ctx);
     } catch (error) {
       const failure = describeFetchError(error);
-      if (normal.schemeAdded && url.protocol === 'https:' && isTlsOrConnectError(error) && !pageAbort.aborted) {
-        // They typed a bare domain and HTTPS failed: see if plain http:// works.
+      // They typed a bare domain and HTTPS didn't work (bad certificate, nothing
+      // listening, no answer at all, or a server error): see if plain http://
+      // works, with its own 10 seconds.
+      const httpsBroken = isTlsOrConnectError(error) || failure.code === 'timeout' || failure.code === 'server_error';
+      if (normal.schemeAdded && url.protocol === 'https:' && httpsBroken && !run.signal.aborted) {
         const httpUrl = new URL(url.href);
         httpUrl.protocol = 'http:';
+        const retrySignal = AbortSignal.any ? AbortSignal.any([run.signal, AbortSignal.timeout(PAGE_TIMEOUT_MS)]) : run.signal;
         try {
-          page = await fetchPage(httpUrl, ctx);
+          page = await fetchPage(httpUrl, { ...ctx, signal: retrySignal });
           page.httpsFailed = true;
         } catch {
           throw failure;
@@ -1326,7 +1637,14 @@ export async function runGrowthCheck(input = {}, options = {}) {
     }
 
     const facts = analyzeHtml(page.html, page.finalUrl);
-    const images = await measureImages(facts.images, { deadline, signal: run.signal, deps, dnsCache });
+    const [images, wixTags] = await Promise.all([
+      measureImages(facts.images, { deadline, signal: run.signal, deps, dnsCache }),
+      facts.wix ? fetchWixTags(page.finalUrl, facts.wix, { deps, dnsCache, signal: run.signal }) : null,
+    ]);
+    if (facts.wix) {
+      if (typeof wixTags === 'string') facts.tracking = findTracking(`${page.html}\n${wixTags}`);
+      else facts.tracking.unseen = 'Wix';
+    }
     const speed = await speedPromise;
     const checks = evaluateChecks({ facts, page, images, speed });
     const scored = scoreChecks(checks);
@@ -1334,8 +1652,8 @@ export async function runGrowthCheck(input = {}, options = {}) {
     const notes = [];
     if (page.httpsFailed) notes.push('Your site didn’t answer over HTTPS, so we checked the http:// version.');
     if (page.truncated) notes.push('The page is over 2 MB, so we read the first 2 MB.');
-    if (facts.textLength < 200 && page.htmlBytes > 5000) {
-      notes.push('Most of this page is drawn by JavaScript after it loads, so we could only check what arrives first. Search engines often see it the same way.');
+    if (isScriptDrawn(facts, page)) {
+      notes.push('Most of this page is drawn by JavaScript after it loads, so we could only check what arrives first. Some search engines and link previews see it the same way.');
     }
 
     return {
