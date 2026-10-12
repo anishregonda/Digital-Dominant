@@ -3484,79 +3484,6 @@ button.btn { font-size: 1rem; }
 .hero-badge-speed { top: 0.25rem; left: -0.5rem; }
 .hero-badge-q { bottom: 0.25rem; right: -0.25rem; }
 
-/* ---- "Where paid clicks go to die" ---- */
-.leak-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.5rem;
-}
-
-.leak-tile {
-  background: #ffffff;
-  border: 1px solid var(--border-color);
-  border-top: 4px solid var(--accent-gold);
-  padding: 1.9rem 1.75rem 1.6rem;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
-  display: flex;
-  flex-direction: column;
-}
-
-.leak-num {
-  font-size: 3.4rem;
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: -0.045em;
-  color: var(--accent-primary);
-}
-
-.leak-num small {
-  font-size: 1.1rem;
-  font-weight: 800;
-  letter-spacing: 0;
-  color: var(--violet-text);
-}
-
-.leak-tile h3 {
-  font-size: 1.1rem;
-  margin: 0.9rem 0 0.4rem;
-  color: var(--ink);
-}
-
-.leak-tile p { color: var(--text-secondary); }
-
-.leak-src {
-  margin-top: auto;
-  padding-top: 1rem;
-  font-size: 0.78rem;
-  color: #6b7280;
-}
-
-.leak-src a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
-
-/* What we change: page / ask / follow-through */
-.change-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.5rem;
-  margin-top: 3rem;
-}
-
-.change-card {
-  padding: 0 0 0 1.5rem;
-  border-left: 3px solid var(--accent-gold);
-}
-
-.change-card .kicker { margin-bottom: 0.4rem; }
-
-.change-card h3 {
-  font-size: 1.35rem;
-  line-height: 1.25;
-  margin-bottom: 0.6rem;
-  color: var(--ink);
-}
-
-.change-card p { color: var(--text-secondary); }
-
 /* ---- Services grid: 3 up top, 2 wide below ---- */
 .svc-grid {
   display: grid;
@@ -3693,158 +3620,6 @@ button.btn { font-size: 1rem; }
   color: rgba(255, 255, 255, 0.6);
 }
 
-/* ---- Compare table ---- */
-.compare-wrap { max-width: 1000px; margin: 0 auto; }
-
-.compare {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  background: #ffffff;
-  border: 1px solid var(--border-color);
-}
-
-.compare th,
-.compare td {
-  padding: 1.1rem 1.25rem;
-  text-align: left;
-  vertical-align: top;
-  border-bottom: 1px solid var(--border-color);
-  line-height: 1.5;
-}
-
-.compare tr:last-child td { border-bottom: 0; }
-
-.compare thead th {
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-  background: var(--bg-secondary);
-}
-
-.compare thead th.is-dd {
-  color: var(--amber-text);
-  background: var(--accent-primary);
-}
-
-.compare td:first-child {
-  font-weight: 700;
-  color: var(--ink);
-  width: 20%;
-}
-
-.compare td.is-them { color: var(--text-secondary); }
-
-.compare td.is-dd {
-  background: var(--purple-soft);
-  color: var(--ink);
-  font-weight: 600;
-}
-
-/* ---- Plans preview on the home page ---- */
-.plans-preview {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.plan-mini {
-  background: #ffffff;
-  border: 1px solid var(--border-color);
-  padding: 1.75rem;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
-}
-
-.plan-mini.is-featured {
-  background:
-    radial-gradient(120% 70% at 100% 0%, rgba(139, 92, 246, 0.35) 0%, rgba(139, 92, 246, 0) 60%),
-    var(--accent-primary);
-  border-color: var(--accent-primary);
-  color: #ffffff;
-}
-
-.plan-mini h3 {
-  font-size: 1.3rem;
-  margin: 0.3rem 0 0.35rem;
-  color: var(--ink);
-}
-
-.plan-mini .plan-when {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  margin-bottom: 1rem;
-}
-
-.plan-mini .check-list { gap: 0.6rem; font-size: 0.95rem; }
-
-.plan-mini .plan-foot {
-  font-size: 0.9rem;
-  margin-top: 1.25rem;
-}
-
-.plan-mini.is-featured h3 { color: #ffffff; }
-.plan-mini.is-featured .price-label { color: var(--amber-text); }
-.plan-mini.is-featured .plan-when,
-.plan-mini.is-featured .check-list li { color: rgba(255, 255, 255, 0.88); }
-.plan-mini.is-featured .check-list li strong { color: #ffffff; }
-.plan-mini.is-featured .check-list li::before { background-color: var(--accent-gold); }
-.plan-mini.is-featured .plan-foot { color: #ffffff; border-top-color: rgba(255, 255, 255, 0.18); }
-.plan-mini.is-featured .plan-foot svg { color: var(--amber-text); }
-
-.plans-call {
-  max-width: 1000px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 1.5rem 2rem;
-  align-items: center;
-  background: var(--amber-soft);
-  border: 1px solid var(--amber-line);
-  padding: 1.5rem 2rem;
-}
-
-.plans-call h3 { font-size: 1.2rem; color: var(--ink); margin-bottom: 0.25rem; }
-.plans-call p { color: var(--text-secondary); }
-.plans-call .btn { white-space: nowrap; }
-
-/* ---- Who it's for ---- */
-.fit-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-}
-
-.fit-card {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  background: #ffffff;
-  border: 1px solid var(--border-color);
-  padding: 1.1rem 1.25rem;
-}
-
-.fit-icon {
-  width: 44px;
-  height: 44px;
-  flex: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #ede9fe;
-  color: var(--accent-primary);
-}
-
-.fit-icon svg { width: 24px; height: 24px; }
-
-.fit-card strong { display: block; color: var(--ink); font-size: 1rem; line-height: 1.3; }
-.fit-card span { display: block; font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.1rem; }
-
 /* ---- Guarantee strip (Plans page) ---- */
 .guarantee {
   max-width: 1000px;
@@ -3874,30 +3649,6 @@ button.btn { font-size: 1rem; }
 .guarantee p { color: rgba(255, 255, 255, 0.88); }
 .guarantee p + p { margin-top: 0.5rem; font-size: 0.9rem; color: rgba(255, 255, 255, 0.72); }
 
-/* Service anchors on the Plans page */
-.svc-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 1rem;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.svc-list li {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 1.25rem;
-  align-items: start;
-  background: #ffffff;
-  border: 1px solid var(--border-color);
-  padding: 1.5rem 1.75rem;
-}
-
-.svc-list h3 { font-size: 1.15rem; margin-bottom: 0.35rem; color: var(--ink); }
-.svc-list p { color: var(--text-secondary); }
-.svc-list p + p { margin-top: 0.35rem; font-size: 0.9rem; }
 
 /* =====================================================================
    Lead Leak Calculator (calculator.html)
@@ -4518,12 +4269,8 @@ form[hidden],
 
 /* ---- Responsive: US-ready blocks ---- */
 @media (max-width: 1000px) {
-  .leak-grid,
-  .change-grid { grid-template-columns: 1fr; gap: 1.25rem; }
   .svc-card,
   .svc-card.is-wide { grid-column: span 3; }
-  .plans-preview { grid-template-columns: 1fr; }
-  .fit-grid { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 900px) {
@@ -4545,10 +4292,7 @@ form[hidden],
   .calc-band h2 { font-size: 1.8rem; }
   .calc-layout { grid-template-columns: 1fr; gap: 1.5rem; }
   .calc-results { position: static; }
-  .plans-call { grid-template-columns: 1fr; }
-  .plans-call .btn { justify-self: start; white-space: normal; }
   .guarantee { grid-template-columns: 1fr; gap: 1rem; padding: 1.5rem 1.25rem; }
-  .svc-list li { grid-template-columns: 1fr; gap: 0.75rem; padding: 1.25rem; }
   .calc-notes { grid-template-columns: 1fr; }
   .contact-card { grid-template-columns: minmax(0, 1fr); }
   .contact-card .contact-side { order: 2; border-right: none; border-top: 1px solid #333333; }
@@ -4557,34 +4301,6 @@ form[hidden],
 @media (max-width: 700px) {
   .svc-card,
   .svc-card.is-wide { grid-column: span 6; }
-  /* Compare table: one card per row, labels from data-label */
-  .compare,
-  .compare tbody,
-  .compare tr,
-  .compare td { display: block; width: 100%; }
-  .compare thead { display: none; }
-  .compare tr { border-bottom: 8px solid var(--bg-secondary); }
-  .compare tr:last-child { border-bottom: 0; }
-  .compare td { border-bottom: 1px solid var(--border-color); padding: 0.85rem 1.1rem; }
-  .compare td:first-child {
-    width: auto;
-    background: var(--bg-secondary);
-    font-size: 0.8rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-  }
-  .compare td[data-label]::before {
-    content: attr(data-label);
-    display: block;
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-    margin-bottom: 0.25rem;
-  }
-  .compare td.is-dd[data-label]::before { color: var(--violet-text); }
 }
 
 @media (max-width: 600px) {
@@ -4599,15 +4315,9 @@ form[hidden],
   .portal-chart { height: 56px; }
   .portal-leads { font-size: 0.78rem; }
   .hero-badge { font-size: 1.05rem; padding: 0.55rem 0.75rem; }
-  .leak-num { font-size: 2.8rem; }
-  .leak-tile { padding: 1.5rem 1.25rem 1.25rem; }
   .svc-card { padding: 1.5rem 1.25rem; }
-  .fit-grid { grid-template-columns: 1fr; gap: 0.75rem; }
-  .fit-card { padding: 0.9rem 1rem; }
   .calc-example { padding: 1.25rem 1.1rem; }
   .calc-example-row { font-size: 0.9rem; }
-  .plans-call { padding: 1.25rem; }
-  .plan-mini { padding: 1.4rem 1.25rem; }
   .calc-form { padding: 1.25rem 1.1rem 0.5rem; }
   .calc-form-head h2 { font-size: 1.05rem; }
   .calc-field {
@@ -5147,4 +4857,149 @@ form[hidden],
 .svc-card .svc-links .text-link {
   margin-top: 0;
   padding-top: 0;
+}
+
+/* =====================================================================
+   Homepage in six sections (Oct 2026): problem, what we do, proof,
+   calculator, how it works, Free Growth Check + FAQ
+   ===================================================================== */
+.hero-v2 .hero-text p.hero-lead:has(+ .hero-fit) { margin-bottom: 0.9rem; }
+
+.hero-v2 .hero-text p.hero-fit {
+  max-width: 580px;
+  margin-bottom: 1.75rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--amber-text);
+}
+
+.hero-stats {
+  position: relative;
+  list-style: none;
+  margin: 3.5rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.hero-stats li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1.25rem 1.4rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-top: 3px solid var(--accent-gold);
+}
+
+.hero-stats strong {
+  font-size: 2.4rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+}
+
+.hero-stats strong small {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  color: var(--amber-text);
+}
+
+.hero-stats .hero-stat-text {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.hero-stats .hero-stat-src {
+  margin-top: auto;
+  padding-top: 0.4rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.hero-stats .hero-stat-src a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* A short "see more" line under a section */
+.section-more {
+  margin-top: 2rem;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.check-cta {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 1.5rem 2rem;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto 4rem;
+  padding: 2rem 2.25rem;
+  background: linear-gradient(135deg, #1e1b4b 0%, #4c1d95 100%);
+  color: #ffffff;
+  box-shadow: 0 24px 48px -24px rgba(46, 16, 101, 0.55);
+}
+
+.check-cta .kicker { color: var(--amber-text); margin-bottom: 0.35rem; }
+
+.check-cta h2 {
+  color: #ffffff;
+  font-size: 1.75rem;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  text-wrap: balance;
+}
+
+.check-cta p { color: rgba(255, 255, 255, 0.88); max-width: 560px; }
+
+.check-cta-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.check-cta-actions .btn {
+  white-space: nowrap;
+  padding: 0.9rem 1.5rem;
+  font-weight: 700;
+}
+
+.check-cta-call {
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+#free-check .faq-list .section-title { margin-bottom: 2rem; }
+
+@media (max-width: 900px) {
+  .hero-stats { grid-template-columns: minmax(0, 1fr); gap: 0.75rem; margin-top: 2.5rem; }
+  .hero-stats li { padding: 1rem 1.1rem; }
+  .hero-stats strong { font-size: 2rem; }
+  .check-cta { grid-template-columns: auto minmax(0, 1fr); padding: 1.75rem 1.5rem; }
+  .check-cta-actions { grid-column: 1 / -1; align-items: flex-start; }
+}
+
+@media (max-width: 600px) {
+  .check-cta {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    margin-bottom: 3rem;
+    padding: 1.5rem 1.25rem;
+  }
+  .check-cta .audit-icon { width: 56px; height: 56px; }
+  .check-cta h2 { font-size: 1.45rem; }
+  .check-cta-actions { align-items: stretch; }
+  .check-cta-actions .btn { white-space: normal; text-align: center; }
+  .check-cta-call { text-align: center; }
 }
