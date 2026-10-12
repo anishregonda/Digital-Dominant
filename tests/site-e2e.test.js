@@ -278,6 +278,15 @@ test('homepage: six sections in the agreed order, short FAQ, no Hyderabad', () =
   assert.doesNotMatch(html, /Hyderabad/i);
 });
 
+test('no page says Hyderabad (except the two legacy Hyderabad landing pages) and none shows rupee prices', () => {
+  const legacy = new Set(['website-design-hyderabad.html', 'google-ads-hyderabad.html']);
+  for (const file of builtPages()) {
+    const html = readBuilt(file);
+    if (!legacy.has(file)) assert.doesNotMatch(html, /Hyderabad/i, `${file} mentions Hyderabad`);
+    assert.doesNotMatch(html.replace(/<script[\s\S]*?<\/script>/g, ''), /(?:₹|&#8377;)\s?\d|\bRs\.?\s?\d/, `${file} shows a rupee price`);
+  }
+});
+
 test('services page: five services, plans, no prices', () => {
   const html = readBuilt('services.html');
   for (const id of ['website-rebuild', 'google-ads', 'meta-ads', 'custom-software', 'reviews', 'influencers-lab', 'plans', 'included', 'phase-1', 'phase-2', 'reviews-engine', 'guarantee', 'faq']) {
