@@ -484,6 +484,94 @@ test('Growth Check shows plain-words errors (private address, typo)', async () =
   }
 });
 
+// While DD Hub is paused its /api/lead answers Vercel's 402 "paused" page.
+// The form must then offer WhatsApp and email with the message filled in,
+// without error wording, pop-ups or leaving the page.
+async function hubLeadAnswers(page, status, contentType, body) {
+  await page.route('https://hub.digitaldominant.co.uk/api/lead', (route) => route.fulfill({ status, contentType, body }));
+}
+
+test('lead forms with the Hub paused: WhatsApp or email, message filled in, no pop-up or page change', { timeout: 120000 }, async () => {
+  for (const viewport of [PHONE, DESKTOP]) {
+    const { context, page, errors } = await openPage(viewport);
+    const popups = [];
+    context.on('page', (p) => popups.push(p.url()));
+    try {
+      await hubLeadAnswers(page, 402, 'text/html', '<h1>This deployment is temporarily paused</h1>');
+
+      // Book a call (light form)
+      await page.goto(`${origin}/book.html`, { waitUntil: 'load' });
+      await page.fill('#b-name', 'Pat Lee');
+      await page.fill('#b-phone', '515 555 0100');
+      await page.fill('#b-email', 'pat@example.com');
+      await page.fill('#b-business', 'Lee Roofing');
+      await page.fill('#b-info', 'Site is slow on phones & we run Google Ads.');
+      await page.click('#book-form button[type="submit"]');
+      await page.waitForSelector('#book-form .lead-status.is-fallback');
+      const note = await page.textContent('#book-form .lead-status');
+      assert.match(note, /Almost done/);
+      assert.doesNotMatch(note, /didn.t go through|sorry/i);
+
+      const wa = await page.getAttribute('#book-form [data-wa-fallback]', 'href');
+      assert.ok(wa.startsWith('https://wa.me/919949932140?text='), wa);
+      const waText = decodeURIComponent(wa.slice(wa.indexOf('?text=') + 6));
+      assert.match(waText, /^Hi Digital Dominant, please call me back/);
+      assert.match(waText, /Name: Pat Lee/);
+      assert.match(waText, /Phone: 515 555 0100/);
+      assert.match(waText, /Business: Lee Roofing/);
+      assert.match(waText, /Message: Site is slow on phones & we run Google Ads\./);
+
+      const mail = await page.getAttribute('#book-form [data-mail-fallback]', 'href');
+      assert.ok(mail.startsWith('mailto:info@digitaldominant.co.uk?subject=Call-back%20request&body='), mail);
+      const mailBody = decodeURIComponent(mail.slice(mail.indexOf('&body=') + 6));
+      assert.match(mailBody, /Name: Pat Lee\r\nPhone: 515 555 0100/);
+      assert.match(mailBody, /& we run Google Ads/);
+      assert.ok(await page.isVisible('#book-form [data-wa-fallback]'));
+      assert.ok(await page.isVisible('#book-form [data-mail-fallback]'));
+      assert.equal((await page.textContent('#book-form button[type="submit"]')).trim(), 'Request a call back');
+      await shot(page, `book-fallback-${viewport.width}`);
+
+      // Contact qualifier (dark card)
+      await page.goto(`${origin}/contact.html`, { waitUntil: 'load' });
+      // The radios sit inside chip labels; tap the chips like a person would.
+      await page.click('label.q-chip:has(input[name="need"][value="Website rebuild"])');
+      await page.click('label.q-chip:has(input[name="budget"][value="Under $2k a month"])');
+      await page.click('label.q-chip:has(input[name="timing"][value="This month"])');
+      await page.fill('#c-name', 'Sam Ortiz');
+      await page.fill('#c-email', 'sam@example.com');
+      await page.click('#contact-form button[type="submit"]');
+      await page.waitForSelector('#contact-form .lead-status.is-fallback');
+      const cMail = await page.getAttribute('#contact-form [data-mail-fallback]', 'href');
+      assert.ok(cMail.startsWith('mailto:info@digitaldominant.co.uk?subject=Enquiry%20from%20your%20website&body='), cMail);
+      const cText = decodeURIComponent(cMail.slice(cMail.indexOf('&body=') + 6));
+      assert.match(cText, /^Hi Digital Dominant, here is my message from your contact page:/);
+      assert.match(cText, /What you need: Website rebuild/);
+      await shot(page, `contact-fallback-${viewport.width}`);
+
+      await page.waitForTimeout(2500);
+      assert.equal(new URL(page.url()).pathname, '/contact.html', 'stayed on the page');
+      assert.deepEqual(popups, [], 'nothing opened on its own');
+      assert.deepEqual(errors, []);
+    } finally {
+      await context.close();
+    }
+  }
+});
+
+test('lead form with the Hub up: goes to the thank-you page as before', async () => {
+  const { context, page, errors } = await openPage(PHONE);
+  try {
+    await hubLeadAnswers(page, 200, 'application/json', '{"ok":true}');
+    await page.goto(`${origin}/book.html`, { waitUntil: 'load' });
+    await page.fill('#b-name', 'Pat Lee');
+    await page.fill('#b-phone', '515 555 0100');
+    await Promise.all([page.waitForURL(/thank-you\.html\?type=call$/), page.click('#book-form button[type="submit"]')]);
+    assert.deepEqual(errors, []);
+  } finally {
+    await context.close();
+  }
+});
+
 test('every page loads in the browser without errors; screenshots', { timeout: 240000 }, async () => {
   for (const viewport of [DESKTOP, PHONE]) {
     const { context, page, errors } = await openPage(viewport);

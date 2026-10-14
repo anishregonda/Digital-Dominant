@@ -4,13 +4,16 @@
 // own /api/growth-check, not on the Hub).
 //
 // Lead forms never fake success: we only move on to the thank-you page when
-// the Hub answers {ok:true}. Anything else (error, blocked, offline, or no
-// answer within 6 seconds) hands the message to WhatsApp so no lead is lost.
+// the Hub answers {ok:true}. Anything else (error, blocked, paused, offline, or
+// no answer within 6 seconds) shows two buttons with the message already
+// filled in, WhatsApp and email, so no lead is lost. Nothing opens or
+// navigates on its own: US visitors rarely use WhatsApp, so they choose.
 
 const HUB = 'https://hub.digitaldominant.co.uk';
 const SITE = 'digital-dominant';
 const WHATSAPP_NUMBER = '919949932140';
 const PHONE_DISPLAY = '+91\u00a099499\u00a032140'; // non-breaking spaces: never split the number
+const EMAIL = 'info@digitaldominant.co.uk';
 const LEAD_TIMEOUT_MS = 6000;
 
 // encodeURIComponent throws on half an emoji (a lone surrogate), which would
@@ -281,8 +284,8 @@ async function sendLead(lead) {
   }
 }
 
-function whatsappText(lead, form) {
-  const lines = [form.dataset.waIntro || 'Hi Digital Dominant, I tried to send this from your website:'];
+function messageText(lead, form) {
+  const lines = [form.dataset.waIntro || 'Hi Digital Dominant, here is my message from your website:'];
   if (lead.name) lines.push(`Name: ${lead.name}`);
   if (lead.phone) lines.push(`Phone: ${lead.phone}`);
   if (lead.email) lines.push(`Email: ${lead.email}`);
@@ -291,55 +294,62 @@ function whatsappText(lead, form) {
   return lines.join('\n');
 }
 
-function fallbackToWhatsApp(form, box, lead) {
-  const url = waLink(whatsappText(lead, form));
+function mailLink(lead, form) {
+  const subject = form.dataset.mailSubject || 'Enquiry from your website';
+  // mailto wants %20 for spaces and CRLF line breaks; encodeURIComponent gives both.
+  const body = wellFormed(messageText(lead, form)).replace(/\n/g, '\r\n');
+  return `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
 
-  if (box) {
-    box.className = 'lead-status is-fallback';
-    box.textContent = '';
-
-    const note = document.createElement('p');
-    note.textContent = "Sorry, our form didn't go through. We're opening WhatsApp with your message so it still reaches us. Just tap send.";
-
-    const link = document.createElement('a');
-    link.href = url;
-    link.target = '_blank';
-    link.rel = 'noopener';
-    link.className = 'btn btn-wa';
-    link.dataset.waFallback = '';
-    link.textContent = 'Open WhatsApp';
-
-    const alt = document.createElement('p');
-    alt.className = 'lead-alt';
-    alt.append('Or call us on ');
-    const tel = document.createElement('a');
-    tel.href = `tel:+${WHATSAPP_NUMBER}`;
-    tel.textContent = PHONE_DISPLAY;
-    alt.append(tel, '.');
-
-    box.append(note, link, alt);
-    reveal(box);
+// The Hub didn't take the lead (paused, down, offline or slow). Hand the
+// visitor the same message, filled in, for WhatsApp or email. No pop-ups and
+// no page change: they tap the one they use.
+function offerWhatsAppOrEmail(form, box, lead) {
+  if (!box) {
+    // No status box on this form: the plain form action (wa.me) still works.
+    location.href = waLink(messageText(lead, form));
+    return;
   }
 
-  // Prefer a new tab so this page (and the message) stays open. If the
-  // browser blocks that, go to WhatsApp in this tab instead.
-  let win = null;
-  try {
-    win = window.open(url, '_blank');
-  } catch {
-    win = null;
-  }
-  if (win) {
-    try {
-      win.opener = null;
-    } catch {
-      /* ignore */
-    }
-  } else {
-    setTimeout(() => {
-      location.href = url;
-    }, 1200);
-  }
+  box.className = 'lead-status is-fallback';
+  box.textContent = '';
+
+  const note = document.createElement('p');
+  note.textContent = 'Almost done. Your message is filled in: tap WhatsApp or email to send it to us.';
+
+  const actions = document.createElement('div');
+  actions.className = 'lead-actions';
+
+  const wa = document.createElement('a');
+  wa.href = waLink(messageText(lead, form));
+  wa.target = '_blank';
+  wa.rel = 'noopener';
+  wa.className = 'btn btn-wa';
+  wa.dataset.waFallback = '';
+  wa.textContent = 'Send on WhatsApp';
+
+  const mail = document.createElement('a');
+  mail.href = mailLink(lead, form);
+  mail.className = 'btn btn-mail';
+  mail.dataset.mailFallback = '';
+  mail.textContent = 'Send by email';
+
+  actions.append(wa, mail);
+
+  const alt = document.createElement('p');
+  alt.className = 'lead-alt';
+  alt.append('Or call us on ');
+  const tel = document.createElement('a');
+  tel.href = `tel:+${WHATSAPP_NUMBER}`;
+  tel.textContent = PHONE_DISPLAY;
+  alt.append(tel, ', or write to ');
+  const address = document.createElement('a');
+  address.href = `mailto:${EMAIL}`;
+  address.textContent = EMAIL;
+  alt.append(address, '.');
+
+  box.append(note, actions, alt);
+  reveal(box);
 }
 
 function initLeadForms() {
@@ -397,7 +407,7 @@ function initLeadForms() {
         button.disabled = false;
         button.textContent = label;
       }
-      fallbackToWhatsApp(form, box, lead);
+      offerWhatsAppOrEmail(form, box, lead);
     });
 
     // Back button from the thank-you page: phones restore this page exactly as it

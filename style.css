@@ -2630,8 +2630,21 @@ textarea:focus-visible {
 }
 
 .lead-status.is-fallback p { margin-bottom: 0.75rem; color: #14532d; }
-.lead-status.is-fallback .lead-alt { margin: 0.75rem 0 0; font-size: 0.9rem; }
+.lead-status.is-fallback .lead-alt { margin: 0.75rem 0 0; font-size: 0.9rem; overflow-wrap: anywhere; }
 .lead-status.is-fallback .lead-alt a { color: #14532d; font-weight: 700; }
+
+/* WhatsApp or email, side by side; stacked full width on narrow screens */
+.lead-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.lead-actions .btn {
+  flex: 1 1 11rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1.5px solid transparent;
+}
+.lead-actions .btn-mail { background: #ffffff; color: #14532d; border-color: #14532d; }
+.lead-actions .btn-mail:hover { background: #14532d; color: #ffffff; }
 
 .form-note {
   font-size: 0.85rem;
@@ -4230,6 +4243,8 @@ form[hidden],
 .contact-card .lead-status.is-fallback { background: #052e16; color: #bbf7d0; border-color: #166534; }
 .contact-card .lead-status.is-fallback p,
 .contact-card .lead-status.is-fallback .lead-alt a { color: #bbf7d0; }
+.contact-card .lead-actions .btn-mail { background: transparent; color: #bbf7d0; border-color: #bbf7d0; }
+.contact-card .lead-actions .btn-mail:hover { background: #bbf7d0; color: #052e16; }
 
 /* Inline thank-you (replaces a form that posted successfully) */
 .lead-thanks {
