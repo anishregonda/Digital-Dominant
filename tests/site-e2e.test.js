@@ -19,6 +19,7 @@ import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { existsSync, mkdirSync, readFileSync, readdirSync } from 'node:fs';
+import http from 'node:http';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { startVercelLocal } from './lib/vercel-local.js';
@@ -485,13 +486,19 @@ test('Growth Check shows plain-words errors (private address, typo)', async () =
 });
 
 // While DD Hub is paused its /api/lead answers Vercel's 402 "paused" page.
-// The form must then offer WhatsApp and email with the message filled in,
-// without error wording, pop-ups or leaving the page.
+// The form then tries the website's own route (api/lead.js, which emails the
+// lead through Resend). If that can't send either (here: no RESEND_API_KEY, so
+// 503), it must offer WhatsApp and email with the message filled in, without
+// error wording, pop-ups or leaving the page.
 async function hubLeadAnswers(page, status, contentType, body) {
   await page.route('https://hub.digitaldominant.co.uk/api/lead', (route) => route.fulfill({ status, contentType, body }));
 }
 
-test('lead forms with the Hub paused: WhatsApp or email, message filled in, no pop-up or page change', { timeout: 120000 }, async () => {
+// The one failure these tests expect: the website's own route answering 503 (no Resend key).
+const notSiteLeadRoute = (e) => !/\/api\/lead\b/.test(e) || !/\b503\b/.test(e);
+
+test('lead forms with the Hub paused and no Resend key: WhatsApp or email, message filled in, no pop-up or page change', { timeout: 120000 }, async () => {
+  assert.ok(!process.env.RESEND_API_KEY, 'run without RESEND_API_KEY so the website route answers 503');
   for (const viewport of [PHONE, DESKTOP]) {
     const { context, page, errors } = await openPage(viewport);
     const popups = [];
@@ -551,10 +558,51 @@ test('lead forms with the Hub paused: WhatsApp or email, message filled in, no p
       await page.waitForTimeout(2500);
       assert.equal(new URL(page.url()).pathname, '/contact.html', 'stayed on the page');
       assert.deepEqual(popups, [], 'nothing opened on its own');
-      assert.deepEqual(errors, []);
+      assert.ok(errors.some((e) => !notSiteLeadRoute(e)), 'the website route was tried before the buttons');
+      assert.deepEqual(errors.filter(notSiteLeadRoute), []);
     } finally {
       await context.close();
     }
+  }
+});
+
+test('lead form with the Hub paused and the website route working: emailed, then the thank-you page', async () => {
+  const sent = [];
+  const resend = http.createServer((req, res) => {
+    const chunks = [];
+    req.on('data', (c) => chunks.push(c));
+    req.on('end', () => {
+      sent.push({ auth: req.headers.authorization, body: JSON.parse(Buffer.concat(chunks).toString('utf8')) });
+      res.setHeader('Content-Type', 'application/json');
+      res.end('{"id":"e2e"}');
+    });
+  });
+  await new Promise((resolve) => resend.listen(4313, '127.0.0.1', resolve));
+  process.env.RESEND_API_KEY = 're_e2e_test';
+  process.env.RESEND_API_URL = 'http://127.0.0.1:4313/emails';
+  const { context, page, errors } = await openPage(PHONE);
+  try {
+    await hubLeadAnswers(page, 402, 'text/html', '<h1>This deployment is temporarily paused</h1>');
+    await page.goto(`${origin}/book.html?utm_source=google`, { waitUntil: 'load' });
+    await page.fill('#b-name', 'Pat Lee');
+    await page.fill('#b-phone', '515 555 0100');
+    await page.fill('#b-email', 'pat@example.com');
+    await page.fill('#b-business', 'Lee Roofing');
+    await Promise.all([page.waitForURL(/thank-you\.html\?type=call$/), page.click('#book-form button[type="submit"]')]);
+    assert.equal(sent.length, 1, 'one email to Resend');
+    const { auth, body } = sent[0];
+    assert.equal(auth, 'Bearer re_e2e_test');
+    assert.equal(body.subject, 'New website lead: Pat Lee');
+    assert.equal(body.reply_to, 'pat@example.com');
+    assert.match(body.text, /Phone: 515 555 0100/);
+    assert.match(body.text, /Page: www\.digitaldominant\.co\.uk\/book\.html\?utm_source=google/);
+    assert.match(body.text, /Business: Lee Roofing/);
+    assert.deepEqual(errors, []);
+  } finally {
+    await context.close();
+    delete process.env.RESEND_API_KEY;
+    delete process.env.RESEND_API_URL;
+    await new Promise((resolve) => resend.close(resolve));
   }
 });
 

@@ -15,6 +15,7 @@ const WHATSAPP_NUMBER = '919949932140';
 const PHONE_DISPLAY = '+91\u00a099499\u00a032140'; // non-breaking spaces: never split the number
 const EMAIL = 'info@digitaldominant.co.uk';
 const LEAD_TIMEOUT_MS = 6000;
+const SITE_LEAD_TIMEOUT_MS = 12000; // api/lead.js gives Resend 10 s
 
 // encodeURIComponent throws on half an emoji (a lone surrogate), which would
 // stop the WhatsApp fallback from opening; swap any such half for "?" first.
@@ -251,6 +252,30 @@ function setStatus(box, kind, text) {
   if (kind === 'error') reveal(box);
 }
 
+// POST a lead; true only for a clear { ok: true } answer within the time limit.
+async function postLead(url, body, { timeoutMs, crossSite }) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      // To the Hub, text/plain keeps this a "simple" request (no CORS preflight);
+      // the Hub parses the JSON body either way.
+      headers: { 'Content-Type': crossSite ? 'text/plain;charset=UTF-8' : 'application/json' },
+      body: JSON.stringify(body),
+      signal: controller.signal,
+      credentials: crossSite ? 'omit' : 'same-origin',
+      cache: 'no-store',
+    });
+    const data = await response.json();
+    return response.ok && data !== null && typeof data === 'object' && data.ok === true;
+  } catch {
+    return false;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 async function sendLead(lead) {
   const body = {
     site: SITE,
@@ -262,26 +287,10 @@ async function sendLead(lead) {
     page: location.pathname + location.search,
     website: lead.website,
   };
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), LEAD_TIMEOUT_MS);
-  try {
-    // text/plain keeps this a "simple" request (no CORS preflight); the Hub
-    // parses the JSON body either way.
-    const response = await fetch(`${HUB}/api/lead`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
-      body: JSON.stringify(body),
-      signal: controller.signal,
-      credentials: 'omit',
-      cache: 'no-store',
-    });
-    const data = await response.json();
-    return response.ok && data !== null && typeof data === 'object' && data.ok === true;
-  } catch {
-    return false;
-  } finally {
-    clearTimeout(timer);
-  }
+  if (await postLead(`${HUB}/api/lead`, body, { timeoutMs: LEAD_TIMEOUT_MS, crossSite: true })) return true;
+  // DD Hub couldn't take it (paused, slow or down): the website emails it to us
+  // itself (api/lead.js). Only if that fails too do we offer WhatsApp and email.
+  return postLead('/api/lead', body, { timeoutMs: SITE_LEAD_TIMEOUT_MS, crossSite: false });
 }
 
 function messageText(lead, form) {
