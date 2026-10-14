@@ -34,6 +34,7 @@ export default defineConfig({
         book: resolve(__dirname, 'book.html'),
         contact: resolve(__dirname, 'contact.html'),
         work: resolve(__dirname, 'work.html'),
+        workBhadrakali: resolve(__dirname, 'work-bhadrakali.html'),
         portfolio: resolve(__dirname, 'portfolio.html'),
         pricing: resolve(__dirname, 'pricing.html'), // redirect to services.html#plans for old links
         services: resolve(__dirname, 'services.html'),

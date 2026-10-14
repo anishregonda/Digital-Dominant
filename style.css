@@ -5018,3 +5018,64 @@ form[hidden],
   .check-cta-actions .btn { white-space: normal; text-align: center; }
   .check-cta-call { text-align: center; }
 }
+
+/* ---- Case study page (work-bhadrakali.html) ---- */
+.cs-eyebrow {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+}
+.cs-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+.cs-stat {
+  border: 1px solid var(--border-color);
+  border-top: 4px solid var(--accent-primary);
+  padding: 1.25rem 1.35rem;
+  background: var(--bg-card);
+}
+.cs-stat strong {
+  display: block;
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--ink);
+  margin-bottom: 0.35rem;
+  font-variant-numeric: tabular-nums;
+}
+.cs-stat span { color: var(--text-secondary); font-size: 0.95rem; }
+.cs-narrow { max-width: 820px; }
+.cs-h2 { font-size: 2rem; line-height: 1.2; margin-bottom: 0.9rem; text-wrap: balance; }
+.cs-lead { font-size: 1.1rem; color: var(--text-secondary); }
+.cs-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+  gap: 3.5rem;
+  align-items: center;
+}
+.cs-feature + .cs-feature {
+  margin-top: 4.5rem;
+  padding-top: 4.5rem;
+  border-top: 1px solid var(--border-color);
+}
+.cs-feature.cs-flip .cs-shot { order: 2; }
+.cs-shot { margin: 0; display: flex; justify-content: center; gap: 1.25rem; align-items: flex-end; }
+.cs-shot img { width: 100%; max-width: 314px; height: auto; display: block; filter: drop-shadow(0 18px 30px rgba(15, 23, 42, 0.18)); }
+.cs-pair img:first-child { max-width: 250px; border: 1px solid var(--border-color); }
+.cs-copy p { color: var(--text-secondary); margin-bottom: 1.25rem; }
+.cs-copy .check-list { margin-top: 0.5rem; }
+.cs-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3rem; }
+.cs-links { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; margin-top: 1.5rem; }
+@media (max-width: 900px) {
+  .cs-stats { grid-template-columns: 1fr; }
+  .cs-feature, .cs-two { grid-template-columns: 1fr; gap: 2rem; }
+  .cs-feature.cs-flip .cs-shot { order: 0; }
+  .cs-h2 { font-size: 1.6rem; }
+  .cs-pair img:first-child { max-width: 46%; }
+  .cs-pair img:last-child { max-width: 50%; }
+}
