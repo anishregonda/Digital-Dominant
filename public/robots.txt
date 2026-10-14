@@ -2,5 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /thank-you.html
 Disallow: /api/
+Disallow: /demos/
+Disallow: /report/
 
 Sitemap: https://www.digitaldominant.co.uk/sitemap.xml

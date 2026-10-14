@@ -35,6 +35,10 @@ export default defineConfig({
         contact: resolve(__dirname, 'contact.html'),
         work: resolve(__dirname, 'work.html'),
         workBhadrakali: resolve(__dirname, 'work-bhadrakali.html'),
+        demoRoofing: resolve(__dirname, 'demos/roofing.html'),
+        demoHvac: resolve(__dirname, 'demos/hvac.html'),
+        demoPlumbing: resolve(__dirname, 'demos/plumbing.html'),
+        report: resolve(__dirname, 'report/index.html'),
         portfolio: resolve(__dirname, 'portfolio.html'),
         pricing: resolve(__dirname, 'pricing.html'), // redirect to services.html#plans for old links
         services: resolve(__dirname, 'services.html'),

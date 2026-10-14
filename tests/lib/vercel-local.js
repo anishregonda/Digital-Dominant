@@ -1,6 +1,7 @@
 // A small stand-in for Vercel, for local previews and the end-to-end test:
 //   - serves the built site (dist/) the way Vercel's static hosting does
-//   - applies vercel.json "redirects" (before files) and "rewrites" (after files)
+//   - applies vercel.json "redirects" (before files), "rewrites" (after files)
+//     and "headers"; sources may use ":name" segments and "(.*)" like Vercel's
 //   - routes /api/<name> to api/<name>.js and calls it the way Vercel's Node
 //     runtime does: (req, res) with Vercel's helpers, i.e. the body already
 //     read and parsed by content type into req.body (invalid JSON throws on
@@ -29,6 +30,32 @@ const TYPES = {
   '.xml': 'application/xml; charset=utf-8',
   '.woff2': 'font/woff2',
 };
+
+// Vercel's source patterns, the subset this site uses: plain paths, ":name"
+// segments (one path segment) and "(.*)" (anything, slashes included).
+const patterns = new Map();
+function matches(source, pathname) {
+  let re = patterns.get(source);
+  if (!re) {
+    let out = '';
+    for (let i = 0; i < source.length; ) {
+      const param = /^:[A-Za-z_]\w*/.exec(source.slice(i));
+      if (source.startsWith('(.*)', i)) {
+        out += '.*';
+        i += 4;
+      } else if (param) {
+        out += '[^/]+';
+        i += param[0].length;
+      } else {
+        out += source[i].replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        i += 1;
+      }
+    }
+    re = new RegExp(`^${out}$`);
+    patterns.set(source, re);
+  }
+  return re.test(pathname);
+}
 
 function withHelpers(req, res, raw) {
   const url = new URL(req.url, 'http://localhost');
@@ -135,12 +162,17 @@ export async function startVercelLocal({ root = REPO, distDir = 'dist', port = 4
 
       // 2. Redirects, before the filesystem (308 when permanent, as Vercel does)
       for (const r of config.redirects || []) {
-        if (r.source === pathname) {
+        if (matches(r.source, pathname)) {
           res.statusCode = r.statusCode || (r.permanent === false ? 307 : 308);
           res.setHeader('Location', r.destination);
           res.end();
           return;
         }
+      }
+
+      // Response headers from vercel.json, matched on the requested path
+      for (const h of config.headers || []) {
+        if (matches(h.source, pathname)) for (const { key, value } of h.headers) res.setHeader(key, value);
       }
 
       // 3. Files
@@ -152,7 +184,7 @@ export async function startVercelLocal({ root = REPO, distDir = 'dist', port = 4
 
       // 4. Rewrites, when no file matched
       for (const r of config.rewrites || []) {
-        if (r.source === pathname) {
+        if (matches(r.source, pathname)) {
           const target = await fileFor(r.destination);
           if (target) {
             await sendFile(req, res, target);

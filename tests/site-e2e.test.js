@@ -601,3 +601,158 @@ test('every page loads in the browser without errors; screenshots', { timeout: 2
     }
   }
 });
+
+// ---------------------------------------------------------------------------
+// Sample contractor sites (/demos/<trade>) and one-page website checks for the
+// businesses we email (/report/<slug>, facts in /report-data/<slug>.json)
+// ---------------------------------------------------------------------------
+const DEMOS = ['roofing', 'hvac', 'plumbing'];
+const REPORT_DIR = path.join(DIST, 'report-data');
+const SLUG_RE = /^[a-z0-9](?:[a-z0-9-]{0,78}[a-z0-9])?$/;
+const readReport = (slug) => JSON.parse(readFileSync(path.join(REPORT_DIR, `${slug}.json`), 'utf8'));
+
+test('demo sites and report pages stay out of search', async () => {
+  const robots = readBuilt('robots.txt');
+  assert.match(robots, /^Disallow: \/demos\/$/m);
+  assert.match(robots, /^Disallow: \/report\/$/m);
+  assert.doesNotMatch(readBuilt('sitemap.xml'), /\/demos\/|\/report/);
+  assert.match(readFileSync(path.join(DIST, 'report', 'index.html'), 'utf8'), /<meta name="robots" content="noindex, nofollow"/);
+  for (const p of [...DEMOS.map((d) => `/demos/${d}`), '/report/goliath-gutters', '/report-data/goliath-gutters.json']) {
+    const res = await fetch(`${origin}${p}`);
+    assert.equal(res.status, 200, p);
+    assert.equal(res.headers.get('x-robots-tag'), 'noindex, nofollow', p);
+  }
+  assert.equal((await fetch(`${origin}/services.html`)).headers.get('x-robots-tag'), null, 'the rest of the site stays indexable');
+});
+
+test('every report file is complete, consistent, and its picture exists', () => {
+  const files = readdirSync(REPORT_DIR).filter((f) => f.endsWith('.json'));
+  assert.ok(files.length >= 100, `${files.length} reports`);
+  const pictures = new Set();
+  for (const file of files) {
+    const slug = file.replace(/\.json$/, '');
+    const r = readReport(slug);
+    assert.match(slug, SLUG_RE, file);
+    for (const k of ['name', 'domain', 'website', 'checked']) assert.ok(r[k], `${file}: ${k}`);
+    assert.match(r.website, /^https?:\/\//, `${file}: website`);
+    if (r.shot) {
+      assert.equal(r.shot, `/report-data/${slug}.webp`, `${file}: shot path`);
+      assert.ok(existsSync(path.join(DIST, r.shot)), `${file}: ${r.shot} exists`);
+      pictures.add(`${slug}.webp`);
+    }
+    assert.ok(Array.isArray(r.items) && r.items.length > 0, `${file}: at least one finding`);
+    for (const item of r.items) for (const k of ['key', 'title', 'detail', 'fix', 'fixTitle']) assert.ok(item[k], `${file}: ${item.key} ${k}`);
+    assert.ok(Array.isArray(r.good), `${file}: good list`);
+    assert.ok(r.demo === null || DEMOS.includes(r.demo), `${file}: demo ${r.demo}`);
+    // What's working never contradicts what we found.
+    const keys = new Set(r.items.map((i) => i.key));
+    const good = r.good.join(' | ');
+    if (keys.has('down')) assert.deepEqual(r.good, [], `${file}: a site that is down has nothing working`);
+    if (keys.has('notsecure')) assert.doesNotMatch(good, /HTTPS/, file);
+    if (keys.has('notap') || keys.has('nophone')) assert.doesNotMatch(good, /tap-to-call/, file);
+    if (keys.has('noga')) assert.doesNotMatch(good, /Analytics/, file);
+    if (keys.has('nodesc')) assert.doesNotMatch(good, /search description/, file);
+    if (keys.has('noform')) assert.doesNotMatch(good, /form on the homepage/, file);
+    // The page speaks as the agency, and never overclaims.
+    for (const item of r.items) {
+      assert.doesNotMatch(item.detail, /\bI\b/, `${file}: "${item.detail}" says I`);
+      assert.doesNotMatch(item.detail, /no way to see/, file);
+    }
+  }
+  const stray = readdirSync(REPORT_DIR).filter((f) => f.endsWith('.webp') && !pictures.has(f));
+  assert.deepEqual(stray, [], 'every picture belongs to a report');
+});
+
+test('report page: findings, fixes, what works, and the matching demo, on a phone', async () => {
+  const { context, page, errors } = await openPage(PHONE);
+  try {
+    const r = readReport('goliath-gutters');
+    await page.goto(`${origin}/report/goliath-gutters`, { waitUntil: 'load' });
+    await page.waitForSelector('[data-r="report"]:not([hidden])');
+    assert.equal(await page.title(), `Website check: ${r.name} | Digital Dominant`);
+    assert.equal(await page.textContent('h1'), `${r.name}: your homepage on a phone`);
+    assert.deepEqual(await page.$$eval('.rp-item h3', (els) => els.map((e) => e.textContent)), r.items.map((i) => i.title));
+    assert.deepEqual(await page.$$eval('.rp-fix h3', (els) => els.map((e) => e.textContent)), [...new Set(r.items.map((i) => i.fixTitle))]);
+    assert.deepEqual(await page.$$eval('.rp-good li', (els) => els.map((e) => e.textContent)), r.good);
+    assert.ok(await page.$eval('[data-r="shot"]', (img) => img.complete && img.naturalWidth > 0), 'phone picture loaded');
+    assert.equal(await page.getAttribute('[data-r="site"]', 'href'), new URL(r.website).href);
+    assert.equal(await page.getAttribute('[data-r="mail"]', 'href'), `mailto:info@digitaldominant.co.uk?subject=${encodeURIComponent(`Website check: ${r.name}`)}`);
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true, 'no sideways scroll');
+    await shot(page, 'report-390', { fullPage: true });
+    // The demo opens with their name on it.
+    assert.equal(await page.getAttribute('[data-r="demo-link"]', 'href'), `/demos/${r.demo}?for=${encodeURIComponent(r.name)}&city=${encodeURIComponent(r.city)}`);
+    await page.click('[data-r="demo-link"]');
+    await page.waitForURL(new RegExp(`/demos/${r.demo}\\?`));
+    await page.waitForSelector('[data-for]:not([hidden])');
+    assert.equal(await page.textContent('[data-for]'), `Made for ${r.name}`);
+    assert.deepEqual(errors, []);
+
+    // A site that never loaded: no picture, one column, nothing listed as working.
+    await page.goto(`${origin}/report/kbs-roofing-exteriors`, { waitUntil: 'load' });
+    await page.waitForSelector('[data-r="report"]:not([hidden])');
+    assert.equal(await page.$eval('.rp-phone', (f) => f.hidden), true);
+    assert.equal(await page.$eval('[data-r="good-wrap"]', (w) => w.hidden), true);
+    assert.match(await page.textContent('.rp-item p'), /timed out/);
+    assert.deepEqual(errors, []);
+  } finally {
+    await context.close();
+  }
+});
+
+test('report page: a cut-off or made-up link shows a clear not-found page', async () => {
+  const { context, page, errors } = await openPage(PHONE);
+  try {
+    for (const bad of ['goliath-gutt', 'no-such-company', '..%2F..%2Fapi', 'UPPER%20case']) {
+      errors.length = 0;
+      await page.goto(`${origin}/report/${bad}`, { waitUntil: 'load' });
+      await page.waitForSelector('[data-r="missing"]:not([hidden])');
+      assert.equal(await page.textContent('h1'), 'We couldn’t find that report', bad);
+      assert.equal(await page.$eval('[data-r="report"]', (s) => s.hidden), true, bad);
+      // Only the expected 404 for the missing data file; nothing else fails.
+      assert.ok(errors.every((e) => /report-data\/[a-z0-9-]+\.json/.test(e) && /404/.test(e)), `${bad}: ${errors.join(' | ')}`);
+    }
+  } finally {
+    await context.close();
+  }
+});
+
+test('demo sites: three answers, checked details, the lead shown; nothing is sent anywhere', { timeout: 120000 }, async () => {
+  for (const demo of DEMOS) {
+    const { context, page, errors } = await openPage(PHONE);
+    const sent = [];
+    page.on('request', (req) => { if (req.method() !== 'GET' && req.method() !== 'HEAD') sent.push(`${req.method()} ${req.url()}`); });
+    try {
+      await page.goto(`${origin}/demos/${demo}?for=${encodeURIComponent('Test & Sons <b>')}&city=Omaha`, { waitUntil: 'load' });
+      assert.equal(await page.textContent('[data-for]'), 'Made for Test & Sons b', `${demo}: name cleaned`);
+      assert.deepEqual([...new Set(await page.$$eval('[data-city]', (els) => els.map((e) => e.textContent)))], ['Omaha'], `${demo}: city`);
+      await page.waitForSelector('[data-speed]:not([hidden])');
+      assert.match(await page.textContent('[data-speed]'), /^Loaded in \d+\.\d s/);
+      await page.click('.q-step[data-step="1"] .opt >> nth=0');
+      await page.waitForSelector('.q-step[data-step="2"]:not([hidden])');
+      await page.click('.q-step[data-step="2"] .opt >> nth=1');
+      await page.waitForSelector('.q-step[data-step="3"]:not([hidden])');
+      const submit = page.locator('form.quote button[type="submit"]');
+      await submit.click();
+      assert.equal(await page.textContent('.q-err'), 'Please add your name.');
+      await page.fill('input[name="name"]', 'Pat');
+      await page.fill('input[name="phone"]', '12');
+      await submit.click();
+      assert.match(await page.textContent('.q-err'), /check your phone number/);
+      await page.fill('input[name="phone"]', '402 555 0199');
+      await page.fill('input[name="zip"]', '681');
+      await submit.click();
+      assert.equal(await page.textContent('.q-err'), 'Please enter a 5-digit ZIP code.');
+      await page.fill('input[name="zip"]', '68102');
+      await submit.click();
+      await page.waitForSelector('.q-done:not([hidden])');
+      assert.match(await page.textContent('.q-done [data-lead]'), /Pat, 402 555 0199, 68102$/);
+      assert.match(await page.textContent('.q-done'), /nothing was sent/);
+      assert.deepEqual(sent, [], `${demo}: no data leaves the page`);
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true, `${demo}: no sideways scroll`);
+      await shot(page, `demo-${demo}-390`, { fullPage: true });
+      assert.deepEqual(errors, [], demo);
+    } finally {
+      await context.close();
+    }
+  }
+});

@@ -11,6 +11,15 @@
     { "source": "/hub", "destination": "/hub.html" },
     { "source": "/calculator", "destination": "/calculator.html" },
     { "source": "/growth-check", "destination": "/growth-check.html" },
-    { "source": "/services", "destination": "/services.html" }
+    { "source": "/services", "destination": "/services.html" },
+    { "source": "/demos/roofing", "destination": "/demos/roofing.html" },
+    { "source": "/demos/hvac", "destination": "/demos/hvac.html" },
+    { "source": "/demos/plumbing", "destination": "/demos/plumbing.html" },
+    { "source": "/report/:slug", "destination": "/report/index.html" }
+  ],
+  "headers": [
+    { "source": "/demos/(.*)", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] },
+    { "source": "/report/(.*)", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] },
+    { "source": "/report-data/(.*)", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] }
   ]
 }
