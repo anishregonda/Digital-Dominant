@@ -264,7 +264,7 @@ test('homepage: six sections in the agreed order, short FAQ, no Hyderabad', () =
     },
   });
   assert.deepEqual(headings, [
-    'Where paid clicks go to die.',
+    'Stop paying for clicks that never call.',
     'One team for the site, the ads and the software behind them',
     'The same system, already running',
     'How much is the leak costing you?',
