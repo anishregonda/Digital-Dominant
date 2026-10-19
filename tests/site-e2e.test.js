@@ -31,7 +31,7 @@ const PORT = Number(process.env.E2E_PORT) || 4312;
 const SHOTS = process.env.SHOTS_DIR || '';
 const PHONE = { width: 390, height: 844, isMobile: true, hasTouch: true };
 const DESKTOP = { width: 1280, height: 900, isMobile: false, hasTouch: false };
-const MENU = ['Home', 'Services', 'Our Work', 'Free Audit', 'About', 'Book a call', 'Client login'];
+const MENU = ['Home', 'Services', 'Our Work', 'Free Audit', 'About', 'Book a call'];
 const FOOTER = [
   ['Services', 'services.html'],
   ['Plans', 'services.html#plans'],
@@ -41,7 +41,7 @@ const FOOTER = [
   ['Contact', 'contact.html'],
   ['Influencers Lab', 'influencers-lab.html'],
   ['Lead Leak Calculator', 'calculator.html'],
-  ['Client login (DD Hub)', 'hub.html'],
+  ['DD Hub', 'hub.html'],
 ];
 
 let chromium;
@@ -215,14 +215,14 @@ test('every page has the new menu and footer, and no link to the paused Hub audi
     const menu = linksIn(between(nav, /<div class="nav-links"/, '</div>'));
     assert.deepEqual(menu.map((a) => a.text), MENU, `${file} menu`);
     assert.deepEqual(menu.map((a) => a.href), [
-      '/', 'services.html', 'work.html', '/growth-check', 'about.html', 'https://calendly.com/digitaldominant/30min', 'hub.html',
+      '/', 'services.html', 'work.html', '/growth-check', 'about.html', 'https://calendly.com/digitaldominant/30min',
     ], `${file} menu links`);
     const actions = linksIn(between(nav, /<div class="nav-actions"/, '</div>'));
     assert.deepEqual(actions.map((a) => [a.text, a.href]), [
-      ['Client login', 'hub.html'],
       ['Book a call', 'https://calendly.com/digitaldominant/30min'],
     ], `${file} desktop actions`);
     assert.equal((nav.match(/>Home</g) || []).length, 1, `${file}: one Home link`);
+    assert.doesNotMatch(html, /Client login/, `${file}: no Client login while the Hub is paused`);
     const footer = between(html, /<footer class="footer"/, '</footer>');
     const footerLinks = linksIn(footer).map((a) => [a.text, a.href]);
     for (const expected of FOOTER) assert.ok(footerLinks.some(([t, h]) => t === expected[0] && h === expected[1]), `${file} footer has ${expected[0]}`);
@@ -380,12 +380,12 @@ test('every internal link on every built page resolves (no 404s, anchors exist)'
 // ---------------------------------------------------------------------------
 // In a real browser
 // ---------------------------------------------------------------------------
-test('phone menu shows exactly Home, Services, Our Work, Free Audit, About, Book a call, Client login', async () => {
+test('phone menu shows exactly Home, Services, Our Work, Free Audit, About, Book a call (no Client login while the Hub is paused)', async () => {
   const { context, page, errors } = await openPage(PHONE);
   try {
     await page.goto(`${origin}/`, { waitUntil: 'load' });
     assert.deepEqual(await visibleMenuItems(page), [], 'menu closed at first');
-    assert.equal(await page.isVisible('.nav-actions'), false, 'desktop Client login/Book a call hidden on phones');
+    assert.equal(await page.isVisible('.nav-actions'), false, 'desktop Book a call hidden on phones');
     await page.click('#mobile-menu');
     await page.waitForFunction(() => document.getElementById('site-nav').classList.contains('active'));
     await page.waitForTimeout(500); // the menu slides open
@@ -400,13 +400,13 @@ test('phone menu shows exactly Home, Services, Our Work, Free Audit, About, Book
   }
 });
 
-test('desktop menu: Home and four links, then Client login next to Book a call', async () => {
+test('desktop menu: Home and four links, then Book a call (no Client login while the Hub is paused)', async () => {
   const { context, page, errors } = await openPage(DESKTOP);
   try {
     await page.goto(`${origin}/`, { waitUntil: 'load' });
     assert.deepEqual(await visibleMenuItems(page), ['Home', 'Services', 'Our Work', 'Free Audit', 'About']);
     const actions = await page.$$eval('.nav-actions a', (links) => links.map((a) => a.textContent.trim()));
-    assert.deepEqual(actions, ['Client login', 'Book a call']);
+    assert.deepEqual(actions, ['Book a call']);
     assert.equal(await page.isVisible('#mobile-menu'), false);
     await shot(page, 'menu-1280');
     assert.deepEqual(errors, []);
