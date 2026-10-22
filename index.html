@@ -23,12 +23,8 @@
     <meta name="twitter:image" content="https://www.digitaldominant.co.uk/og-home.jpg" />
     <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfessionalService", "name": "Digital Dominant", "url": "https://www.digitaldominant.co.uk/", "logo": "https://www.digitaldominant.co.uk/logo.png", "image": "https://www.digitaldominant.co.uk/logo.png", "description": "Technical growth partner for owner-led service businesses: we rebuild the page your ads land on as a fast app with a built-in lead qualifier, run Google and Meta ads into it, and report cost per lead weekly in your own portal.", "telephone": "+91-99499-32140", "email": "info@digitaldominant.co.uk", "areaServed": "Worldwide", "sameAs": ["https://www.instagram.com/digitaldominant.co.uk/"], "knowsAbout": ["Website rebuilds (Next.js)", "Landing pages and quote tools", "Google Ads", "Meta Ads (Facebook and Instagram)", "Lead routing", "Google reviews", "Client reporting portals", "Custom software"], "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Services", "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Website rebuild", "description": "Your site rebuilt as a Next.js app with about 1-second loads and a 3-question quote tool on every landing page."}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Google Ads", "description": "Search campaigns built per service with a landing page each, negative keywords and call tracking. Ad spend stays in your own account."}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Meta ads", "description": "Facebook and Instagram campaigns run into the same fast pages, with the same cost-per-lead reporting."}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Lead routing, reviews engine and portal (DD Hub)", "description": "Every lead to your phone in seconds, review requests and replies, and spend, leads and cost per lead in your own portal."}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Custom software", "description": "Quote tools, case evaluators, dashboards and automations built for your business."}}]}}</script>
     <link rel="icon" type="image/png" href="logo.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="/vendor/aos.css" rel="stylesheet">
-    <!-- Without JavaScript the animations never start: show everything. -->
-    <noscript><style>[data-aos] { opacity: 1 !important; transform: none !important; }</style></noscript>
+    <link rel="preload" href="/fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="./style.css" />
     <script src="/vendor/icons.js" defer></script>
     <script defer src="https://hub.digitaldominant.co.uk/t.js" data-site="digital-dominant"></script>
@@ -65,11 +61,11 @@
     <!-- 1. The problem: paid clicks that never call -->
     <header class="hero hero-v2" id="home">
       <div class="container hero-content">
-        <div class="hero-text" data-aos="fade-right" data-aos-duration="900">
+        <div class="hero-text">
           <span class="kicker">Technical growth partner</span>
           <h1>Stop paying for clicks that never <em>call.</em></h1>
           <p class="hero-lead">Your website is leaking leads. Most agencies sell you more clicks. We fix the page they land on, run Google and Meta ads into it, and report cost per lead every week in your own portal.</p>
-          <p class="hero-fit">Built for owner-led service businesses that already pay for clicks.</p>
+          <p class="hero-fit">Built for owner-led service businesses that already pay for clicks: HVAC, roofing, plumbing, dental, med spas, and injury and immigration law.</p>
           <div class="hero-actions" data-wa-avoid>
             <a href="https://calendly.com/digitaldominant/30min" target="_blank" rel="noopener" class="btn btn-primary">Book a free 30-minute call</a>
             <a href="/growth-check" class="btn btn-secondary">Run a free Growth Check</a>
@@ -80,7 +76,7 @@
             <li>You talk to the people who build it</li>
           </ul>
         </div>
-        <div class="hero-visual" data-aos="fade-left" data-aos-duration="900" data-aos-delay="150">
+        <div class="hero-visual">
           <div class="portal-mock" role="img" aria-label="Sample view of a client portal with made-up numbers: leads this week, cost per lead compared with last week, Google rating, and the latest leads with where each one came from">
             <div class="portal-bar" aria-hidden="true">
               <span class="portal-dots"><i></i><i></i><i></i></span>
@@ -129,20 +125,20 @@
       </div>
       <div class="container">
         <ul class="hero-stats" aria-label="Where the clicks go">
-          <li data-aos="fade-up">
+          <li>
             <strong>53<small>%</small></strong>
             <span class="hero-stat-text">of mobile visits are likely to be abandoned when a page takes longer than 3 seconds to load.</span>
             <span class="hero-stat-src">Source: Google, <a href="https://www.blog.google/products/admanager/the-need-for-mobile-speed/" target="_blank" rel="noopener">The Need for Mobile Speed</a> (2016)</span>
           </li>
-          <li data-aos="fade-up" data-aos-delay="100">
-            <strong>2.35<small>%</small></strong>
-            <span class="hero-stat-text">median Google Ads conversion rate: about 97 of every 100 paid visitors leave without becoming a lead.</span>
-            <span class="hero-stat-src">Source: WordStream, <a href="https://www.wordstream.com/blog/ws/2014/03/17/what-is-a-good-conversion-rate" target="_blank" rel="noopener">What Is a Good Conversion Rate?</a> (2014 analysis)</span>
+          <li>
+            <strong>4<small>&nbsp;of 56</small></strong>
+            <span class="hero-stat-text">We tested 56 DFW HVAC sites. Median score 55. Four pass.</span>
+            <span class="hero-stat-src">Source: our <a href="/dfw-hvac-report">DFW HVAC Website Report 2026</a>, Google&rsquo;s mobile speed test, October 2026</span>
           </li>
-          <li data-aos="fade-up" data-aos-delay="200">
+          <li>
             <strong>~1<small>&nbsp;second</small></strong>
             <span class="hero-stat-text">is what the pages we build load in, so the click you paid for meets an offer, not a spinner.</span>
-            <span class="hero-stat-src">The fix: a faster page and a better ask, measured in your own portal.</span>
+            <span class="hero-stat-src">The fix: a faster page and a better ask.</span>
           </li>
         </ul>
       </div>
@@ -151,37 +147,37 @@
     <!-- 2. What we do -->
     <section class="section section-alt" id="services" aria-labelledby="services-title">
       <div class="container">
-        <div class="section-head" data-aos="fade-up">
+        <div class="section-head">
           <span class="kicker">What we do</span>
           <h2 class="section-title" id="services-title">One team for the site, the ads and the software behind them</h2>
           <p class="section-subtitle">Pick one piece or the whole system. Every engagement is scoped on a free call and quoted in writing.</p>
         </div>
         <div class="svc-grid">
-          <article class="svc-card" data-aos="fade-up">
+          <article class="svc-card">
             <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11l-1 8.5 8.5-11.5H13z"/></svg></div>
             <h3>Website rebuild</h3>
             <p>Your site rebuilt as a fast Next.js app: about 1-second loads on a phone and a 3-question quote tool on every landing page.</p>
             <a href="services.html#website-rebuild" class="text-link">What a rebuild includes &rarr;</a>
           </article>
-          <article class="svc-card" data-aos="fade-up" data-aos-delay="100">
+          <article class="svc-card">
             <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.8-4.8"/><path d="M10.5 7.5v6M7.5 10.5h6"/></svg></div>
             <h3>Google &amp; Meta ads</h3>
             <p>Search, Facebook and Instagram campaigns run into those fast pages, with call tracking and cost per lead every week. Spend stays in your own accounts.</p>
             <a href="services.html#google-ads" class="text-link">How we run ads &rarr;</a>
           </article>
-          <article class="svc-card" data-aos="fade-up" data-aos-delay="200">
+          <article class="svc-card">
             <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 9-4 3 4 3"/><path d="m16 9 4 3-4 3"/><path d="m13.5 5-3 14"/></svg></div>
             <h3>Custom software, including DD Hub</h3>
             <p>Quote tools, booking funnels and dashboards. DD Hub, the portal every client gets, is our own product.</p>
             <a href="hub.html" class="text-link">See DD Hub &rarr;</a>
           </article>
-          <article class="svc-card is-wide" data-aos="fade-up">
+          <article class="svc-card is-wide">
             <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
             <h3>Reviews engine</h3>
             <p>Review requests by link and counter QR, every review answered, and your Google rating on your phone every morning.</p>
             <a href="services.html#reviews" class="text-link">How the reviews engine works &rarr;</a>
           </article>
-          <article class="svc-card is-wide" data-aos="fade-up" data-aos-delay="100">
+          <article class="svc-card is-wide">
             <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
             <h3>Influencers Lab</h3>
             <p>Local creator campaigns: vetted creators near you, matched to your business, with what each post brings in tracked.</p>
@@ -194,7 +190,7 @@
 
     <!-- 3. Proof -->
     <section class="portfolio-preview-section" id="work" style="padding: 5rem 0; background-color: #ffffff;">
-      <div class="container text-center" data-aos="fade-up">
+      <div class="container text-center">
         <span class="kicker">Our work</span>
         <h2 class="section-title">The same system, already running</h2>
         <p class="section-subtitle">Real clients, real work. We publish the numbers after 30 days of tracking, and never before.</p>
@@ -228,13 +224,13 @@
     <!-- 4. Lead Leak Calculator -->
     <section class="calc-band" id="calculator" aria-labelledby="calc-title">
       <div class="container calc-band-inner">
-        <div data-aos="fade-up">
+        <div>
           <span class="kicker">Lead Leak Calculator</span>
           <h2 id="calc-title">How much is the leak costing you?</h2>
           <p>Put in your monthly visitors, your conversion rate today and what a customer is worth. The calculator shows what moving to a better conversion rate is worth each month, with the arithmetic on screen. Your numbers, nothing stored.</p>
           <a href="calculator.html" class="btn btn-primary">Open the calculator</a>
         </div>
-        <div class="calc-example" data-aos="fade-up" data-aos-delay="100" aria-label="Worked example with the calculator's default numbers">
+        <div class="calc-example" aria-label="Worked example with the calculator's default numbers">
           <div class="calc-example-row"><span>Monthly visitors</span><strong>2,000</strong></div>
           <div class="calc-example-row"><span>Conversion today &rarr; target</span><strong>2% &rarr; 4%</strong></div>
           <div class="calc-example-row"><span>Extra leads a month</span><strong>40</strong></div>
@@ -248,41 +244,41 @@
     <!-- 5. How it works -->
     <section class="section" id="how" aria-labelledby="how-title">
       <div class="container">
-        <div class="section-head" data-aos="fade-up">
+        <div class="section-head">
           <span class="kicker">How it works</span>
           <h2 class="section-title" id="how-title">Two phases, one number we report on</h2>
           <p class="section-subtitle">Here&rsquo;s how the first 90 days run. Measure first, rebuild, then run the ads into it, and judge it all on cost per lead.</p>
         </div>
         <ol class="steps">
-          <li data-aos="fade-up">
+          <li>
             <span class="step-time">Weeks 1&ndash;2</span>
             <h3>Measure</h3>
             <p>Your real conversion rate, calls, forms and cost per lead today: the baseline we report against.</p>
           </li>
-          <li data-aos="fade-up" data-aos-delay="100">
+          <li>
             <span class="step-time">Phase 1 &middot; weeks 2&ndash;6</span>
             <h3>Rebuild</h3>
             <p>New site, quote tool, lead routing, reviews engine and your portal. The old site stays live until launch day.</p>
           </li>
-          <li data-aos="fade-up" data-aos-delay="200">
+          <li>
             <span class="step-time">Phase 2 &middot; week 5 on</span>
             <h3>Run the ads into it</h3>
-            <p>Google and Meta campaigns, a landing page each, call tracking. Spend stays in your accounts.</p>
+            <p>Google and Meta campaigns, a landing page each, call tracking.</p>
           </li>
-          <li data-aos="fade-up" data-aos-delay="300">
+          <li>
             <span class="step-time">Every week</span>
-            <h3>One change, one number</h3>
-            <p>One improvement shipped and cost per lead reported in your portal, plus a monthly review call.</p>
+            <h3>Improve and report</h3>
+            <p>We ship one improvement, report your cost per lead, and talk it through on a monthly review call.</p>
           </li>
         </ol>
-        <p class="section-more">Quoted in writing within 24 hours of a free call. Not ready for both phases? Start with the reviews engine. <a href="services.html#plans" class="text-link">See the plans &rarr;</a></p>
+        <p class="section-more">Not ready for both phases? Start with the reviews engine. <a href="services.html#plans" class="text-link">See the plans &rarr;</a></p>
       </div>
     </section>
 
     <!-- 6. Free Growth Check, then a short FAQ -->
     <section class="section section-alt" id="free-check" aria-labelledby="check-title">
       <div class="container">
-        <div class="check-cta" data-aos="fade-up">
+        <div class="check-cta">
           <div class="audit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.8-4.8"/><path d="m7.8 10.8 2 2 3.6-3.8"/></svg></div>
           <div>
             <span class="kicker">Free Growth Check</span>
@@ -299,11 +295,11 @@
           <h2 class="section-title text-center">Questions owners ask</h2>
           <details class="faq-item">
             <summary>How much does it cost?</summary>
-            <p>Every engagement is scoped on the call: site size, ad spend, markets. You&rsquo;ll have a written quote within 24 hours, one number per phase. We don&rsquo;t publish a price list because a three-page landing-page rebuild and a 20-page site with custom tools are not the same job. See <a href="services.html#plans" class="text-link">what the plans include</a>.</p>
+            <p>Every engagement is scoped on the call: site size, ad spend, markets. You get a fixed price for each phase, in writing. We don&rsquo;t publish a price list because a three-page landing-page rebuild and a 20-page site with custom tools are not the same job. See <a href="services.html#plans" class="text-link">what the plans include</a>.</p>
           </details>
           <details class="faq-item">
             <summary>How are you different from my current agency?</summary>
-            <p>They optimise the ad. We optimise the ad, the page it lands on and the follow-up, and cost per lead is the only number we report on. You see it every week in your own portal, not in a PDF once a month.</p>
+            <p>They optimise the ad. We optimise the ad, the page it lands on and the follow-up, and cost per lead is the only number we report on. You see it every week, not in a PDF once a month.</p>
           </details>
           <details class="faq-item">
             <summary>What about the ad budget?</summary>
@@ -311,7 +307,7 @@
           </details>
           <details class="faq-item">
             <summary>Do you work with businesses in the US?</summary>
-            <p>Yes. We work remotely with owner-led businesses wherever they are, on calls, Zoom and WhatsApp, and we take calls on US hours. Book a time that suits you.</p>
+            <p>Yes. We work on US Central hours by phone and Zoom, and quote in dollars.</p>
           </details>
           <details class="faq-item">
             <summary>Is there a guarantee?</summary>
@@ -328,7 +324,7 @@
       <div class="container footer-grid">
         <div class="footer-col footer-brand">
           <a href="/" aria-label="Digital Dominant home" style="display:inline-block; margin:0;"><img src="logo.png" alt="Digital Dominant" class="logo-img" width="100" height="100" loading="lazy" /></a>
-          <p>Your technical growth partner: a fast lead-capture site, Google and Meta ads run into it, and cost per lead reported weekly in your own portal.</p>
+          <p>Your technical growth partner: a fast lead-capture site, Google and Meta ads run into it, and cost per lead reported every week.</p>
         </div>
         <div class="footer-col">
           <h4>Explore</h4>
@@ -359,7 +355,6 @@
     </footer>
 
     <a class="wa-float" href="https://wa.me/919949932140?text=Hi%20Digital%20Dominant%2C%20I%20found%20you%20on%20your%20website%20and%20want%20to%20know%20more." target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp" title="WhatsApp us"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><path d="M6.2 3.5h11.6A2.7 2.7 0 0 1 20.5 6.2v8.1a2.7 2.7 0 0 1-2.7 2.7H10.4L5.6 20.6v-3.6h.6A2.7 2.7 0 0 1 3.5 14.3V6.2a2.7 2.7 0 0 1 2.7-2.7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path transform="matrix(1.2 0 0 1.2 -2.94 -2.41)" d="M9.4 6.9c.3-.3.8-.3 1 .1l.8 1.5c.2.3.1.7-.1.9l-.5.5c.4.9 1.2 1.7 2.1 2.1l.5-.5c.2-.2.6-.3.9-.1l1.5.8c.4.2.4.7.1 1l-.7.7c-.5.5-1.3.6-1.9.3-1.7-.8-3.1-2.2-3.9-3.9-.3-.6-.2-1.4.3-1.9z" fill="currentColor"/></svg></a>
-    <script src="/vendor/aos.js"></script>
     <script type="module" src="/main.js"></script>
   </body>
 </html>

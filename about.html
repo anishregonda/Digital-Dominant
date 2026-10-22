@@ -20,13 +20,9 @@
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Your website is leaking leads. Digital Dominant: fast lead-capture sites, Google and Meta ads, cost per lead weekly in your portal." />
     <link rel="icon" type="image/png" href="logo.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="/vendor/icons.js" defer></script>
-    <link href="/vendor/aos.css" rel="stylesheet">
-    <!-- Without JavaScript the animations never start: show everything. -->
-    <noscript><style>[data-aos] { opacity: 1 !important; transform: none !important; }</style></noscript>
+    <link rel="preload" href="/fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="./style.css" />
     <script defer src="https://hub.digitaldominant.co.uk/t.js" data-site="digital-dominant"></script>
   </head>
@@ -64,21 +60,21 @@
     <!-- About / Value Proposition -->
     <section class="about-section" id="about">
       <div class="container">
-        <div class="about-hero" data-aos="fade-up" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 5rem;">
+        <div class="about-hero" style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 5rem;">
           <h1 class="section-title" style="font-size: 3rem;">We fix the thing the clicks land on</h1>
           <p class="section-subtitle" style="font-size: 1.2rem; max-width: 680px; margin: 0 auto 3rem;">Digital Dominant is a technical growth partner for owner-led service businesses. We rebuild your website as a fast app with a built-in lead qualifier, run Google and Meta ads into it, and report cost per lead weekly in your own portal.</p>
           <div style="width: 100%; max-width: 1000px; height: 400px; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
-            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=2000" alt="People planning a marketing project around a laptop" style="width: 100%; height: 100%; object-fit: cover;">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=70&w=1000&h=400" srcset="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=70&w=640&h=400 640w, https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=70&w=1000&h=400 1000w, https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=70&w=2000&h=800 2000w" sizes="(max-width: 1064px) calc(100vw - 4rem), 1000px" width="1000" height="400" alt="People planning a marketing project around a laptop" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
           </div>
         </div>
         
-        <div class="mission-section grid-2-col" data-aos="fade-up" style="align-items: center; margin-bottom: 6rem; max-width: 1000px; margin-left: auto; margin-right: auto; gap: 4rem;">
+        <div class="mission-section grid-2-col" style="align-items: center; margin-bottom: 6rem; max-width: 1000px; margin-left: auto; margin-right: auto; gap: 4rem;">
           <div style="background-color: var(--bg-card); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid var(--border-color); border-top: 4px solid var(--accent-gold); padding: 2.25rem; height: 100%;">
             <span class="kicker">How we work</span>
             <h3 style="font-size: 1.5rem; margin-bottom: 1.25rem;">You get the two people who build and run it</h3>
             <ul class="check-list">
               <li><strong>No account manager.</strong> You talk to the people doing the work, on calls, WhatsApp or Zoom, wherever you are.</li>
-              <li><strong>Weekly numbers, good or bad,</strong> in your own portal. Cost per lead is the number we report on.</li>
+              <li><strong>Weekly numbers, good or bad.</strong> Cost per lead is the number we report on.</li>
               <li><strong>Ad spend stays in your accounts.</strong> Billed by Google and Meta to you, never through us, never marked up.</li>
               <li><strong>Code and content are yours.</strong> Hosting, domain and ad accounts stay in your name.</li>
             </ul>
@@ -90,68 +86,31 @@
           </div>
         </div>
         
-        <div class="our-story-section grid-2-col" data-aos="fade-up" style="align-items: center; margin-bottom: 6rem; max-width: 1000px; margin-left: auto; margin-right: auto;">
+        <div class="our-story-section" style="margin-bottom: 6rem; max-width: 760px; margin-left: auto; margin-right: auto;">
           <div>
             <h3 style="font-size: 2rem; color: var(--accent-primary); margin-bottom: 1.5rem;">Our Story</h3>
-            <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 1.1rem; line-height: 1.8;">Digital Dominant started by building websites and running Google Ads for owner-led businesses, and by building DD Hub, our own portal, because a monthly PDF of impressions and clicks never told an owner what a lead actually cost.</p>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 1.1rem; line-height: 1.8;">Digital Dominant started by building websites and running Google Ads for owner-led businesses, and by building DD Hub, our own portal, because a monthly report of impressions and clicks never told an owner what a lead actually cost.</p>
             <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8;">Today we run the whole system as one: the page, the ads and the follow-up. We don&rsquo;t just build websites; we build lead-capture apps, the software around them, and the reporting that shows whether they work, so you can get back to running your business.</p>
           </div>
-          <div style="background: var(--bg-card); padding: 3rem; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center;">
-            <h4 style="color: #b45309; font-size: 1.5rem; margin-bottom: 1rem;">The Digital Dominant Promise</h4>
-            <ul style="list-style: none; text-align: left; margin: 0; padding: 0;">
-              <li style="margin-bottom: 1rem; color: var(--text-secondary); font-size: 1.05rem;">✓ Written quote within 24 hours of the call</li>
-              <li style="margin-bottom: 1rem; color: var(--text-secondary); font-size: 1.05rem;">✓ Cost per lead reported weekly in your own portal</li>
-              <li style="margin-bottom: 1rem; color: var(--text-secondary); font-size: 1.05rem;">✓ We don&rsquo;t work with your direct competitor in your city while we work with you</li>
-              <li style="margin-bottom: 0; color: var(--text-secondary); font-size: 1.05rem;">✓ Ad spend stays in your accounts, never marked up</li>
-            </ul>
-          </div>
         </div>
 
-        <div class="values-header text-center" data-aos="fade-up" style="margin-bottom: 3rem;">
-            <h3 style="font-size: 2.5rem; color: var(--accent-primary);">Our Core Values</h3>
-        </div>
-        
-        <div class="values-grid">
-          <div class="value-card" data-aos="fade-up" data-aos-delay="100">
-            <h3>Transparent & Passionate</h3>
-            <p>We genuinely care about our partners and our work. We are committed to your success.</p>
-          </div>
-          <div class="value-card" data-aos="fade-up" data-aos-delay="200">
-            <h3>Integrity</h3>
-            <p>Maintain standards that reflect only the best for your business & our own.</p>
-          </div>
-          <div class="value-card highlight-card" data-aos="zoom-in" data-aos-delay="300">
-            <p class="quote">"The only way to grow a business is to be able to constantly be working ON your business not IN your business, and that's what we want to help you with here at Digital Dominant"</p>
-            <p class="author">— C. Rahul, Founder & CEO &amp; R. Anish, Co-Founder</p>
-          </div>
-          <div class="value-card" data-aos="fade-up" data-aos-delay="400">
-            <h3>Partnership</h3>
-            <p>You're not a client, we are partners. Our business model relies on a partnership. We only succeed when you do.</p>
-          </div>
-          <div class="value-card" data-aos="fade-up" data-aos-delay="500">
-            <h3>Adaptive</h3>
-            <p>An individualized approach means understanding your niche and working together to achieve the best results. Markets change, let us help your business adapt.</p>
-          </div>
-        </div>
-
-        <!-- Leadership Team -->
-        <div class="values-header text-center" data-aos="fade-up" style="margin-top: 5rem; margin-bottom: 1rem;">
-          <h3 style="font-size: 2.5rem; color: var(--accent-primary);">Our Leadership</h3>
-          <p class="section-subtitle">The team driving Digital Dominant's mission forward.</p>
+        <!-- Who you'll work with: photos go in public/team/ (see .team-photo in style.css) -->
+        <div class="values-header text-center" style="margin-bottom: 1rem;">
+          <h3 style="font-size: 2.5rem; color: var(--accent-primary);">Who you&rsquo;ll work with</h3>
         </div>
 
         <div class="team-grid">
-          <div class="team-card" data-aos="fade-up" data-aos-delay="100">
-            <div class="team-avatar" style="background: linear-gradient(135deg, #2e1065, #8b5cf6);">CR</div>
-            <h3>C. Rahul</h3>
-            <p class="team-role">Founder & CEO</p>
-            <p class="team-tagline">"Building the systems that let owner-led businesses dominate their markets, one page, one campaign and one number at a time."</p>
+          <div class="team-card">
+            <div class="team-avatar" style="background: linear-gradient(135deg, #2e1065, #8b5cf6);" aria-hidden="true">R</div>
+            <h3>Rahul</h3>
+            <p class="team-role">Founder &amp; CEO</p>
+            <p class="team-tagline">Runs your Google and Meta ads and walks you through cost per lead every week.</p>
           </div>
-          <div class="team-card" data-aos="fade-up" data-aos-delay="200">
-            <div class="team-avatar" style="background: linear-gradient(135deg, #4c1d95, #f59e0b);">RA</div>
-            <h3>R. Anish</h3>
-            <p class="team-role">Co-Founder</p>
-            <p class="team-tagline">"Running the ads and the weekly numbers, so every client can see what each lead cost."</p>
+          <div class="team-card">
+            <div class="team-avatar" style="background: linear-gradient(135deg, #4c1d95, #f59e0b);" aria-hidden="true">A</div>
+            <h3>Anish</h3>
+            <p class="team-role">Co-founder</p>
+            <p class="team-tagline">Builds your site, quote tool and portal, and keeps them fast.</p>
           </div>
         </div>
       </div>
@@ -159,7 +118,7 @@
 
     <!-- Global CTA Section -->
     <section class="global-cta-section" style="padding: 6rem 0; background-color: var(--accent-primary); color: white; text-align: center;">
-      <div class="container" data-aos="zoom-in">
+      <div class="container">
         <h2 style="font-size: 2.5rem; margin-bottom: 1rem; color: white;">Want to See Our Work?</h2>
         <p style="font-size: 1.1rem; margin-bottom: 2rem; color: rgba(255,255,255,0.9); max-width: 600px; margin-left: auto; margin-right: auto;">See what we&rsquo;ve built so far, what we changed, and what&rsquo;s next for each project. Real numbers after 30 days of tracking, or none at all.</p>
         <a href="work.html" class="btn btn-primary" style="background-color: var(--accent-gold); color: var(--accent-primary); font-size: 1.1rem; padding: 1rem 2.5rem; border-radius: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.2);">See Our Work</a>
@@ -173,7 +132,7 @@
       <div class="container footer-grid">
         <div class="footer-col footer-brand">
           <a href="/" aria-label="Digital Dominant home" style="display:inline-block; margin:0;"><img src="logo.png" alt="Digital Dominant" class="logo-img" width="100" height="100" loading="lazy" /></a>
-          <p>Your technical growth partner: a fast lead-capture site, Google and Meta ads run into it, and cost per lead reported weekly in your own portal.</p>
+          <p>Your technical growth partner: a fast lead-capture site, Google and Meta ads run into it, and cost per lead reported every week.</p>
         </div>
         <div class="footer-col">
           <h4>Explore</h4>
@@ -204,7 +163,6 @@
     </footer>
 
     <a class="wa-float" href="https://wa.me/919949932140?text=Hi%20Digital%20Dominant%2C%20I%20found%20you%20on%20your%20website%20and%20want%20to%20know%20more." target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp" title="WhatsApp us"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><path d="M6.2 3.5h11.6A2.7 2.7 0 0 1 20.5 6.2v8.1a2.7 2.7 0 0 1-2.7 2.7H10.4L5.6 20.6v-3.6h.6A2.7 2.7 0 0 1 3.5 14.3V6.2a2.7 2.7 0 0 1 2.7-2.7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path transform="matrix(1.2 0 0 1.2 -2.94 -2.41)" d="M9.4 6.9c.3-.3.8-.3 1 .1l.8 1.5c.2.3.1.7-.1.9l-.5.5c.4.9 1.2 1.7 2.1 2.1l.5-.5c.2-.2.6-.3.9-.1l1.5.8c.4.2.4.7.1 1l-.7.7c-.5.5-1.3.6-1.9.3-1.7-.8-3.1-2.2-3.9-3.9-.3-.6-.2-1.4.3-1.9z" fill="currentColor"/></svg></a>
-    <script src="/vendor/aos.js"></script>
     <script type="module" src="/main.js"></script>
   </body>
 </html>

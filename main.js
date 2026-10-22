@@ -75,9 +75,10 @@ function initMenu() {
 }
 
 // ---------------------------------------------------------------------------
-// Icons + animations (both vendored under /vendor, loaded by each page)
+// Icons (vendored under /vendor, loaded by each page). No scroll animations:
+// every section is visible from the first paint, with or without JavaScript.
 // ---------------------------------------------------------------------------
-function initIconsAndAnimations() {
+function initIcons() {
   const drawIcons = () => {
     if (window.lucide && typeof window.lucide.createIcons === 'function') {
       window.lucide.createIcons();
@@ -87,11 +88,6 @@ function initIconsAndAnimations() {
   };
   // icons.js is a deferred script; if it hasn't run yet, draw once the page has loaded.
   if (!drawIcons()) window.addEventListener('load', drawIcons, { once: true });
-
-  if (window.AOS && typeof window.AOS.init === 'function') {
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    window.AOS.init({ once: true, offset: 60, duration: 700, disable: reduceMotion });
-  }
 }
 
 // ---------------------------------------------------------------------------
@@ -937,7 +933,7 @@ function initGrowthCheck() {
 
 function init() {
   initMenu();
-  initIconsAndAnimations();
+  initIcons();
   initFloatAvoid();
   initLeadForms();
   initCalculator();

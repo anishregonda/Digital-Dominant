@@ -158,7 +158,8 @@ if (!slug) {
   showMissing();
 } else {
   fetch(`/report-data/${slug}.json`, { headers: { Accept: 'application/json' } })
-    .then((res) => (res.ok ? res.json() : Promise.reject(new Error(String(res.status)))))
+    // A 404's body is read too, so the request finishes cleanly instead of being cut off mid-way.
+    .then((res) => (res.ok ? res.json() : res.text().then(() => Promise.reject(new Error(String(res.status))))))
     .then(render)
     .catch(showMissing);
 }

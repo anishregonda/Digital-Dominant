@@ -3,8 +3,8 @@ import { resolve } from 'path'
 
 // DD Hub's visit counter (t.js) is a deferred script, and deferred scripts run in
 // page order. Vite puts the site's own bundle at the end of <head>, after the
-// counter, so a slow or unreachable Hub would hold back the menu, the lead forms
-// and every animated section (hidden until AOS starts). Move the counter tag after
+// counter, so a slow or unreachable Hub would hold back the menu and the lead
+// forms. Move the counter tag after
 // the bundle: the tag itself stays exactly as written, and stays in <head>.
 const TRACKER_TAG = /[ \t]*<script\b[^>]*\bsrc="https:\/\/hub\.digitaldominant\.co\.uk\/t\.js"[^>]*><\/script>[ \t]*\r?\n?/
 
@@ -35,6 +35,7 @@ export default defineConfig({
         contact: resolve(__dirname, 'contact.html'),
         work: resolve(__dirname, 'work.html'),
         workBhadrakali: resolve(__dirname, 'work-bhadrakali.html'),
+        dfwHvacReport: resolve(__dirname, 'dfw-hvac-report.html'),
         demoRoofing: resolve(__dirname, 'demos/roofing.html'),
         demoHvac: resolve(__dirname, 'demos/hvac.html'),
         demoPlumbing: resolve(__dirname, 'demos/plumbing.html'),

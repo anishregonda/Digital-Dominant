@@ -139,7 +139,6 @@ async function openPage(viewport) {
 // Full-page screenshots: show the scroll-in animations, let lazy images load,
 // then put the page back at the top so the fixed menu sits where it belongs.
 async function settleForFullPage(page) {
-  await page.addStyleTag({ content: '[data-aos]{opacity:1!important;transform:none!important;transition:none!important}' });
   await page.evaluate(async () => {
     const step = Math.max(400, Math.floor(window.innerHeight * 0.8));
     for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
@@ -320,6 +319,89 @@ async function resolve(url) {
   }
   throw new Error(`too many redirects for ${url}`);
 }
+
+// The words a visitor reads: no head, scripts, styles or icons.
+const visibleText = (html) =>
+  html
+    .replace(/<head[\s\S]*?<\/head>/i, ' ')
+    .replace(/<(script|style|noscript|svg)\b[\s\S]*?<\/\1>/gi, ' ')
+    .replace(/<!--[\s\S]*?-->/g, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&rsquo;/g, '’').replace(/&amp;/g, '&').replace(/&nbsp;/g, ' ').replace(/&middot;/g, '·').replace(/&ndash;/g, '–')
+    .replace(/\s+/g, ' ');
+
+test('speed: Inter self-hosted in 400 and 700, no Google Fonts, no scroll animations hiding content', () => {
+  for (const file of [...builtPages(), 'report/index.html']) {
+    const html = readBuilt(file);
+    assert.doesNotMatch(html, /fonts\.(googleapis|gstatic)\.com/, `${file} still loads Google Fonts`);
+    assert.doesNotMatch(html, /data-aos|aos\.(css|js)/, `${file} still uses AOS`);
+    if (/style\.css|assets\/main-[^"]+\.css/.test(html) && file !== 'pricing.html' && file !== 'portfolio.html' && file !== 'testimonials.html') {
+      for (const w of ['400', '700']) {
+        assert.match(html, new RegExp(`<link rel="preload" href="/fonts/inter-latin-${w}\\.woff2" as="font" type="font/woff2" crossorigin>`), `${file} preloads Inter ${w}`);
+      }
+    }
+  }
+  const css = readdirSync(path.join(DIST, 'assets')).filter((f) => /^main-.*\.css$/.test(f)).map((f) => readFileSync(path.join(DIST, 'assets', f), 'utf8')).join('');
+  const faces = css.match(/@font-face\{[^}]*font-family:"?Inter"?;[^}]*\}/g) || [];
+  assert.deepEqual(faces.map((f) => f.match(/font-weight:(\d+)/)[1]).sort(), ['400', '700']);
+  for (const f of faces) assert.match(f, /font-display:swap/);
+  for (const w of ['400', '700']) assert.ok(existsSync(path.join(DIST, 'fonts', `inter-latin-${w}.woff2`)), `font ${w} shipped`);
+  assert.ok(!existsSync(path.join(DIST, 'vendor', 'aos.js')), 'aos.js is gone');
+});
+
+test('copy: each repeated phrase at most once per page', () => {
+  const phrases = {
+    'in your own portal': /in your own portal/gi,
+    'written quote within 24 hours': /(?:written quote|quoted in writing|written plan|in writing)[^.]{0,40}within 24 hours|within 24 hours[^.]{0,60}(?:written quote|quote)/gi,
+    'never marked up': /mark(?:ed)? (?:it )?up\b/gi,
+    'not a PDF once a month': /\bPDF\b/g,
+    'one X, one number': /\bone number\b/gi,
+  };
+  for (const file of builtPages()) {
+    const text = visibleText(readBuilt(file));
+    for (const [name, re] of Object.entries(phrases)) {
+      const n = (text.match(re) || []).length;
+      assert.ok(n <= 1, `${file}: "${name}" ${n} times`);
+    }
+  }
+});
+
+test('copy: homepage niches and our own HVAC data; US answer; About and the Starter plan', () => {
+  const home = visibleText(readBuilt('index.html'));
+  assert.match(home, /HVAC, roofing, plumbing, dental, med spas, and injury and immigration law/);
+  assert.match(home, /We tested 56 DFW HVAC sites\. Median score 55\. Four pass\./);
+  assert.doesNotMatch(readBuilt('index.html'), /WordStream|2\.35/);
+  assert.match(readBuilt('index.html'), /href="\/dfw-hvac-report"/);
+  for (const file of ['index.html', 'services.html']) {
+    assert.match(visibleText(readBuilt(file)), /Do you work with businesses in the US\? Yes\. We work on US Central hours by phone and Zoom, and quote in dollars\./, file);
+  }
+  const about = visibleText(readBuilt('about.html'));
+  for (const gone of [/Core Values/i, /Digital Dominant Promise/i, /mission forward/i, /working ON your business/i, /C\. Rahul|R\. Anish/]) assert.doesNotMatch(about, gone);
+  assert.match(about, /Rahul Founder & CEO Runs your Google and Meta ads and walks you through cost per lead every week\./);
+  assert.match(about, /Anish Co-founder Builds your site, quote tool and portal, and keeps them fast\./);
+  const services = visibleText(readBuilt('services.html'));
+  assert.match(services, /The simplest start for dental practices and med spas:/);
+  assert.doesNotMatch(services, /clinics, salons and restaurants/);
+});
+
+test('DFW HVAC report: its own page, two charts, the corrected numbers, linked from the Growth Check', () => {
+  const html = readBuilt('dfw-hvac-report.html');
+  const text = visibleText(html);
+  assert.match(html, /<link rel="canonical" href="https:\/\/www\.digitaldominant\.co\.uk\/dfw-hvac-report" \/>/);
+  assert.equal((html.match(/<figure class="rp-chart"/g) || []).length, 2);
+  assert.equal((html.match(/<li class="is-(poor|mid|good)" style="--n: \d+"/g) || []).length, 10);
+  const bands = [...html.matchAll(/style="--n: (\d+)"/g)].map((m) => Number(m[1]));
+  assert.equal(bands.reduce((a, b) => a + b, 0), 56);
+  assert.equal((html.match(/<span class="rp-label">/g) || []).length, 9);
+  for (const must of ['Four of the 56 pass', '55 / 100', '9.8 s', '3.7 MB', '13 of the 23 owners buying Google Ads', 'about one in three residents', '32.8%', 'Three of them keep the homepage to about 1 MB or less']) {
+    assert.ok(text.includes(must), `report says "${must}"`);
+  }
+  assert.doesNotMatch(text, /Internal note|delete before publishing|four in ten|the other 40 owners/i);
+  assert.match(readBuilt('growth-check.html'), /We ran this on 56 DFW HVAC sites\. Four passed\. <a href="\/dfw-hvac-report">See the report<\/a>/);
+  const config = JSON.parse(readFileSync(path.join(ROOT, 'vercel.json'), 'utf8'));
+  assert.ok(config.rewrites.some((r) => r.source === '/dfw-hvac-report' && r.destination === '/dfw-hvac-report.html'));
+  assert.match(readFileSync(path.join(DIST, 'sitemap.xml'), 'utf8'), /<loc>https:\/\/www\.digitaldominant\.co\.uk\/dfw-hvac-report<\/loc>/);
+});
 
 test('every internal link on every built page resolves (no 404s, anchors exist)', async () => {
   const targets = new Map(); // href -> pages using it
@@ -628,10 +710,12 @@ test('every page loads in the browser without errors; screenshots', { timeout: 2
         if (file === 'pricing.html' || file === 'portfolio.html' || file === 'testimonials.html') continue; // redirect pages
         const pathName = file === 'index.html' ? '/' : `/${file}`;
         await page.goto(`${origin}${pathName}`, { waitUntil: 'load' });
-        await page.waitForTimeout(150);
+        // Sections show from the first paint now, so lazy images can start after "load":
+        // let them finish, or the next goto aborts them and that reads as an error.
+        await page.waitForLoadState('networkidle');
         assert.deepEqual(errors, [], `${file} at ${viewport.width}px`);
       }
-      await page.goto(`${origin}/`, { waitUntil: 'load' });
+      await page.goto(`${origin}/`, { waitUntil: 'networkidle' });
       await shot(page, `home-${viewport.width}`, { fullPage: true });
       if (SHOTS) {
         // The fixed menu would sit on top of the footer in an element shot.
@@ -639,7 +723,7 @@ test('every page loads in the browser without errors; screenshots', { timeout: 2
         await page.locator('#site-footer').screenshot({ path: path.join(SHOTS, `footer-${viewport.width}.png`) });
         await hideMenu.evaluate((node) => node.remove());
       }
-      await page.goto(`${origin}/services.html`, { waitUntil: 'load' });
+      await page.goto(`${origin}/services.html`, { waitUntil: 'networkidle' });
       await shot(page, `services-${viewport.width}`, { fullPage: true });
       await page.goto(`${origin}/pricing.html`, { waitUntil: 'load' });
       assert.equal(new URL(page.url()).pathname + new URL(page.url()).hash, '/services.html#plans');

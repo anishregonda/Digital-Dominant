@@ -23,12 +23,8 @@
     <meta name="twitter:image" content="https://www.digitaldominant.co.uk/og-home.jpg" />
     <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfessionalService", "name": "Digital Dominant", "url": "https://www.digitaldominant.co.uk/", "logo": "https://www.digitaldominant.co.uk/logo.png", "image": "https://www.digitaldominant.co.uk/logo.png", "telephone": "+91-99499-32140", "email": "info@digitaldominant.co.uk", "areaServed": "Worldwide", "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Services", "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Website rebuild", "description": "Your site rebuilt as a fast Next.js app with about 1-second loads and a 3-question quote tool on every landing page."}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Google and Meta ads", "description": "Search campaigns built per service with a landing page each, plus Facebook and Instagram campaigns into the same pages. Ad spend stays in your own accounts."}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Custom software, including DD Hub", "description": "Quote tools, booking funnels, dashboards and automations, and DD Hub, the client portal for leads, reviews and cost per lead."}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Reviews engine", "description": "Review requests by link and counter QR, every review answered, and a reviews widget for your site."}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Influencers Lab", "description": "Local creator campaigns: vetted local creators matched to your business, with what each post brings in tracked."}}]}}</script>
     <link rel="icon" type="image/png" href="logo.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="/vendor/aos.css" rel="stylesheet">
-    <!-- Without JavaScript the animations never start: show everything. -->
-    <noscript><style>[data-aos] { opacity: 1 !important; transform: none !important; }</style></noscript>
+    <link rel="preload" href="/fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="./style.css" />
     <script src="/vendor/icons.js" defer></script>
     <script defer src="https://hub.digitaldominant.co.uk/t.js" data-site="digital-dominant"></script>
@@ -66,11 +62,11 @@
         <div class="hero-text">
           <span class="kicker">Services</span>
           <h1>What we build and run</h1>
-          <p>One team for the site, the ads and the software behind them. Pick one piece or the whole system. Every engagement is scoped on a free 30-minute call and quoted in writing within 24 hours.</p>
+          <p>One team for the site, the ads and the software behind them. Pick one piece or the whole system. Every engagement is scoped on a free 30-minute call and quoted in writing.</p>
           <ul class="hero-chips" aria-label="How we work">
-            <li>Written quote within 24 hours</li>
             <li>Ad spend never marked up</li>
             <li>Code and content are yours</li>
+            <li>Fixed price per phase</li>
           </ul>
           <div class="hero-actions" data-wa-avoid>
             <a href="https://calendly.com/digitaldominant/30min" target="_blank" rel="noopener" class="btn btn-primary">Book a free 30-minute call</a>
@@ -84,7 +80,7 @@
             <span class="proposal-mark" aria-hidden="true">DD</span>
             <div>
               <h2 id="proposal-title">Your written quote</h2>
-              <p>Two pages, sent within 24 hours of the call</p>
+              <p>Two pages, sent the day after the call</p>
             </div>
           </div>
           <ul class="proposal-list">
@@ -94,7 +90,7 @@
             <li><strong>Phase 2: Growth partner</strong><span>Google and Meta ads, one improvement a week. Flat monthly fee</span></li>
             <li><strong>What we need from you</strong><span>Access, content and two hours of your time in week 1</span></li>
           </ul>
-          <p class="proposal-foot">Ad spend is paid by you to Google and Meta directly. Never through us, never marked up.</p>
+          <p class="proposal-foot">Ad spend is paid by you to Google and Meta directly, never through us.</p>
         </aside>
       </div>
     </header>
@@ -107,34 +103,34 @@
           <p class="section-subtitle">Each one is scoped on the call and shows up as a line in your written quote.</p>
         </div>
         <div class="svc-grid">
-          <article class="svc-card" id="website-rebuild" data-aos="fade-up">
+          <article class="svc-card" id="website-rebuild">
             <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11l-1 8.5 8.5-11.5H13z"/></svg></div>
             <h3>Website rebuild</h3>
             <p>Your site rebuilt as a fast Next.js app: about 1-second loads on a phone, a 3-question quote tool on every landing page, hosted in your own account. Code and content stay yours.</p>
             <p class="svc-note">Already fast? We&rsquo;ll tell you so and only talk about the ads.</p>
             <p class="svc-links"><a href="calculator.html" class="text-link">What the leak costs you &rarr;</a> <a href="/growth-check" class="text-link">Check your site free &rarr;</a></p>
           </article>
-          <article class="svc-card" id="google-ads" data-aos="fade-up" data-aos-delay="100">
+          <article class="svc-card" id="google-ads">
             <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.8-4.8"/><path d="M10.5 7.5v6M7.5 10.5h6"/></svg></div>
             <h3>Google &amp; Meta ads</h3>
             <p>Google Search campaigns built per service, each with its own landing page, negative keywords and call tracking, so every call from an ad is counted.</p>
-            <p id="meta-ads">Facebook and Instagram campaigns run into the same fast pages, with the same cost-per-lead reporting. Spend stays in your own accounts, never marked up.</p>
+            <p id="meta-ads">Facebook and Instagram campaigns run into the same fast pages, with the same cost-per-lead reporting.</p>
             <p class="svc-links"><a href="work.html#hair-factor" class="text-link">See a Google Ads case study &rarr;</a></p>
           </article>
-          <article class="svc-card" id="custom-software" data-aos="fade-up" data-aos-delay="200">
+          <article class="svc-card" id="custom-software">
             <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 9-4 3 4 3"/><path d="m16 9 4 3-4 3"/><path d="m13.5 5-3 14"/></svg></div>
             <h3>Custom software, including DD Hub</h3>
             <p>Quote tools, booking funnels, dashboards and automations, built when the thing your business needs doesn&rsquo;t exist.</p>
             <p class="svc-note">DD Hub, the client portal every plan includes, is our own product: leads, reviews and cost per lead on your phone.</p>
             <p class="svc-links"><a href="hub.html" class="text-link">See DD Hub &rarr;</a></p>
           </article>
-          <article class="svc-card is-wide" id="reviews" data-aos="fade-up">
+          <article class="svc-card is-wide" id="reviews">
             <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
             <h3>Reviews engine</h3>
             <p>A review link you send after each visit and a QR stand for the counter. Every review answered: we draft the reply, you approve it. A reviews widget for your site, and your rating on your phone every morning.</p>
             <p class="svc-links"><a href="hub.html#inside" class="text-link">See the reviews screens &rarr;</a> <a href="#reviews-engine" class="text-link">Start with reviews only &rarr;</a></p>
           </article>
-          <article class="svc-card is-wide" id="influencers-lab" data-aos="fade-up" data-aos-delay="100">
+          <article class="svc-card is-wide" id="influencers-lab">
             <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
             <h3>Influencers Lab</h3>
             <p>Local creator campaigns. We vet creators in your area, match them to your business, plan the posts with you and track what each one brings in.</p>
@@ -152,15 +148,15 @@
           <p class="section-subtitle">Phase 1 rebuilds the page your ads land on. Phase 2 runs the ads into it and reports cost per lead every week. Every engagement is sized to your site, your ad spend and your markets, then quoted in writing. No price list, no surprises.</p>
         </div>
         <ol class="plan-steps">
-          <li data-aos="fade-up">
+          <li>
             <h3>A 30-minute call with your numbers</h3>
             <p>How leads reach you today, what you spend on ads, what a customer is worth. We put it into the calculator while we talk and show you three things on your site.</p>
           </li>
-          <li data-aos="fade-up" data-aos-delay="100">
+          <li>
             <h3>A written quote within 24 hours</h3>
-            <p>One number per phase, sized to your site, spend and markets. If the numbers don&rsquo;t justify a rebuild, we&rsquo;ll say so and suggest a smaller start.</p>
+            <p>A fixed price for each phase, sized to your site, spend and markets. If the numbers don&rsquo;t justify a rebuild, we&rsquo;ll say so and suggest a smaller start.</p>
           </li>
-          <li data-aos="fade-up" data-aos-delay="200">
+          <li>
             <h3>You decide at your pace</h3>
             <p>Phase 1 is half to start, half at launch. Phase 2 is a flat monthly fee you can cancel with 30 days&rsquo; notice after month 3.</p>
           </li>
@@ -168,7 +164,7 @@
         <ul class="plan-terms" aria-label="Our terms">
           <li>
             <span class="plan-terms-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></svg></span>
-            <span><strong>Ad spend stays in your own Google and Meta accounts</strong>, billed by them to you. We never invoice it and never mark it up.</span>
+            <span><strong>Ad spend stays in your own Google and Meta accounts</strong>, billed by them to you. We never invoice it.</span>
           </li>
           <li>
             <span class="plan-terms-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="1.5"/><path d="M8 10.5V7.2a4 4 0 0 1 7.7-1.5"/><path d="M12 14.5v2"/></svg></span>
@@ -187,7 +183,7 @@
         </div>
 
         <div class="price-grid plan-grid">
-          <article class="price-card plan-card" id="phase-1" data-aos="fade-up">
+          <article class="price-card plan-card" id="phase-1">
             <span class="price-label">Phase 1 &middot; weeks 1&ndash;6</span>
             <h3>Rebuild</h3>
             <p class="plan-lede">The page your ads land on, rebuilt as a lead-capture app. The old site stays live until launch day.</p>
@@ -201,7 +197,7 @@
             <p class="plan-foot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>One fee: half to start, half at launch</p>
           </article>
 
-          <article class="price-card plan-card is-featured" id="phase-2" data-aos="fade-up" data-aos-delay="100">
+          <article class="price-card plan-card is-featured" id="phase-2">
             <span class="price-label">Phase 2 &middot; from week 5, monthly</span>
             <h3>Growth partner</h3>
             <p class="plan-lede">We run the ads into the new pages and ship one improvement every week. Cost per lead is the number we report on.</p>
@@ -216,10 +212,10 @@
           </article>
         </div>
 
-        <div class="plan-extras" id="reviews-engine" data-aos="fade-up">
+        <div class="plan-extras" id="reviews-engine">
           <span class="price-label">Starter</span>
           <h3>Reviews engine only</h3>
-          <p class="plan-lede" style="margin-bottom: 1.25rem;">The simplest start for clinics, salons and restaurants: more Google reviews, answered quickly, without touching your site or your ads yet.</p>
+          <p class="plan-lede" style="margin-bottom: 1.25rem;">The simplest start for dental practices and med spas: more Google reviews, answered quickly, without touching your site or your ads yet.</p>
           <ul class="plan-extras-list">
             <li>
               <span class="plan-extras-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
@@ -239,7 +235,7 @@
           </ul>
         </div>
 
-        <div class="guarantee" id="guarantee" data-aos="fade-up">
+        <div class="guarantee" id="guarantee">
           <div class="guarantee-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 7v5c0 5 3.5 8.5 8 9 4.5-.5 8-4 8-9V7z"/><path d="m9 12 2 2 4-4"/></svg></div>
           <div>
             <h3>Cost-per-lead guarantee</h3>
@@ -248,11 +244,11 @@
           </div>
         </div>
 
-        <div class="spend-strip" data-aos="fade-up">
+        <div class="spend-strip">
           <span class="spend-plus" aria-hidden="true">+</span>
           <div>
             <h3>Your ad budget, paid by you directly to Google and Meta</h3>
-            <p>We suggest a budget that fits your goals. It goes from your own ad accounts straight to Google and Meta, so you see every charge. We never mark it up, and you can raise, lower or pause it any time.</p>
+            <p>We suggest a budget that fits your goals. It goes from your own ad accounts straight to Google and Meta, so you see every charge, and you can raise, lower or pause it any time.</p>
           </div>
         </div>
 
@@ -272,7 +268,7 @@
           <h2 class="section-title text-center" id="faq-title" style="margin-bottom: 2rem;">Questions about plans</h2>
           <details class="faq-item">
             <summary>Why don&rsquo;t you show prices?</summary>
-            <p>Because a three-page landing-page rebuild with one quote tool and a 20-page site with custom tools are not the same job, and neither are their ad budgets. Every engagement is scoped on the call: site size, ad spend, markets. You&rsquo;ll have a written quote within 24 hours, one number per phase.</p>
+            <p>Because a three-page landing-page rebuild with one quote tool and a 20-page site with custom tools are not the same job, and neither are their ad budgets. Every engagement is scoped on the call: site size, ad spend, markets.</p>
           </details>
           <details class="faq-item">
             <summary>Is there a contract or lock-in?</summary>
@@ -280,7 +276,7 @@
           </details>
           <details class="faq-item">
             <summary>Is the ad budget included?</summary>
-            <p>No. You pay Google and Meta directly, from your own ad accounts, so you see every charge. We suggest a budget that fits your goals, we never mark it up, and you can raise, lower or pause it any time.</p>
+            <p>No. You pay Google and Meta directly, from your own ad accounts. Our fee is separate and covers the work, never the spend.</p>
           </details>
           <details class="faq-item">
             <summary>Who owns the site, the code and the ad accounts?</summary>
@@ -288,7 +284,7 @@
           </details>
           <details class="faq-item">
             <summary>Do you work with businesses in the US?</summary>
-            <p>Yes. We work remotely with owner-led businesses wherever they are, on calls, Zoom and WhatsApp, and we take calls on US hours. Book a time that suits you.</p>
+            <p>Yes. We work on US Central hours by phone and Zoom, and quote in dollars.</p>
           </details>
           <details class="faq-item">
             <summary>How long does the rebuild take?</summary>
@@ -309,7 +305,7 @@
     <section class="cta-band" aria-labelledby="cta-title">
       <div class="container">
         <h2 id="cta-title">Let&rsquo;s put your numbers in</h2>
-        <p>Book a free 30-minute call. We&rsquo;ll run the calculator with your real traffic, show you three things on your site, and send a written quote within 24 hours.</p>
+        <p>Book a free 30-minute call. We&rsquo;ll run the calculator with your real traffic and show you three things on your site.</p>
         <div class="cta-actions" data-wa-avoid>
           <a href="https://calendly.com/digitaldominant/30min" target="_blank" rel="noopener" class="btn btn-primary">Book a free 30-minute call</a>
           <a href="https://wa.me/919949932140?text=Hi%20Digital%20Dominant%2C%20I%20saw%20your%20services%20page%20and%20want%20to%20know%20more." target="_blank" rel="noopener" class="btn btn-wa">
@@ -327,7 +323,7 @@
       <div class="container footer-grid">
         <div class="footer-col footer-brand">
           <a href="/" aria-label="Digital Dominant home" style="display:inline-block; margin:0;"><img src="logo.png" alt="Digital Dominant" class="logo-img" width="100" height="100" loading="lazy" /></a>
-          <p>Your technical growth partner: a fast lead-capture site, Google and Meta ads run into it, and cost per lead reported weekly in your own portal.</p>
+          <p>Your technical growth partner: a fast lead-capture site, Google and Meta ads run into it, and cost per lead reported every week.</p>
         </div>
         <div class="footer-col">
           <h4>Explore</h4>
@@ -358,7 +354,6 @@
     </footer>
 
     <a class="wa-float" href="https://wa.me/919949932140?text=Hi%20Digital%20Dominant%2C%20I%20found%20you%20on%20your%20website%20and%20want%20to%20know%20more." target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp" title="WhatsApp us"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><path d="M6.2 3.5h11.6A2.7 2.7 0 0 1 20.5 6.2v8.1a2.7 2.7 0 0 1-2.7 2.7H10.4L5.6 20.6v-3.6h.6A2.7 2.7 0 0 1 3.5 14.3V6.2a2.7 2.7 0 0 1 2.7-2.7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path transform="matrix(1.2 0 0 1.2 -2.94 -2.41)" d="M9.4 6.9c.3-.3.8-.3 1 .1l.8 1.5c.2.3.1.7-.1.9l-.5.5c.4.9 1.2 1.7 2.1 2.1l.5-.5c.2-.2.6-.3.9-.1l1.5.8c.4.2.4.7.1 1l-.7.7c-.5.5-1.3.6-1.9.3-1.7-.8-3.1-2.2-3.9-3.9-.3-.6-.2-1.4.3-1.9z" fill="currentColor"/></svg></a>
-    <script src="/vendor/aos.js"></script>
     <script type="module" src="/main.js"></script>
   </body>
 </html>

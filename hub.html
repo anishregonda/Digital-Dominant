@@ -23,12 +23,8 @@
     <script type="application/ld+json" id="schema-service">{"@context": "https://schema.org", "@type": "Service", "name": "DD Hub", "serviceType": "Client portal for leads, reviews and ad results", "description": "Your own portal, included with every Digital Dominant plan: every lead with the page and campaign it came from, your Google rating and reviews, website visits and enquiries, ad results with cost per lead from the weekly report, photos sent to the Digital Dominant team, and a weekly summary by email.", "url": "https://www.digitaldominant.co.uk/hub", "image": "https://www.digitaldominant.co.uk/og-hub.jpg", "areaServed": "Worldwide", "audience": {"@type": "BusinessAudience", "audienceType": "Owner-led service businesses that advertise on Google and Meta"}, "provider": {"@type": "ProfessionalService", "name": "Digital Dominant", "url": "https://www.digitaldominant.co.uk/", "telephone": "+91-99499-32140", "email": "info@digitaldominant.co.uk", "image": "https://www.digitaldominant.co.uk/logo.png"}}</script>
     <script type="application/ld+json" id="schema-faq">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does DD Hub cost extra?", "acceptedAnswer": {"@type": "Answer", "text": "No. DD Hub is included with every plan: the rebuild, the growth partner plan and the reviews engine."}}, {"@type": "Question", "name": "Do I need to install anything?", "acceptedAnswer": {"@type": "Answer", "text": "No. DD Hub works in your phone's browser, on Android and iPhone. You can add it to your home screen so it opens like an app."}}, {"@type": "Question", "name": "Can my staff see it?", "acceptedAnswer": {"@type": "Answer", "text": "Anyone with your private link can open your Hub, including private messages from customers. Share it only with people you trust and keep it safe. If it gets shared by mistake, tell us and we'll change the link."}}, {"@type": "Question", "name": "Where do the numbers come from?", "acceptedAnswer": {"@type": "Answer", "text": "Your Google rating and review count come from Google and are checked every morning. Website visits, call taps, WhatsApp taps and enquiries come from a small cookie-free counter on your website. Ad results and cost per lead come from the report we add every week."}}]}</script>
     <link rel="icon" type="image/png" href="logo.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="/vendor/aos.css" rel="stylesheet">
-    <!-- Without JavaScript the animations never start: show everything. -->
-    <noscript><style>[data-aos] { opacity: 1 !important; transform: none !important; }</style></noscript>
+    <link rel="preload" href="/fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="./style.css" />
     <script src="/vendor/icons.js" defer></script>
     <script defer src="https://hub.digitaldominant.co.uk/t.js" data-site="digital-dominant"></script>
@@ -190,32 +186,32 @@
           <p class="section-subtitle">No more logging in to Google Ads, Meta, your Google profile and your website one by one. DD Hub puts it all together, in plain words, with the one number that matters: what each lead cost.</p>
         </div>
         <div class="hub-features">
-          <article class="hub-feature" data-aos="fade-up">
+          <article class="hub-feature">
             <div class="hub-feature-icon is-home" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9v11a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9"/></svg></div>
             <h3>Your week at a glance</h3>
             <p>The first screen sums up your week in a few lines, plus anything that needs you.</p>
           </article>
-          <article class="hub-feature" data-aos="fade-up" data-aos-delay="100">
+          <article class="hub-feature">
             <div class="hub-feature-icon is-reviews" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
             <h3>Reviews</h3>
             <p>Your Google rating and new reviews, checked every morning. Ask a customer for a review in 10 seconds. Everyone can review you on Google, and customers can also message you privately from the same page.</p>
           </article>
-          <article class="hub-feature" data-aos="fade-up" data-aos-delay="200">
+          <article class="hub-feature">
             <div class="hub-feature-icon is-website" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M6.5 6.5h.01M9.5 6.5h.01"/></svg></div>
             <h3>Leads &amp; enquiries</h3>
             <p>Every enquiry with the page it came from, and how many people visited, tapped to call or sent a form, compared with last week. Call or message a lead straight from the row.</p>
           </article>
-          <article class="hub-feature" data-aos="fade-up">
+          <article class="hub-feature">
             <div class="hub-feature-icon is-ads" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M6 20v-6"/><path d="M12 20V4"/><path d="M18 20v-10"/></svg></div>
             <h3>Ad results in plain words</h3>
             <p>What you spent, how many people clicked, how many became leads and what each lead cost, from the report we add every week. If calls stop being counted, the app says so.</p>
           </article>
-          <article class="hub-feature" data-aos="fade-up" data-aos-delay="100">
+          <article class="hub-feature">
             <div class="hub-feature-icon is-photos" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
             <h3>Photos to your team</h3>
             <p>Send photos and videos from your phone&rsquo;s gallery. We get the full-quality originals for your ads and landing pages. No visit needed.</p>
           </article>
-          <article class="hub-feature" data-aos="fade-up" data-aos-delay="200">
+          <article class="hub-feature">
             <div class="hub-feature-icon is-report" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h8"/></svg></div>
             <h3>Weekly report by email</h3>
             <p>A short summary of your week every Monday: leads, reviews, spend and cost per lead, each next to last week&rsquo;s. Share it in one tap, or print it.</p>
@@ -231,15 +227,15 @@
           <h2 class="section-title" id="why-title">You should see what you&rsquo;re paying for, every week</h2>
         </div>
         <div class="hub-why">
-          <div class="hub-why-item" data-aos="fade-up">
+          <div class="hub-why-item">
             <h3>See the value every week</h3>
-            <p>No waiting for a monthly meeting or a PDF. Open the app and see this week&rsquo;s leads, cost per lead and reviews next to last week&rsquo;s.</p>
+            <p>Open the app any time and see this week&rsquo;s leads, cost per lead and reviews next to last week&rsquo;s.</p>
           </div>
-          <div class="hub-why-item" data-aos="fade-up" data-aos-delay="100">
+          <div class="hub-why-item">
             <h3>Plain words, no jargon</h3>
             <p>It says things like <q>6 calls, 11 WhatsApp taps and 3 enquiries from your website</q>, not marketing terms. Anything unusual is explained in one line.</p>
           </div>
-          <div class="hub-why-item" data-aos="fade-up" data-aos-delay="200">
+          <div class="hub-why-item">
             <h3>The bad news too</h3>
             <p>If your reviews drop or calls stop being counted, the app says so, with what to do next. No surprises at the end of the month.</p>
           </div>
@@ -254,17 +250,17 @@
           <h2 class="section-title" id="how-title">Set up by us. Checked by you, any time.</h2>
         </div>
         <ol class="steps steps-3">
-          <li data-aos="fade-up">
+          <li>
             <span class="step-time">Done by us</span>
             <h3>We set it up</h3>
             <p>We connect your Google listing, your website, your lead routing and your ad accounts to DD Hub. Nothing technical for you to do.</p>
           </li>
-          <li data-aos="fade-up" data-aos-delay="100">
+          <li>
             <span class="step-time">Done by you, once</span>
             <h3>Add it to your home screen</h3>
             <p>We send you your private link. Open it and add it to your home screen, and it opens like an app. We&rsquo;ll show you how.</p>
           </li>
-          <li data-aos="fade-up" data-aos-delay="200">
+          <li>
             <span class="step-time">Any time</span>
             <h3>Check it whenever you like</h3>
             <p>Between jobs or at closing time. And every Monday, your weekly report comes to your email.</p>
@@ -336,7 +332,7 @@
       <div class="container footer-grid">
         <div class="footer-col footer-brand">
           <a href="/" aria-label="Digital Dominant home" style="display:inline-block; margin:0;"><img src="logo.png" alt="Digital Dominant" class="logo-img" width="100" height="100" loading="lazy" /></a>
-          <p>Your technical growth partner: a fast lead-capture site, Google and Meta ads run into it, and cost per lead reported weekly in your own portal.</p>
+          <p>Your technical growth partner: a fast lead-capture site, Google and Meta ads run into it, and cost per lead reported every week.</p>
         </div>
         <div class="footer-col">
           <h4>Explore</h4>
@@ -367,7 +363,6 @@
     </footer>
 
     <a class="wa-float" href="https://wa.me/919949932140?text=Hi%20Digital%20Dominant%2C%20I%20found%20you%20on%20your%20website%20and%20want%20to%20know%20more." target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp" title="WhatsApp us"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><path d="M6.2 3.5h11.6A2.7 2.7 0 0 1 20.5 6.2v8.1a2.7 2.7 0 0 1-2.7 2.7H10.4L5.6 20.6v-3.6h.6A2.7 2.7 0 0 1 3.5 14.3V6.2a2.7 2.7 0 0 1 2.7-2.7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path transform="matrix(1.2 0 0 1.2 -2.94 -2.41)" d="M9.4 6.9c.3-.3.8-.3 1 .1l.8 1.5c.2.3.1.7-.1.9l-.5.5c.4.9 1.2 1.7 2.1 2.1l.5-.5c.2-.2.6-.3.9-.1l1.5.8c.4.2.4.7.1 1l-.7.7c-.5.5-1.3.6-1.9.3-1.7-.8-3.1-2.2-3.9-3.9-.3-.6-.2-1.4.3-1.9z" fill="currentColor"/></svg></a>
-    <script src="/vendor/aos.js"></script>
     <script type="module" src="/main.js"></script>
   </body>
 </html>
